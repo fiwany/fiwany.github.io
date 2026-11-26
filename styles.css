@@ -1315,3 +1315,7 @@ main:has(.wwork)+.foot{margin-top:0;border-top:0;background:#fff}
 .travel{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:36px;align-items:center}
 .tvtx{columns:1;max-width:none}
 @media (max-width:900px){.travel{grid-template-columns:1fr}.ticket .tstub{min-height:260px}}
+/* round 28: travel hover zoom */
+.travel{overflow:hidden}.travel img{transition:transform .5s ease}
+.travel:hover img{transform:scale(1.08)}
+@media (prefers-reduced-motion:reduce){.travel:hover img{transform:none}}
