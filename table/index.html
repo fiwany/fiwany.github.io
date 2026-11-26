@@ -1,3 +1,160 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Fiwany Wijaya · work in progress</title>
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:system-ui,sans-serif;background:#fbf7ef;color:#231f20}p{opacity:.7}</style></head>
-<body><main style="text-align:center"><h1>The table is being set.</h1><p>New version in progress.</p></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fiwany's Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf7ef;--ink:#231f20;--muted:#6b6460;--table:#efe3cf;--table2:#e6d6bc;--rim:#d9c6a6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;overflow-x:hidden}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+header a{color:var(--ink);text-decoration:none}
+.intro{text-align:center;padding:0 16px}
+.intro h1{font-family:"Playfair Display",serif;font-weight:600;font-size:clamp(28px,5vw,46px);margin:8px 0 6px}
+.intro p{color:var(--muted);margin:0;font-size:15px}
+.stage{position:relative;width:min(980px,100vw);height:min(640px,108vw);margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.stage.drag{cursor:grabbing}
+.tabletop{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,var(--table),var(--table2));box-shadow:0 26px 40px -18px rgba(60,40,20,.35),inset 0 -6px 0 var(--rim)}
+.susan{position:absolute;border-radius:50%;border:2px dashed rgba(120,90,50,.18)}
+.dot{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(120,90,50,.25)}
+.plate{position:absolute;left:0;top:0;border:0;padding:0;background:none;cursor:pointer;transform-origin:50% 50%}
+.plate .disc{display:block;width:100%;height:100%;border-radius:50%;background:#fff;padding:9%;box-shadow:0 8px 14px -6px rgba(60,40,20,.35),inset 0 0 0 2px #f1ece4;transform:scaleY(.56)}
+.plate .disc img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;box-shadow:0 0 0 3px var(--c)}
+.plate:focus-visible{outline:none}.plate:focus-visible .disc{box-shadow:0 0 0 3px var(--ink)}
+.me{position:absolute;pointer-events:none;transform-origin:50% 100%}
+.me img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0}
+.me img.on{opacity:1}
+.shadow{position:absolute;border-radius:50%;background:radial-gradient(rgba(60,40,20,.28),transparent 70%);pointer-events:none}
+.card{text-align:center;padding:0 16px 40px;min-height:150px}
+.pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:99px;color:#fff;background:var(--c)}
+.pill.y{color:#513e36}
+.card h2{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,34px);margin:12px 0 4px}
+.card p{margin:0 0 14px;color:var(--muted)}
+.card a.go{color:var(--ink);font-weight:600;font-size:14px;letter-spacing:.06em;text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:2px}
+.ctrl{display:flex;justify-content:center;gap:14px;margin:-6px 0 18px}
+.ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;font-size:18px;cursor:pointer;color:var(--ink)}
+.ctrl button:hover{background:var(--ink);color:var(--bg)}
+.hint{font-size:12px;color:var(--muted);text-align:center;margin-bottom:8px}
+</style>
+</head>
+<body>
+<header><a href="../index.html">Fiwany Wijaya</a><a href="../about.html">About</a></header>
+<section class="intro">
+  <h1>Pull up a seat</h1>
+  <p>Spin the table to see what I’ve been cooking up.</p>
+</section>
+<div class="stage" id="stage" aria-roledescription="carousel" aria-label="Projects on a lazy susan">
+  <div class="tabletop" id="top"></div>
+  <div class="susan" id="susan"></div>
+  <div class="shadow" id="shadow"></div>
+  <div class="me" id="me" aria-hidden="true">
+    <img src="img/lab-front.png" alt="" data-f="0">
+    <img src="img/lab-q.png" alt="" data-f="1">
+    <img src="img/lab-side.png" alt="" data-f="2">
+    <img src="img/lab-back.png" alt="" data-f="3">
+    <img src="img/lab-side-r.png" alt="" data-f="4">
+    <img src="img/lab-q-r.png" alt="" data-f="5">
+  </div>
+</div>
+<p class="hint">Drag, swipe or use the arrows</p>
+<div class="ctrl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button></div>
+<section class="card" id="card" aria-live="polite"></section>
+
+<script>
+(async function(){
+  const P = await fetch('projects.json').then(r=>r.json());
+  const stage=document.getElementById('stage'), me=document.getElementById('me'),
+        top=document.getElementById('top'), susan=document.getElementById('susan'),
+        shadow=document.getElementById('shadow'), card=document.getElementById('card');
+  const frames=[...me.querySelectorAll('img')];
+  const N=P.length, STEP=360/N;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const plates=P.map((p,i)=>{
+    const b=document.createElement('button');
+    b.className='plate'; b.style.setProperty('--c',p.col);
+    b.setAttribute('aria-label',p.title+', '+p.cat);
+    b.innerHTML=`<span class="disc"><img src="img/${p.img}" alt="" draggable="false"></span>`;
+    b.addEventListener('click',e=>{ if(moved) return; const k=nearestIndex(); if(k===i) location.href='../'+p.slug+'.html'; else goTo(i); });
+    stage.appendChild(b); return b;
+  });
+  const dots=[...Array(36)].map(()=>{const d=document.createElement('span');d.className='dot';stage.appendChild(d);return d;});
+
+  let W,H,cx,cy,Rx,Ry,ps,meH;
+  function layout(){
+    W=stage.clientWidth; H=stage.clientHeight;
+    cx=W/2; cy=H*.66; Rx=Math.min(W*.4,380); Ry=Rx*.36; ps=Math.max(74,Math.min(130,W*.13));
+    meH=Math.min(H*.62,Rx*1.05);
+    const tw=Rx*2+ps*1.1, th=Ry*2+ps*.9;
+    Object.assign(top.style,{left:cx-tw/2+'px',top:cy-th/2+'px',width:tw+'px',height:th+'px'});
+    const sw=Rx*2-ps*.2, sh=Ry*2-ps*.1;
+    Object.assign(susan.style,{left:cx-sw/2+'px',top:cy-sh/2+'px',width:sw+'px',height:sh+'px'});
+    const mw=meH*280/600;
+    Object.assign(me.style,{left:cx-mw/2+'px',top:cy-meH+Ry*.12+'px',width:mw+'px',height:meH+'px'});
+    Object.assign(shadow.style,{left:cx-mw*.45+'px',top:cy+Ry*.12-mw*.1+'px',width:mw*.9+'px',height:mw*.2+'px'});
+    plates.forEach(b=>{b.style.width=ps+'px';b.style.height=ps+'px';});
+  }
+
+  let theta=0, vel=0, target=0, face=0, dragging=false, moved=false;
+  const mod=(a,m)=>((a%m)+m)%m;
+  function nearestIndex(){ return mod(Math.round(-theta/STEP),N); }
+
+  function render(){
+    plates.forEach((b,i)=>{
+      const phi=(theta+i*STEP)*Math.PI/180, d=Math.cos(phi);
+      const s=.72+.28*(d+1)/2;
+      const x=cx+Rx*Math.sin(phi), y=cy+Ry*d;
+      b.style.transform=`translate(${x-ps/2}px,${y-ps/2}px) scale(${s})`;
+      b.style.zIndex= d>-.05 ? 200+Math.round(d*50) : 50+Math.round(d*40);
+      b.style.opacity=.55+.45*(d+1)/2;
+    });
+    dots.forEach((el,j)=>{
+      const phi=(theta+j*10)*Math.PI/180;
+      el.style.transform=`translate(${cx+(Rx-ps*.1)*.62*Math.sin(phi)}px,${cy+(Ry-ps*.05)*.62*Math.cos(phi)}px)`;
+    });
+    me.style.zIndex=150; shadow.style.zIndex=149;
+    // she spins with the turntable; frame from her facing angle
+    const f=Math.round(mod(-face,360)/60)%6;
+    frames.forEach((im,k)=>im.classList.toggle('on',k===f));
+  }
+
+  function showCard(){
+    const p=P[nearestIndex()];
+    const y=p.col==='#febe10';
+    card.innerHTML=`<span class="pill${y?' y':''}" style="--c:${p.col}">${p.cat}</span><h2>${p.title}</h2><p>${p.kind}</p><a class="go" href="../${p.slug}.html">Open project →</a>`;
+  }
+
+  let last=performance.now(), settledFor=0, lastIdx=-1;
+  function tick(t){
+    const dt=Math.min(40,t-last)/16.67; last=t;
+    if(!dragging){
+      if(Math.abs(vel)>.15){ theta+=vel*dt; vel*=Math.pow(.93,dt); target=Math.round(theta/STEP)*STEP; }
+      else { vel=0; theta+= (target-theta)*(reduce?1:.14*dt); }
+    }
+    // facing follows the table while it moves, then she turns back to face you
+    const moving=dragging||Math.abs(vel)>.15||Math.abs(target-theta)>.5;
+    if(moving){ face=theta; settledFor=0; }
+    else { settledFor+=dt; if(settledFor>10){ const goal=Math.round(face/360)*360; face+= Math.sign(goal-face)*Math.min(Math.abs(goal-face),6*dt); } }
+    const idx=nearestIndex(); if(idx!==lastIdx){ lastIdx=idx; showCard(); }
+    render(); requestAnimationFrame(tick);
+  }
+
+  function goTo(i){ const cur=nearestIndex(); let d=mod(cur-i,N); if(d>N/2) d-=N; target=Math.round(theta/STEP)*STEP+d*STEP; vel=0; }
+  document.getElementById('prev').onclick=()=>{ target=Math.round(theta/STEP)*STEP+STEP; vel=0; };
+  document.getElementById('next').onclick=()=>{ target=Math.round(theta/STEP)*STEP-STEP; vel=0; };
+  addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') document.getElementById('prev').click(); if(e.key==='ArrowRight') document.getElementById('next').click(); });
+
+  let px=0, lt=0;
+  stage.addEventListener('pointerdown',e=>{ dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; stage.classList.add('drag'); });
+  addEventListener('pointermove',e=>{ if(!dragging) return; const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const dd=dx*.28; theta+=dd; const now=performance.now(); vel=dd/Math.max(1,(now-lt)/16.67); lt=now; px=e.clientX; });
+  addEventListener('pointerup',()=>{ if(!dragging) return; dragging=false; stage.classList.remove('drag'); if(reduce) vel=0; target=Math.round(theta/STEP)*STEP; setTimeout(()=>moved=false,0); });
+
+  addEventListener('resize',layout); layout(); render(); requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
