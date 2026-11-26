@@ -1308,3 +1308,10 @@ main:has(.wwork)+.foot{margin-top:0;border-top:0;background:#fff}
 .travel{box-shadow:0 6px 24px rgba(0,0,0,.06)}
 .tvtx{columns:1;max-width:720px}
 @media (max-width:900px){.ticket{grid-template-columns:1fr}.tmain{border-right:2px solid var(--red);margin:12px 12px 0}.tstub{border-left:2px solid var(--red);border-top:2px dashed var(--red);margin:0 12px 12px}.tstub::before,.tstub::after{display:none}}
+/* round 27 */
+.tstub{background-size:cover;background-position:center;color:#fff;justify-content:space-between;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.tstub .admit{color:#fff}.tstub .tno{opacity:1}
+.ticket{grid-template-columns:1fr 280px}
+.travel{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:36px;align-items:center}
+.tvtx{columns:1;max-width:none}
+@media (max-width:900px){.travel{grid-template-columns:1fr}.ticket .tstub{min-height:260px}}
