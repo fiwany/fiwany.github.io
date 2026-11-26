@@ -1238,3 +1238,16 @@ body.more .ptop h1{color:var(--brown)}
 .skind{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#777;margin-top:4px}
 @media (max-width:700px){.srow{gap:22px}.stamp{width:min(280px,82vw)}}
 @media (prefers-reduced-motion:reduce){.stw{transition:none}.stw:hover{transform:none}}
+/* round 24: about page + side quests, faster roles */
+.prism{transition-duration:.7s}
+.apage{padding-top:clamp(40px,6vw,80px)}
+.sq{margin:0 auto 100px}
+.sq .sec{text-align:center;margin-bottom:34px}
+.sqgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.sqcard{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.05);display:flex;flex-direction:column}
+.sqimg{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.sqtx{padding:26px 28px 30px}
+.sqtx p{margin-bottom:12px}
+.sqlab{font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;color:var(--red);margin-bottom:12px!important}
+.sqlink{font-weight:600;color:var(--red)}
+@media (max-width:760px){.sqgrid{grid-template-columns:1fr}}
