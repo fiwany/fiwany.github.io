@@ -63,6 +63,9 @@ body{background:#fff;overflow-x:hidden}
   <div class="s-ctrl" id="ctrl"><button id="prev" aria-label="Previous project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button><span class="now" id="now" aria-live="polite"></span><button id="next" aria-label="Next project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button></div>
 </section>
 <section class="s-page" id="card" aria-live="polite"></section>
+<footer class="foot"><div class="footin"><a class="fname" href="../index.html">Fiwany Wijaya</a>
+<nav><a href="../index.html#work">Work</a><a href="../about.html">About</a><a href="../Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener">Resume</a><a href="mailto:fiwanyw@gmail.com">Contact</a><a href="https://www.linkedin.com/in/fiwanywijaya" target="_blank" rel="noopener">LinkedIn</a></nav></div>
+<p class="small">© 2026 Fiwany Wijaya</p></footer>
 
 <script>
 (async function(){
@@ -97,23 +100,25 @@ const pols=P.map((p,i)=>{
 let W,H,cx,cy,rx,ry,pw,FH,feetY,SMIN=.58;
 function layout(){
   W=hero.clientWidth; H=hero.clientHeight; const tall=W/H<.9;
-  rx=Math.min(W*(tall?.37:.34),420); ry=rx*(tall?.95:.45);
-  
-  pw=Math.min(rx*(tall?.44:.255),124); SMIN=tall?.74:.58;
-  cx=W/2; cy=tall?H*.6:Math.min(H*.6, H-22-46-16-(ry+pw*.75/2+pw*.12));
-  FH=tall?ry*1.12:Math.min(H*.34,rx*.78);
-  feetY=cy+ry*(tall?.22:.06);
+  const ob=document.querySelector('.s-over').getBoundingClientRect().bottom-hero.getBoundingClientRect().top;
+  const top=ob+44, bot=H-22-46-18;                 // room for the role name above, the label below
+  const k=tall?{ry:.95,pw:.44,sm:.74,fh:1.12,fy:.22}:{ry:.45,pw:.255,sm:.58,fh:.78,fy:.06};
+  // extents per unit of rx: front card bottom, back card top, head top (relative to cy)
+  const up=Math.max(k.ry+k.pw*1.3*k.sm, k.fh*(tall?k.ry:1)-k.fy*k.ry), down=k.ry*1.04;
+  rx=Math.min(W*(tall?.37:.34), 420, (bot-top)/(up+down));
+  ry=rx*k.ry; pw=Math.min(rx*k.pw,124); SMIN=k.sm;
+  const spare=Math.max(0,(bot-top)-(up+down)*rx)/2; FH=tall?ry*k.fh:rx*k.fh; cx=W/2; cy=top+up*rx+spare; feetY=cy+ry*k.fy;
   const $s=$('susan').style, $r=$('ring').style, sw=rx*2+pw*1.25, sh=ry*2+pw*.75;
   Object.assign($s,{left:cx-sw/2+'px',top:cy-sh/2+pw*.12+'px',width:sw+'px',height:sh+'px'});
   Object.assign($r,{left:cx-rx*.55+'px',top:cy-ry*.55+'px',width:rx*1.1+'px',height:ry*1.1+'px'});
   const st=$('stand').style, stw=FH*.42; Object.assign(st,{left:cx-stw/2+'px',top:feetY-stw*.14+'px',width:stw+'px',height:stw*.28+'px'});
-  pols.forEach(b=>b.style.width=pw+'px'); pols.forEach(b=>b.querySelector('.t').style.fontSize=pw*.12+'px');
+  pols.forEach(b=>b.style.width=pw+'px'); pols.forEach(b=>b.querySelector('.t').style.fontSize=Math.max(8,pw*.12)+'px');
+  tag.style.transform='translateX(-50%)'; tag.style.left=cx+'px'; tag.style.top=ob+14+spare+'px';
   if(shown) place(shown);
 }
 function place(o){
   const v=o.v, k=FH/(v.bot-v.top), w=v.w*k, h=v.h*k, fx=o.flip?v.w-v.fx:v.fx;
   Object.assign(o.im.style,{width:w+'px',height:h+'px',left:cx-fx*k+'px',top:feetY-v.bot*k+'px'});
-  const ob=document.querySelector('.s-over').getBoundingClientRect().bottom-hero.getBoundingClientRect().top, bt=cy-ry*.94-pw*1.3*SMIN; tag.style.transform='translateX(-50%)'; tag.style.left=cx+'px'; tag.style.top=(Math.min(ob+(bt-ob)/2,bt-22)-9)+'px';
 }
 
 let theta=0, vel=0, target=0, dragging=false, moved=false;
@@ -152,11 +157,12 @@ async function loadPage(i){
     const t=await fetch('../'+p.slug+'.html').then(r=>r.text()); const doc=new DOMParser().parseFromString(t,'text/html');
     const box=document.createElement('div'); const hero=doc.querySelector('.phero'); if(hero) box.appendChild(hero);
     const m=doc.querySelector('main'); box.appendChild(m);
-    const sc=[...doc.querySelectorAll('script')].map(x=>x.textContent).find(x=>x.includes('lockform'));
+    const all=[...doc.querySelectorAll('script:not([src])')].map(x=>x.textContent); const sc=all.find(x=>x.includes('lockform')); const own=all.filter(x=>!x.includes('lockform'));
     fixPaths(box);
-    cache[p.slug]={html:box.innerHTML, accent:(doc.body.getAttribute('style')||''), lock:sc||null}; }
+    cache[p.slug]={html:box.innerHTML, accent:(doc.body.getAttribute('style')||''), lock:sc||null, own}; }
   if(pageFor!==i) return;
   const c=cache[p.slug]; card.setAttribute('style',c.accent); card.innerHTML=c.html; wireNext();
+  c.own.forEach(t=>{ const x=document.createElement('script'); x.textContent=t; card.appendChild(x); });
   if(c.lock){ // the locked page's own unlock script, run in place
     new MutationObserver((ms,ob)=>{ if(!card.querySelector('main.lock')){ fixPaths(card); wireNext(); ob.disconnect(); } }).observe(card,{childList:true,subtree:true});
     const s2=document.createElement('script'); s2.textContent=c.lock; card.appendChild(s2); }

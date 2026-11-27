@@ -1379,3 +1379,9 @@ input,textarea{cursor:text!important}
  .mbdir .jgrid figure img{height:110px!important;width:auto!important;aspect-ratio:auto!important}
 }
 .outcome.refl{margin-bottom:0}.outcome.refl p:last-child{font-size:inherit!important}
+/* round 34: making card like the travel card */
+.mkcard{background:#fff;border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.06);padding:40px 44px}
+.mkcard .th{margin-bottom:22px}
+.mkgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px 44px}
+.mkitem b{display:block;font-size:18px;margin-bottom:6px}.mkitem p{margin:0 0 10px;line-height:1.6}
+@media (max-width:700px){.mkcard{padding:30px 24px}.mkgrid{grid-template-columns:1fr}}
