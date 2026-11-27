@@ -1385,3 +1385,22 @@ input,textarea{cursor:text!important}
 .mkgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px 44px}
 .mkitem b{display:block;font-size:18px;margin-bottom:6px}.mkitem p{margin:0 0 10px;line-height:1.6}
 @media (max-width:700px){.mkcard{padding:30px 24px}.mkgrid{grid-template-columns:1fr}}
+/* round 35 */
+main figcaption,main .vtip,main .vnote{font-size:14px!important;color:var(--muted)!important;line-height:1.5}
+main figcaption strong{color:var(--ink)!important}
+main .vh{font-size:14px!important;color:var(--ink)!important}main .vh b{font-size:14px!important;color:var(--ink)!important}
+body[style*="#febe10"] main .label,body[style*="#febe10"] main .sublab,body[style*="#febe10"] main .kind{color:#8a6400!important}
+body[style*="#febe10"] main h1,body[style*="#febe10"] main h2,body[style*="#febe10"] main h3{color:#513e36}
+main p,main li{color:#231f20}
+main .vtip,main figcaption{color:var(--muted)!important}
+.pinwrap{position:relative}
+.pin{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;border:2px solid #fff;background:var(--accent);color:#fff;font:700 12px/1 inherit;display:grid;place-items:center;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.35);transition:transform .2s,box-shadow .2s;z-index:2}
+.pin::after{content:"";position:absolute;inset:-12px;border-radius:50%;border:2px solid var(--accent);opacity:0;transition:opacity .2s}
+.pin.on{transform:translate(-50%,-50%) scale(1.25)}.pin.on::after{opacity:1}
+.pinsec.pinning .pin:not(.on){opacity:.35}
+.pinleg{list-style:none;margin:8px 0 0;padding:0;min-height:0}
+.pinleg li{display:none;font-size:14px;line-height:1.5}
+.pinleg li.on{display:flex}
+.pinsec .ver ul.pinleg{margin-top:6px}
+.vtip{margin:10px 0 0}
+.pinsec.pinning .vtip{display:none}
