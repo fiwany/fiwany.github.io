@@ -6,21 +6,21 @@
 <meta name="robots" content="noindex">
 <title>Fiwany's Table</title>
 <link rel="stylesheet" href="../styles.css">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <style>
 :root{--t-bg:#f3eee6;--t-ink:#231f20;--t-muted:#6b6460}
 body{background:var(--t-bg);overflow-x:hidden}
-.t-hero{position:relative;height:calc(100svh - 64px);min-height:520px;overflow:hidden;background:#e9e3da}
-#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
-#scene.drag{cursor:grabbing}#scene.point{cursor:pointer}
-.t-over{position:absolute;left:0;right:0;top:0;padding:28px 24px 0;text-align:center;pointer-events:none}
-.t-over h1{font-family:"Playfair Display",serif;font-weight:600;font-size:clamp(30px,5vw,54px);margin:0 0 6px;text-shadow:0 1px 18px rgba(255,255,255,.8)}
-.t-over p{margin:0;color:var(--t-muted);font-size:15px;text-shadow:0 1px 10px rgba(255,255,255,.9)}
-.t-ctrl{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;align-items:center;gap:14px}
+html,body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cg stroke-linecap='round'%3E%3Cpath d='M3 4 L27 30' stroke='%23fff' stroke-width='5'/%3E%3Cpath d='M7 2 L30 26' stroke='%23fff' stroke-width='5'/%3E%3Cpath d='M3 4 L27 30' stroke='%232b211c' stroke-width='2.6'/%3E%3Cpath d='M7 2 L30 26' stroke='%232b211c' stroke-width='2.6'/%3E%3C/g%3E%3C/svg%3E") 3 3,auto}a,button,#scene.point{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cg stroke-linecap='round'%3E%3Cpath d='M3 4 L27 30' stroke='%23fff' stroke-width='5'/%3E%3Cpath d='M4 3 L30 26' stroke='%23fff' stroke-width='5'/%3E%3Cpath d='M3 4 L27 30' stroke='%232b211c' stroke-width='2.6'/%3E%3Cpath d='M4 3 L30 26' stroke='%232b211c' stroke-width='2.6'/%3E%3C/g%3E%3C/svg%3E") 3 3,pointer!important}
+.t-hero{position:relative;height:calc(100svh - 64px);min-height:560px;overflow:hidden;background:#e9e3da;display:flex;flex-direction:column}
+.t-wrap{position:relative;flex:1;min-height:0}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+.t-over{padding:22px 24px 0;text-align:center}
+.t-over h1{font-family:inherit;font-weight:600;letter-spacing:-.01em;font-size:clamp(28px,4.4vw,48px);margin:0 0 6px}
+.t-over p{margin:0;color:var(--t-muted);font-size:15px}
+.t-ctrl{position:relative;padding:14px 0 22px;display:flex;justify-content:center;align-items:center;gap:14px}
 .t-ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t-ink);background:rgba(255,255,255,.75);font-size:18px;cursor:pointer;color:var(--t-ink);backdrop-filter:blur(4px)}
 .t-ctrl button:hover{background:var(--t-ink);color:#fff}
-.t-ctrl .now{min-width:180px;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.75);padding:8px 14px;border-radius:99px}
-.t-card{text-align:center;padding:56px 16px 72px}
+.t-ctrl .now{min-width:230px;text-align:center;font-size:16px;font-weight:600;background:rgba(255,255,255,.8);padding:10px 18px;border-radius:99px}
+.t-card{text-align:center;padding:44px 16px 72px}
 .t-pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:99px;color:#fff;background:var(--c)}
 .t-pill.y{color:#513e36}
 .t-card h2{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,34px);margin:12px 0 4px}
@@ -40,10 +40,10 @@ body{background:var(--t-bg);overflow-x:hidden}
 <nav><a href="../index.html#work" data-t="Work">Work</a><a href="../about.html" data-t="About">About</a><a href="../Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener" data-t="Resume">Resume</a><a href="mailto:fiwanyw@gmail.com" data-t="Contact">Contact</a></nav></header>
 
 <section class="t-hero">
-  <canvas id="scene" aria-label="A round dinner table with a glass lazy susan. Three versions of me stand on metal plates: a food scientist, a consumer researcher and a designer."></canvas>
   <div class="t-over"><h1>Pull up a seat</h1><p>Spin the lazy susan and pick a dish.</p></div>
+  <div class="t-wrap"><canvas id="scene" aria-label="A round dinner table with a glass lazy susan. Three versions of me stand on metal plates: a food scientist, a consumer researcher and a designer."></canvas>
+  <div class="t-fallback" id="fb">This table needs WebGL to spin.</div></div>
   <div class="t-ctrl"><button id="prev" aria-label="Previous role">←</button><span class="now" id="now"></span><button id="next" aria-label="Next role">→</button></div>
-  <div class="t-fallback" id="fb">This table needs WebGL to spin.</div>
 </section>
 <section class="t-card" id="card" aria-live="polite"></section>
 
@@ -61,10 +61,10 @@ const ROLES=[
    line:'Where it all comes together: brands, products and experiences shaped around the people using them.'}
 ];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const canvas=document.getElementById('scene'), hero=canvas.parentNode, card=document.getElementById('card'), now=document.getElementById('now');
+const canvas=document.getElementById('scene'), hero=canvas.parentNode, heroSec=hero.parentNode, card=document.getElementById('card'), now=document.getElementById('now');
 
 let renderer;
-try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true}); }
+try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true}); }
 catch(e){ document.getElementById('fb').style.display='flex'; throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
@@ -72,8 +72,7 @@ renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1
 renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 
 const scene=new THREE.Scene();
-scene.background=new THREE.Color('#e9e3da');
-scene.fog=new THREE.Fog('#e9e3da',14,26);
+
 const pmrem=new THREE.PMREMGenerator(renderer);
 scene.environment=pmrem.fromScene(new RoomEnvironment(),.04).texture;
 
@@ -85,8 +84,8 @@ Object.assign(sun.shadow.camera,{left:-6,right:6,top:6,bottom:-6,near:1,far:25})
 scene.add(sun);
 
 // floor + table with tablecloth
-const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshStandardMaterial({color:'#9a948c',roughness:.9}));
-floor.rotation.x=-Math.PI/2; floor.position.y=-2.2; floor.receiveShadow=true; scene.add(floor);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshBasicMaterial({color:'#e9e3da',toneMapped:false}));
+floor.rotation.x=-Math.PI/2; floor.position.y=-2.2; scene.add(floor);
 const clothMat=new THREE.MeshStandardMaterial({color:'#f6f2ec',roughness:.95});
 const table=new THREE.Mesh(new THREE.CylinderGeometry(5,5,.1,96),clothMat); table.position.y=-.05; table.receiveShadow=true; scene.add(table);
 const skirt=new THREE.Mesh(new THREE.CylinderGeometry(5.02,5.25,2.1,96,1,true),clothMat); skirt.position.y=-1.1; scene.add(skirt);
@@ -95,9 +94,9 @@ const skirt=new THREE.Mesh(new THREE.CylinderGeometry(5.02,5.25,2.1,96,1,true),c
 const bearing=new THREE.Mesh(new THREE.CylinderGeometry(.4,.4,.06,48),new THREE.MeshStandardMaterial({color:'#d8d8d6',metalness:.8,roughness:.3}));
 bearing.position.y=.03; scene.add(bearing);
 const susan=new THREE.Group(); susan.position.y=.08; scene.add(susan);
-const glass=new THREE.Mesh(new THREE.CylinderGeometry(2.75,2.75,.06,128),new THREE.MeshPhysicalMaterial({color:'#eaf7f3',metalness:0,roughness:.04,transmission:1,thickness:.35,ior:1.5,transparent:true,opacity:1}));
-glass.position.y=.03; glass.receiveShadow=true; susan.add(glass);
-const edge=new THREE.Mesh(new THREE.TorusGeometry(2.75,.03,12,160),new THREE.MeshPhysicalMaterial({color:'#9fd3c8',roughness:.1,transmission:.6,thickness:.2}));
+const glass=new THREE.Mesh(new THREE.CylinderGeometry(2.75,2.75,.06,128),new THREE.MeshPhysicalMaterial({color:'#dff2ee',metalness:0,roughness:.05,clearcoat:1,transparent:true,opacity:.28,depthWrite:false}));
+glass.position.y=.03; glass.renderOrder=-1; susan.add(glass);
+const edge=new THREE.Mesh(new THREE.TorusGeometry(2.75,.03,12,160),new THREE.MeshPhysicalMaterial({color:'#b8e0d6',roughness:.1,clearcoat:1,transparent:true,opacity:.75}));
 edge.rotation.x=Math.PI/2; edge.position.y=.03; susan.add(edge);
 
 // metal plate (shallow dish)
@@ -107,7 +106,7 @@ const metal=new THREE.MeshStandardMaterial({color:'#eef0f1',metalness:.9,roughne
 
 // soft contact shadow texture
 const sc=document.createElement('canvas'); sc.width=sc.height=128; const g=sc.getContext('2d');
-const gr=g.createRadialGradient(64,64,0,64,64,64); gr.addColorStop(0,'rgba(40,30,20,.45)'); gr.addColorStop(1,'rgba(40,30,20,0)');
+const gr=g.createRadialGradient(64,64,0,64,64,64); gr.addColorStop(0,'rgba(40,30,20,.25)'); gr.addColorStop(1,'rgba(40,30,20,0)');
 g.fillStyle=gr; g.fillRect(0,0,128,128); const blob=new THREE.CanvasTexture(sc);
 
 const loader=new THREE.TextureLoader(), maxAniso=renderer.capabilities.getMaxAnisotropy();
@@ -115,54 +114,59 @@ const R=1.62, FIG_H=2.05, people=[];
 ROLES.forEach((r,i)=>{
   const a=i*Math.PI*2/ROLES.length;
   const slot=new THREE.Group(); slot.position.set(Math.sin(a)*R,0,Math.cos(a)*R); susan.add(slot);
-  const plate=new THREE.Mesh(plateGeo,metal); plate.castShadow=true; plate.receiveShadow=true; plate.position.y=.06; slot.add(plate);
+  const plate=new THREE.Mesh(plateGeo,metal); plate.add(new THREE.Mesh(new THREE.CircleGeometry(.7,64).rotateX(-Math.PI/2),metal)); plate.castShadow=true; plate.receiveShadow=true; plate.position.y=.06; slot.add(plate);
   const sh=new THREE.Mesh(new THREE.PlaneGeometry(1.3,.55),new THREE.MeshBasicMaterial({map:blob,transparent:true,depthWrite:false}));
   sh.rotation.x=-Math.PI/2; sh.position.y=.075; slot.add(sh);
   const m=M[r.key], w=FIG_H*m.w/m.h;
   const tex=[...Array(m.n)].map((_,k)=>{const t=loader.load(`img/${r.key}-${k}.png`); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=maxAniso; return t;});
-  const mat=new THREE.MeshBasicMaterial({map:tex[0],alphaTest:.45,side:THREE.DoubleSide,toneMapped:false});
+  const mat=new THREE.MeshBasicMaterial({map:tex[0],transparent:true,alphaTest:.04,side:THREE.DoubleSide,toneMapped:false});
   const fig=new THREE.Mesh(new THREE.PlaneGeometry(w,FIG_H),mat);
   fig.geometry.translate(0,FIG_H/2,0); fig.position.y=.075; fig.userData.i=i; slot.add(fig);
   people.push({r,slot,fig,tex,mat,a,step:0,t:0});
 });
 
-// place settings around the table
-const bowlGeo=new THREE.LatheGeometry([[0,0],[.16,0],[.2,.03],[.27,.13],[.29,.16],[.28,.165]].map(([x,y])=>new THREE.Vector2(x,y)),48);
-const porcelain=new THREE.MeshStandardMaterial({color:'#fbfbfa',roughness:.25});
-const rimMat=new THREE.MeshStandardMaterial({color:'#2f4f8f',roughness:.3});
-const cupMat=new THREE.MeshPhysicalMaterial({color:'#fff',roughness:.05,transmission:.95,thickness:.1,transparent:true});
-const tea=new THREE.MeshStandardMaterial({color:'#d9a441',roughness:.3,transparent:true,opacity:.85});
-const wood=new THREE.MeshStandardMaterial({color:'#2b211c',roughness:.45});
-const stickGeo=new THREE.CylinderGeometry(.011,.02,1.25,10); stickGeo.rotateX(Math.PI/2);
-function chopsticks(){ const p=new THREE.Group(); const a=new THREE.Mesh(stickGeo,wood), b=new THREE.Mesh(stickGeo,wood);
-  a.position.x=-.035; b.position.x=.035; a.castShadow=b.castShadow=true; p.add(a,b); p.userData={a,b}; return p; }
-const SEATS=8;
+// place settings: plate, small bowl with soup spoon, chopsticks on a rest, teacup on a saucer
+const L=(pts,seg=48)=>new THREE.LatheGeometry(pts.map(([x,y])=>new THREE.Vector2(x,y)),seg);
+const porcelain=new THREE.MeshStandardMaterial({color:'#fbfaf8',roughness:.18,metalness:0,side:THREE.DoubleSide});
+const lacquer=new THREE.MeshStandardMaterial({color:'#1f1b1a',roughness:.35});
+const teaMat=new THREE.MeshStandardMaterial({color:'#e2d29a',roughness:.15});
+const plateG=L([[0,0],[.3,0],[.34,.012],[.46,.035],[.5,.04],[.5,.03],[.34,.002]],64);
+const bowlG=L([[0,0],[.1,0],[.12,.02],[.19,.11],[.2,.125],[.19,.125],[.11,.03],[0,.03]]);
+const saucerG=L([[0,0],[.16,0],[.2,.02],[.22,.022],[.2,.012],[0,.012]]);
+const cupG=L([[0,0],[.085,0],[.1,.02],[.11,.14],[.1,.14],[.09,.025],[0,.025]]);
+function spoon(){ const g=new THREE.Group();
+  const head=new THREE.Mesh(new THREE.SphereGeometry(.07,24,12,0,Math.PI*2,Math.PI/2,Math.PI/2),porcelain); head.scale.set(1,.45,1.35);
+  const handle=new THREE.Mesh(new THREE.BoxGeometry(.035,.016,.26),porcelain); handle.position.set(0,.05,-.2); handle.rotation.x=.35;
+  g.add(head,handle); return g; }
+function setting(){ const g=new THREE.Group();
+  const plate=new THREE.Mesh(plateG,porcelain); plate.position.z=0; g.add(plate);
+  const bowl=new THREE.Mesh(bowlG,porcelain); bowl.position.set(-.38,0,-.55); g.add(bowl);
+  const sp=spoon(); sp.position.set(-.38,.12,-.53); sp.rotation.set(-.25,.5,0); g.add(sp);
+  const rest=new THREE.Mesh(new THREE.CapsuleGeometry(.025,.07,4,12),porcelain); rest.rotation.z=Math.PI/2; rest.position.set(.62,.025,-.42); g.add(rest);
+  const stick=new THREE.CylinderGeometry(.008,.014,1.05,10); stick.rotateX(Math.PI/2);
+  [-.022,.022].forEach(dx=>{ const c=new THREE.Mesh(stick,lacquer); c.position.set(.62+dx,.045,-.02); c.rotation.x=-.06; g.add(c); });
+  const saucer=new THREE.Mesh(saucerG,porcelain); saucer.position.set(.95,0,-.62); g.add(saucer);
+  const cup=new THREE.Mesh(cupG,porcelain); cup.position.set(.95,.012,-.62); g.add(cup);
+  const tea=new THREE.Mesh(new THREE.CircleGeometry(.098,32).rotateX(-Math.PI/2),teaMat); tea.position.set(.95,.13,-.62); g.add(tea);
+  g.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; } });
+  return g; }
+const SEATS=7;
 for(let s=0;s<SEATS;s++){
-  const ang=s/SEATS*Math.PI*2+Math.PI/SEATS, rr=4.05, x=Math.sin(ang)*rr, z=Math.cos(ang)*rr;
-  if(z>3.2) continue; // keep the front clear for the camera
-  const set=new THREE.Group(); set.position.set(x,0,z); set.rotation.y=ang; scene.add(set);
-  const bowl=new THREE.Mesh(bowlGeo,porcelain); bowl.castShadow=true; set.add(bowl);
-  const rim=new THREE.Mesh(new THREE.TorusGeometry(.282,.008,8,48),rimMat); rim.rotation.x=Math.PI/2; rim.position.y=.163; set.add(rim);
-  const cup=new THREE.Mesh(new THREE.CylinderGeometry(.11,.09,.26,32,1,true),cupMat); cup.position.set(.5,.13,-.15); set.add(cup);
-  const liquid=new THREE.Mesh(new THREE.CylinderGeometry(.095,.088,.16,32),tea); liquid.position.set(.5,.08,-.15); set.add(liquid);
-  const cs=chopsticks(); cs.position.set(-.45,.03,-.05); cs.rotation.y=.08; set.add(cs);
+  const ang=s/SEATS*Math.PI*2+Math.PI/SEATS, rr=3.95;
+  const z=Math.cos(ang)*rr; if(z>3.0) continue; // keep the camera's side clear
+  const st=setting(); st.position.set(Math.sin(ang)*rr,0,z); st.rotation.y=ang+Math.PI; scene.add(st);
 }
-
-// diners reaching in with chopsticks
-const reachers=[ {from:new THREE.Vector3(3.3,1.35,4.2)}, {from:new THREE.Vector3(-3.6,1.4,3.6)} ].map(o=>{
-  const c=chopsticks(); scene.add(c); c.position.copy(o.from); return {...o,c,t:Math.random()*4,period:7+Math.random()*3};
-});
 
 // sizing
 function resize(){
   const w=hero.clientWidth, h=hero.clientHeight; renderer.setSize(w,h,false);
   camera.aspect=w/h; const far=w/h<1?1.55:1; camera.fov=w/h<1?38:30;
-  camera.position.set(0,6.4*far,8.2*far); camera.lookAt(0,.75,0); camera.updateProjectionMatrix();
+  camera.position.set(0,5.3*far,6.7*far); camera.lookAt(0,.7,0); camera.updateProjectionMatrix();
 }
 addEventListener('resize',resize); resize();
 
 // spinning
-let rot=0, vel=0, target=null, dragging=false, moved=false, hover=false, pausedUntil=0;
+let spin=0, rot=0, vel=0, target=null, dragging=false, moved=false, hover=false, pausedUntil=0;
 const TAU=Math.PI*2, STEP=TAU/ROLES.length, AUTO=.16;
 const wrap=a=>((a+Math.PI)%TAU+TAU)%TAU-Math.PI;
 const frontIndex=()=>{let best=0,bd=9;people.forEach((p,i)=>{const d=Math.abs(wrap(p.a+rot));if(d<bd){bd=d;best=i;}});return best;};
@@ -176,8 +180,8 @@ const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
 function pick(e){ const b=canvas.getBoundingClientRect(); ndc.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1); ray.setFromCamera(ndc,camera);
   const hit=ray.intersectObjects(people.map(p=>p.fig)).find(h=>{ const uv=h.uv, t=h.object.material.map.image; return !!uv; }); return hit?hit.object.userData.i:-1; }
 let px=0,lt=0;
-canvas.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') hover=true; });
-canvas.addEventListener('pointerleave',()=>{ hover=false; canvas.classList.remove('point'); });
+const canHover=matchMedia('(hover: hover)').matches;
+heroSec.addEventListener('mouseenter',()=>{ if(canHover) hover=true; }); heroSec.addEventListener('mouseleave',()=>{ hover=false; canvas.classList.remove('point'); });
 canvas.addEventListener('pointerdown',e=>{ dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; target=null; canvas.classList.add('drag'); });
 addEventListener('pointermove',e=>{
   if(!dragging){ if(e.target===canvas) canvas.classList.toggle('point',pick(e)>=0); return; }
@@ -188,9 +192,9 @@ addEventListener('pointerup',e=>{ if(!dragging) return; dragging=false; canvas.c
 
 function showCard(i){
   const r=ROLES[i], list=P.filter(p=>p.cat===r.cat), y=r.col==='#febe10';
-  now.textContent=r.name.replace('The ','');
+  now.textContent=r.name;
   card.style.setProperty('--c',y?'#b98400':r.col);
-  card.innerHTML=`<span class="t-pill${y?' y':''}" style="--c:${r.col}">${r.cat}</span><h2>${r.name}</h2><p>${r.line}</p>
+  card.innerHTML=`<p>${r.line}</p>
     <div class="t-proj">${list.map(p=>`<a href="../${p.slug}.html"><img src="img/${p.img}" alt=""><b>${p.title}</b><span>${p.kind}</span></a>`).join('')}</div>`;
 }
 
@@ -201,7 +205,7 @@ function frame(){
   if(!dragging){
     if(target!==null){ const d=target-rot; rot+=d*Math.min(1,dt*(reduce?60:4)); if(Math.abs(d)<.002){ rot=target; target=null; } }
     else if(Math.abs(vel)>.02){ rot+=vel*dt; vel*=Math.pow(.05,dt); }
-    else if(!reduce && !hover && performance.now()>pausedUntil){ rot+=AUTO*dt; }
+    else { const want=(!reduce && !hover && performance.now()>pausedUntil)?AUTO:0; spin+=(want-spin)*Math.min(1,dt*3); rot+=spin*dt; }
   }
   susan.rotation.y=rot;
   const f=frontIndex();
@@ -213,15 +217,6 @@ function frame(){
     const seq=p.r.seq;
     if(i===f && !reduce){ p.t+=dt*1000; if(p.t>p.r.ms){ p.t=0; p.step=(p.step+1)%seq.length; } p.mat.map=p.tex[seq[p.step]]; }
     else p.mat.map=p.tex[reduce?seq[seq.length-1]:0];
-  });
-  // chopsticks drift in towards the front plate, pinch, and pull back
-  const fp=new THREE.Vector3(); people[f].slot.getWorldPosition(fp); fp.y=1.15;
-  reachers.forEach(o=>{
-    if(reduce) return;
-    o.t+=dt; const ph=(o.t%o.period)/o.period; const k=ph<.35?THREE.MathUtils.smootherstep(ph,0,.35):ph<.55?1:1-THREE.MathUtils.smootherstep(ph,.55,.9);
-    const tip=fp.clone().add(new THREE.Vector3(o.from.x>0?.55:-.55,0,.25));
-    const start=o.from.clone(); o.c.position.lerpVectors(start,tip.clone().add(start.clone().sub(tip).setLength(.62)),k);
-    o.c.lookAt(tip); const pinch=ph>.35&&ph<.55?.025:.0; o.c.userData.a.position.x=-.035+pinch; o.c.userData.b.position.x=.035-pinch;
   });
   renderer.render(scene,camera); requestAnimationFrame(frame);
 }
