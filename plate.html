@@ -13,17 +13,20 @@
 .p-say{font-size:18px;font-weight:700;margin:18px 0 0;min-height:1.5em;transition:opacity .3s,transform .3s;color:var(--rc)}
 .p-say.out{opacity:0;transform:translateY(6px)}
 .p-stage{position:relative;width:min(560px,92vw);flex:1;min-height:360px;max-height:560px;display:flex;align-items:flex-end;justify-content:center}
-.p-plate{position:absolute;left:50%;bottom:6%;width:78%;aspect-ratio:2.6/1;transform:translateX(-50%);border-radius:50%;
+.p-plate{transition:box-shadow .45s;position:absolute;left:50%;bottom:6%;width:78%;aspect-ratio:2.6/1;transform:translateX(-50%);border-radius:50%;
  background:radial-gradient(ellipse 58% 52% at 50% 50%,#f1f1ef 0 60%,#fff 61% 100%);
- box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px #2f4f8f,0 22px 30px -18px rgba(0,0,0,.35),0 4px 0 #e6e4e0}
+ box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px var(--rc,#2f4f8f),0 22px 30px -18px rgba(0,0,0,.35),0 4px 0 #e6e4e0}
 .p-plate::after{content:"";position:absolute;inset:16%;border-radius:50%;box-shadow:inset 0 3px 8px rgba(0,0,0,.08)}
 .p-me{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none}
 .p-me img{position:absolute;display:none;max-width:none}.p-me img.on{display:block}
-.p-arrow{position:absolute;top:58%;width:44px;height:44px;border:0;background:none;padding:0;color:#231f20;display:grid;place-items:center;transition:transform .2s,color .3s}
-.p-arrow:hover,.p-arrow:focus-visible{color:var(--rc);transform:translateY(-2px)}
+.p-arrow{position:absolute;top:var(--ay,58%);transform:translateY(-50%);width:44px;height:44px;border:0;background:none;padding:0;color:#231f20;display:grid;place-items:center;transition:transform .2s,color .3s}
+.p-arrow:hover,.p-arrow:focus-visible{color:var(--rc);transform:translateY(calc(-50% - 2px))}
 .p-arrow svg{width:26px;height:18px}
 #prev{left:0}#next{right:0}
 .p-course{font-size:14px;color:var(--muted);margin:10px 0 0;letter-spacing:.02em}
+.p-course{display:flex;flex-direction:column;align-items:center;gap:8px}.dots{display:flex;gap:8px}.dots i{width:7px;height:7px;border-radius:50%;background:#cfcac4;transition:background .3s}.dots i.on{background:var(--rc)}
+.p-dish .pk{color:var(--muted)!important;font-weight:400!important;font-size:16px!important;letter-spacing:0!important;text-transform:none!important;margin-right:-6px}
+.p-me img{transition:left .25s}
 .p-dish{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;font-size:16px}
 .p-dish a{color:var(--rc);text-decoration:none;font-weight:600}.p-dish a:hover{text-decoration:underline}
 .p-dish .lk{width:.7em;height:.7em;margin-left:.3em}
@@ -44,7 +47,7 @@
     <button class="p-arrow" id="prev" aria-label="Previous course"><svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button>
     <button class="p-arrow" id="next" aria-label="Next course"><svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button>
   </div>
-  <p class="p-course" id="course"></p>
+  <p class="p-course"><span>Today’s specials</span><span class="dots" id="dots"></span></p>
   <p class="p-dish" id="dish"></p>
 </section>
 
@@ -66,15 +69,15 @@ ROLES.forEach(r=>{ for(let j=0;j<4;j++){ add(`${r.key}-v${j}`); add(`${r.key}-${
 let shown=null, FH, cx, feetY;
 function layout(){ const W=stage.clientWidth, H=stage.clientHeight; cx=W/2; feetY=H*.86; FH=Math.min(H*.8, W*.9); if(shown) place(shown); }
 function place(o){ const v=o.v, k=FH/(v.bot-v.top), fx=o.flip?v.w-v.fx:v.fx;
-  Object.assign(o.im.style,{width:v.w*k+'px',height:v.h*k+'px',left:cx-fx*k+'px',top:feetY-v.bot*k+'px'}); }
+  Object.assign(o.im.style,{width:v.w*k+'px',height:v.h*k+'px',left:cx-v.w*k/2+'px',top:feetY-v.bot*k+'px'}); stage.style.setProperty('--ay',(feetY-FH/2)+'px'); }
 function show(n){ const o=imgs[n]; if(!o) return; if(shown&&shown!==o) shown.im.classList.remove('on'); o.im.classList.add('on'); shown=o; place(o); }
 let idx=0, role=null, seqI=0, seqT=0, twirl=null;
 function setRole(i){
   idx=(i+ROLES.length)%ROLES.length; const r=ROLES[idx];
   hero.style.setProperty('--rc',r.col); $('hi').style.color=r.col;
   const say=$('say'), txt='I’m a '+r.name; say.classList.add('out'); clearTimeout(say._t); say._t=setTimeout(()=>{ say.textContent=txt; say.classList.remove('out'); },reduce||!role?0:280);
-  $('course').textContent='Course '+(idx+1)+' of 3';
-  $('dish').innerHTML=P.filter(p=>p.cat===r.cat).map(p=>`<a href="${p.slug}.html">${p.title}${LOCK.includes(p.slug)?LOCKSVG:''}</a>`).join('');
+  $('dots').innerHTML=ROLES.map((_,k)=>`<i class="${k===idx?'on':''}"></i>`).join('');
+  $('dish').innerHTML='<span class="pk">Pick one:</span>'+P.filter(p=>p.cat===r.cat).map(p=>`<a href="${p.slug}.html">${p.title}${LOCK.includes(p.slug)?LOCKSVG:''}</a>`).join('');
   if(!role||reduce){ role=r; seqI=0; show(`${r.key}-${r.seq[0]}`); return; }
   const from=twirl?twirl.to:role;
   twirl={to:r,t:0,frames:[`${from.key}-v1`,`${from.key}-v2`,`${r.key}-v3`,`${r.key}-v2-m`,`${r.key}-v1-m`,`${r.key}-v0`]};
