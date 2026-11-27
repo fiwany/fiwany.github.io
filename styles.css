@@ -1441,3 +1441,4 @@ body.more .stepn+*{color:inherit}
 /* round 41 */
 .scap{font-family:inherit!important;font-style:normal!important;font-weight:700!important;font-size:22px!important;letter-spacing:-.01em}
 .stamp .ph img[src*="stamp-soda"]{filter:grayscale(1) contrast(1.7) brightness(.72)}
+.scap{font-weight:600!important}
