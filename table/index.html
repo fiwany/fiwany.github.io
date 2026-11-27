@@ -18,20 +18,21 @@ html,body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .t-over h1{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:0;font-size:clamp(36px,5vw,62px);line-height:1.05;margin:0 0 14px}
 .t-over p{margin:0;color:var(--t-muted);font-size:15px}
 .t-ctrl{position:absolute;left:0;right:0;bottom:22px;z-index:2;display:flex;justify-content:center;align-items:center;gap:14px}
-.t-ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t-ink);background:rgba(255,255,255,.75);display:grid;place-items:center;padding:0;line-height:0;cursor:pointer;color:var(--t-ink);backdrop-filter:blur(4px)}
+.t-ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t-ink);background:#fafafa;display:grid;place-items:center;padding:0;line-height:0;cursor:pointer;color:var(--t-ink);backdrop-filter:blur(4px)}
 .t-ctrl button:hover{background:var(--t-ink);color:#fff}
-.t-ctrl .now{min-width:250px;text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;background:rgba(255,255,255,.75);border:1.5px solid var(--t-ink);padding:11px 18px;border-radius:99px;backdrop-filter:blur(4px)}
+.t-ctrl .now{min-width:250px;text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;background:#fafafa;border:1.5px solid var(--t-ink);padding:11px 18px;border-radius:99px;backdrop-filter:blur(4px)}
+@media (max-width:600px){.t-proj{flex-direction:column;align-items:center}.t-proj a,.t-proj img{width:min(320px,100%);height:auto}.t-proj img{aspect-ratio:1}}
 @media (max-width:520px){.t-ctrl .now{min-width:0;flex:1;max-width:240px;font-size:12px}}
-.t-card{text-align:center;padding:44px 16px 72px}
+.t-card{background:#fff;text-align:center;padding:44px 16px 72px}
 .t-pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:99px;color:#fff;background:var(--c)}
 .t-pill.y{color:#513e36}
 .t-card h2{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,34px);margin:12px 0 4px}
-.t-card>p{margin:0 auto 26px;color:var(--t-muted);max-width:var(--dw,640px);font-size:17px;line-height:1.55}
-.t-proj{display:flex;flex-wrap:wrap;justify-content:center;gap:18px}
-.t-proj a{width:150px;text-decoration:none;color:var(--t-ink)}
-.t-proj img{width:150px;height:150px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 1.5px var(--c);transition:transform .25s}
+.t-card>p{margin:0 auto 30px;color:var(--t-muted);max-width:min(560px,100%);font-size:17px;line-height:1.55}
+.t-proj{display:flex;flex-wrap:wrap;justify-content:center;gap:28px;max-width:1240px;margin:0 auto}
+.t-proj a{width:220px;text-decoration:none;color:var(--t-ink)}
+.t-proj img{width:220px;height:220px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 1.5px var(--c);transition:transform .25s}
 .t-proj a:hover img{transform:translateY(-4px)}
-.t-proj b{display:block;margin-top:10px;font-size:14px;line-height:1.3}.t-proj span{display:block;margin-top:1px;font-size:12px;line-height:1.3;color:var(--t-muted)}
+.t-proj b{display:block;margin-top:12px;font-size:18px;line-height:1.3}.t-proj span{display:block;margin-top:2px;font-size:14px;line-height:1.3;color:var(--t-muted)}
 .t-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--t-muted)}
 </style>
 <script type="importmap">{"imports":{"three":"./lib/three.module.min.js"}}</script>
@@ -58,9 +59,9 @@ const ROLES=[
   {key:'scientist', cat:'Food Science', col:'#273c93', name:'The food scientist', seq:[0,1,2,3,3,3,2,1,0,0], ms:420,
    line:'Formally trained in food science at Cornell University, I develop products that help future-proof our health and our access to food.'},
   {key:'researcher', cat:'Consumer Research', col:'#febe10', name:'The consumer researcher', seq:[0,1,2,3,3,3,3], ms:650,
-   line:'Professionally trained in talking to people for three and a half years, and now teaching AI how to listen to them and interpret what they mean.'},
+   line:'Professionally trained in talking to people for three and a half years, I shaped how AI interprets people and helped researchers trust what it hears.'},
   {key:'designer', cat:'Design', col:'#d53626', name:'The designer', seq:[0,0,2,1,2,3,2,0], ms:380,
-   line:'Personally dabbling in branding, UI, digital marketing and photography, and finding ways to bring them all together.'}
+   line:'Personally dabbling in branding, UI, digital marketing, content and photography, and finding ways to bring them all together.'}
 ];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canvas=document.getElementById('scene'), hero=canvas.parentNode, heroSec=hero.parentNode, card=document.getElementById('card'), now=document.getElementById('now');
@@ -167,8 +168,8 @@ for(let s=0;s<SEATS;s++){
 function resize(){
   const w=hero.clientWidth, h=hero.clientHeight; renderer.setSize(w,h,false);
   camera.aspect=w/h; const tall=w/h<.9;
-  if(tall){ camera.fov=44; camera.position.set(0,6.6,8.4); camera.lookAt(0,.75,1.0); }
-  else { camera.fov=30; camera.position.set(0,6.4,8.2); camera.lookAt(0,.75,0); }
+  if(tall){ camera.fov=44; camera.position.set(0,6.6,8.4); camera.lookAt(0,1.35,1.0); }
+  else { camera.fov=30; camera.position.set(0,6.4,8.2); camera.lookAt(0,1.15,0); }
   frontSeats.forEach(f=>f.visible=tall); camera.updateProjectionMatrix();
   // the blurb under the table is as wide as the lazy susan looks on screen
   const a=new THREE.Vector3(-2.75,.1,0).project(camera), b=new THREE.Vector3(2.75,.1,0).project(camera);
