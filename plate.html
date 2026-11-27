@@ -23,7 +23,7 @@
 .p-arrow:hover,.p-arrow:focus-visible{color:var(--rc);transform:translateY(calc(-50% - 2px))}
 .p-arrow svg{width:26px;height:18px}
 #prev{left:0}#next{right:0}
-.p-course{font-size:15px;letter-spacing:.14em!important;text-transform:uppercase;font-weight:600;color:var(--rc)!important;color:var(--muted);margin:10px 0 0;letter-spacing:.02em}
+.p-course{font-size:15px;letter-spacing:.14em!important;text-transform:uppercase;font-weight:600;color:#231f20!important;margin:10px 0 0;letter-spacing:.02em}
 .p-course{display:flex;flex-direction:column;align-items:center;gap:8px}.dots{display:flex;gap:8px}.dots i{width:7px;height:7px;border-radius:50%;background:#cfcac4;transition:background .3s}.dots i.on{background:var(--rc)}
 .p-dish .pk{color:var(--muted)!important;font-weight:400!important;font-size:16px!important;letter-spacing:0!important;text-transform:none!important;margin-right:-6px}
 .p-me img{transition:left .25s}
@@ -57,7 +57,7 @@ const [P,V]=await Promise.all([fetch('susan/projects.json').then(r=>r.json()),fe
 const ROLES=[
  {cat:'Food Science',key:'scientist',name:'food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:420},
  {cat:'Consumer Research',key:'researcher',name:'consumer researcher',col:'#c27800',seq:[0,1,2,3,3,3,3],ms:650},
- {cat:'Design',key:'designer',name:'designer',col:'#d53626',seq:[1,2,3,3,3,3],ms:520}];
+ {cat:'Design',key:'designer',name:'designer',col:'#d53626',seq:[2,2,2,3,1,3],ms:480}];
 const COURSE=['First course','Second course','Third course'];
 const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
 const LOCKSVG='<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
