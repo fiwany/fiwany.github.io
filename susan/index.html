@@ -58,6 +58,14 @@ body{background:#fff;overflow-x:hidden}
  .s-over h1{font-size:clamp(40px,4.4vw,64px)}
  .s-over p{font-size:16px;line-height:1.55}
 }
+.s-pol .t{font-family:inherit!important;font-style:normal!important;font-weight:700}
+.s-over h1{transition:color .45s}
+.s-tag{font-size:15px!important;letter-spacing:0!important;text-transform:none!important;font-weight:700!important;transition:opacity .35s,transform .35s;opacity:1}
+.s-tag.out{opacity:0;transform:translate(-50%,8px)!important}
+.s-ctrl{position:absolute;left:0;right:0;bottom:auto;top:0;height:0;padding:0;display:block}
+.s-ctrl button{position:absolute;width:44px;height:44px;border:0!important;background:none!important;color:#3a2e2b!important;transform:translate(-50%,-50%);transition:transform .2s,color .3s}
+.s-ctrl button:hover{background:none!important;color:var(--rc)!important;transform:translate(-50%,-50%) scale(1.18)}
+.s-ctrl button svg{width:30px;height:20px}
 </style>
 </head>
 <body>
@@ -71,7 +79,7 @@ body{background:#fff;overflow-x:hidden}
     <div class="s-susan" id="susan"></div><div class="s-ring" id="ring"></div>
     <div class="s-stand" id="stand"></div><div class="s-me" id="me" aria-hidden="true"></div><span class="s-tag" id="tag"></span>
   </div>
-  <div class="s-ctrl" id="ctrl"><button id="prev" aria-label="Previous project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button><span class="now" id="now" aria-live="polite"></span><button id="next" aria-label="Next project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button></div>
+  <div class="s-ctrl" id="ctrl"><button id="prev" aria-label="Previous project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button><button id="next" aria-label="Next project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button></div>
 </section>
 <section class="s-page" id="card" aria-live="polite"></section>
 <footer class="foot"><div class="footin"><a class="fname" href="../index.html">Fiwany Wijaya</a>
@@ -90,7 +98,7 @@ const ROLES={
    line:'Personally dabbling in branding, UI, digital marketing, content and photography, and finding ways to bring them all together.'}};
 const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
 const LOCKSVG='<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
-const $=id=>document.getElementById(id), stage=$('stage'), hero=$('hero'), me=$('me'), tag=$('tag'), now=$('now'), card=$('card');
+const $=id=>document.getElementById(id), stage=$('stage'), hero=$('hero'), me=$('me'), tag=$('tag'), card=$('card');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const N=P.length, TAU=Math.PI*2, STEP=TAU/N;
 
@@ -104,7 +112,7 @@ function show(name){ const o=imgs[name]; if(!o) return; if(shown&&shown!==o) sho
 // polaroids
 const pols=P.map((p,i)=>{
   const b=document.createElement('button'); b.className='s-pol'; b.setAttribute('aria-label',p.title);
-  b.innerHTML=`<span class="sh"></span><span class="f"><img src="img/${p.img}" alt="" draggable="false"><span class="t">${p.kind}</span></span>`;
+  b.innerHTML=`<span class="sh"></span><span class="f"><img src="img/${p.img}" alt="" draggable="false"><span class="t">${p.title}</span></span>`;
   b.addEventListener('click',()=>{ if(moved) return; if(front()===i) location.href='../'+p.slug+'.html'; else goTo(i); });
   stage.appendChild(b); return b; });
 
@@ -113,19 +121,22 @@ function layout(){
   W=hero.clientWidth; H=hero.clientHeight; const tall=W/H<.9;
   const side=W>=1000&&W/H>=1.2, hb=hero.getBoundingClientRect(), ovr=document.querySelector('.s-over').getBoundingClientRect();
   const ob=side?0:ovr.bottom-hb.top, textR=side?ovr.right-hb.left+24:0;
-  const top=ob+(side?40:44), bot=H-22-46-18;                 // room for the role name above, the label below
+  const top=ob+(side?40:44), bot=side?H-28:H-22-44-10;                 // room for the role name above, the label below
   const k=tall?{ry:.95,pw:.42,sm:.74,fh:1.12,fy:.22}:{ry:.45,pw:.255,sm:.58,fh:.78,fy:.06};
   // extents per unit of rx: front card bottom, back card top, head top (relative to cy)
   const up=Math.max(k.ry+k.pw*1.3*k.sm, k.fh*(tall?k.ry:1)-k.fy*k.ry), down=k.ry*1.04;
-  rx=Math.min(side?(W-textR-24)/2/1.2:W*(tall?.37:.34), side?460:420, (bot-top)/(up+down));
+  rx=Math.min(side?(W-textR-24-130)/2/1.18:W*(tall?.37:.34), side?460:420, (bot-top)/(up+down));
   ry=rx*k.ry; pw=Math.min(rx*k.pw,124); SMIN=k.sm;
-  const spare=Math.max(0,(bot-top)-(up+down)*rx)/2; FH=tall?ry*k.fh:rx*k.fh; cx=side?textR+(W-textR)/2:W/2; $('ctrl').style.paddingLeft=side?(2*cx-W)+'px':''; cy=top+up*rx+spare; feetY=cy+ry*k.fy;
+  const spare=Math.max(0,(bot-top)-(up+down)*rx)/2; FH=tall?ry*k.fh:rx*k.fh; cx=side?textR+(W-textR)/2:W/2;  cy=top+up*rx+spare; feetY=cy+ry*k.fy;
   const $s=$('susan').style, $r=$('ring').style, sw=rx*2+pw*1.25, sh=ry*2+pw*.75;
   Object.assign($s,{left:cx-sw/2+'px',top:cy-sh/2+pw*.12+'px',width:sw+'px',height:sh+'px'});
   Object.assign($r,{left:cx-rx*.55+'px',top:cy-ry*.55+'px',width:rx*1.1+'px',height:ry*1.1+'px'});
   const st=$('stand').style, stw=FH*.42; Object.assign(st,{left:cx-stw/2+'px',top:feetY-stw*.14+'px',width:stw+'px',height:stw*.28+'px'});
   pols.forEach(b=>b.style.width=pw+'px'); pols.forEach(b=>b.querySelector('.t').style.fontSize=Math.max(8,pw*.12)+'px');
-  tag.style.transform='translateX(-50%)'; tag.style.left=cx+'px'; tag.style.top=ob+(side?10:14)+spare+'px';
+  tag.style.left=cx+'px'; tag.style.top=(side? feetY-FH-34 : ob+14+spare)+'px';
+  const P1=$('prev').style, P2=$('next').style;
+  if(side){ const ay=cy+'px', hw=sw/2+30; P1.left=cx-hw+'px'; P2.left=cx+hw+'px'; P1.top=P2.top=ay; }
+  else { const ay=H-22-22+'px'; P1.left=cx-60+'px'; P2.left=cx+60+'px'; P1.top=P2.top=ay; }
   if(shown) place(shown);
 }
 function place(o){
@@ -148,14 +159,15 @@ function render(){
 // role, twirl and idle animation
 let role=null, seqI=0, seqT=0, twirl=null;
 function setRole(r,instant){
-  $('ctrl').style.setProperty('--rc',r.col); tag.style.setProperty('--rc',r.col); tag.textContent=r.name;
+  $('ctrl').style.setProperty('--rc',r.col); tag.style.setProperty('--rc',r.col); const H1=document.querySelector('.s-over h1'); H1.style.color=r.col==='#a87a00'?'#513e36':r.col;
+  const said='I’m a '+r.name.toLowerCase(); if(tag.textContent!==said){ tag.classList.add('out'); clearTimeout(tag._t); tag._t=setTimeout(()=>{ tag.textContent=said; tag.classList.remove('out'); },reduce?0:280); }
   if(!role||instant||reduce){ role=r; seqI=0; show(`${r.key}-${r.seq[0]}`); return; }
   if(r===role&&!twirl) return;
   const from=twirl?twirl.to:role;
   twirl={to:r,t:0,frames:[`${from.key}-v1`,`${from.key}-v2`,`${r.key}-v3`,`${r.key}-v2-m`,`${r.key}-v1-m`,`${r.key}-v0`]};
 }
 const cache={}; let pageFor=-1, settle=0;
-function showCard(i){ const p=P[i], r=ROLES[p.cat]; now.textContent=p.title; setRole(r); settle=performance.now(); }
+function showCard(i){ const p=P[i], r=ROLES[p.cat]; setRole(r); settle=performance.now(); }
 function fixPaths(m){
   m.querySelectorAll('[src]').forEach(e=>{const v=e.getAttribute('src'); if(!/^(https?:|\/|data:|\.\.)/.test(v)) e.setAttribute('src','../'+v);});
   m.querySelectorAll('[srcset]').forEach(e=>e.setAttribute('srcset',e.getAttribute('srcset').split(',').map(x=>{x=x.trim(); return /^(https?:|\/|\.\.)/.test(x)?x:'../'+x;}).join(', ')));
