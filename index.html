@@ -1,28 +1,254 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Fiwany Wijaya · Portfolio</title>
-<meta name="description" content="Portfolio of Fiwany Wijaya, food scientist and consumer researcher moving into design.">
-<link rel="icon" type="image/png" href="img/favicon.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Pick a Character</title>
 <link rel="stylesheet" href="styles.css">
-</head><body style="--accent:#231f20"><header class="nav"><a class="logo" href="index.html" data-t="Fiwany Wijaya">Fiwany Wijaya</a>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&family=Hanken+Grotesk:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#231f20;--muted:#6b6460}
+body{background:#fff;overflow-x:hidden}
+.s-hero{position:relative;height:calc(100svh - 64px);min-height:600px;overflow:hidden;background:#fff4dc}
+.s-over{position:absolute;left:0;right:0;top:0;padding:24px 20px 0;text-align:center;z-index:3;pointer-events:none}
+.s-over h1{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(36px,5vw,62px);line-height:1.05;margin:0 0 14px}
+.s-over p{margin:0;color:var(--muted);font-size:15px}
+.s-stage{position:absolute;inset:0;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.s-susan{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);box-shadow:inset 0 0 0 3px rgba(140,195,182,.8),0 30px 36px -28px rgba(60,40,20,.3)}
+.s-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(140,195,182,.55)}
+.s-pol{position:absolute;left:0;top:0;border:0;padding:0;background:none;cursor:inherit;transform-origin:50% 100%;will-change:transform}
+.s-pol .f{display:block;background:#fff;padding:6% 6% 0;box-shadow:0 10px 18px -10px rgba(60,40,20,.45),0 0 0 1px rgba(0,0,0,.04)}
+.s-pol img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.s-pol .t{display:block;font-family:"Playfair Display",Georgia,serif;font-style:italic;color:var(--ink);text-align:center;padding:.4em 0 .55em;line-height:1.12;min-height:2.9em;display:flex;align-items:center;justify-content:center}
+.s-pol .sh{position:absolute;left:8%;right:8%;bottom:-7%;height:12%;border-radius:50%;background:radial-gradient(rgba(60,40,20,.28),transparent 70%);z-index:-1}
+.s-pol:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.s-me{position:absolute;pointer-events:none;z-index:150}
+.s-me img{position:absolute;display:none;max-width:none}
+.s-me img.on{display:block}
+.s-stand{position:absolute;z-index:149;border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#fff,#e4e2de);box-shadow:0 3px 0 #d6d3ce,0 12px 16px -8px rgba(0,0,0,.3)}
+.s-tag{position:absolute;transform:translateX(-50%);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--rc);background:#fafafa;border:1.5px solid var(--rc);padding:6px 12px;border-radius:99px;white-space:nowrap;transition:color .3s,border-color .3s;z-index:300}
+.s-ctrl{position:absolute;left:0;right:0;bottom:22px;z-index:3;display:flex;justify-content:center;align-items:center;gap:14px;padding:0 16px}
+.s-ctrl button{width:44px;height:44px;flex:none;border-radius:50%;border:1.5px solid var(--rc);color:var(--rc);background:#fafafa;display:grid;place-items:center;padding:0;cursor:inherit;transition:all .3s}
+.s-ctrl button:hover{background:var(--rc);color:#fff}
+.s-ctrl .now{min-width:250px;text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;background:#fafafa;border:1.5px solid var(--rc);color:var(--rc);padding:11px 18px;border-radius:99px;transition:all .3s}
+@media (max-width:520px){.s-ctrl .now{min-width:0;flex:1;max-width:240px;font-size:12px}}
+.s-card{text-align:center;padding:44px 16px 72px}
+.s-card>p{margin:0 auto 30px;color:var(--muted);max-width:min(560px,100%);font-size:17px;line-height:1.55}
+.s-proj{display:flex;flex-wrap:wrap;justify-content:center;gap:28px;max-width:1240px;margin:0 auto}
+.s-proj a{width:300px;text-decoration:none;color:var(--ink)}
+.s-proj img{width:300px;height:300px;object-fit:cover;border-radius:10px;display:block;transition:transform .25s}
+.s-proj a:hover img{transform:translateY(-4px)}
+.s-proj b{display:block;margin-top:12px;font-size:18px;line-height:1.3}.s-proj span{display:block;margin-top:2px;font-size:14px;line-height:1.3;color:var(--muted)}
+.s-proj .lk{width:.7em;height:.7em;margin-left:.35em;vertical-align:-.02em}
+@media (max-width:600px){.s-proj{flex-direction:column;align-items:stretch;gap:32px}.s-proj a,.s-proj img{width:100%;height:auto}.s-proj img{aspect-ratio:1}}
+.s-tag{background:none!important;border:0!important;padding:0!important;font-size:13px}
+.s-page{border-top:1px solid #ece8e2}
+.s-page main.proj{margin-top:0}
+.s-lock{text-align:center;padding:64px 16px 80px}.s-lock h2{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(28px,4vw,42px);margin:0 0 8px}.s-lock p{color:var(--muted);margin:0 0 22px}
+.s-lock a{display:inline-block;padding:12px 22px;border-radius:99px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;font-weight:600}
+.s-susan{background:rgba(255,255,255,.5)!important;-webkit-backdrop-filter:blur(10px) saturate(1.1);backdrop-filter:blur(10px) saturate(1.1);
+ box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.95),inset 0 0 0 5px rgba(255,255,255,.35),inset 0 14px 30px rgba(255,255,255,.55),0 30px 36px -28px rgba(60,40,20,.3)!important;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")!important}
+.s-ring{border-color:rgba(255,255,255,.85)!important}
+.s-hero{isolation:isolate}header.nav{z-index:1000}
+#card[style*="#f5a800"] .label,#card[style*="#f5a800"] .kind,#card[style*="#f5a800"] .label.sub{color:#c27800!important}
+@media (min-width:1000px) and (min-aspect-ratio:6/5){
+ .s-over{left:max(32px,5vw);right:auto;top:50%;transform:translateY(-60%);width:min(340px,26vw);padding:0;text-align:left}
+ .s-over h1{font-size:clamp(40px,4.4vw,64px)}
+ .s-over p{font-size:16px;line-height:1.55}
+}
+.s-pol .t{font-family:inherit!important;font-style:normal!important;font-weight:700}
+.s-over h1{transition:color .45s}
+.s-tag{font-size:15px!important;letter-spacing:0!important;text-transform:none!important;font-weight:700!important;transition:opacity .35s,transform .35s;opacity:1}
+.s-tag.out{opacity:0;transform:translate(-50%,8px)!important}
+.s-ctrl{position:absolute;left:0;right:0;bottom:auto;top:0;height:0;padding:0;display:block}
+.s-ctrl button{position:absolute;width:44px;height:44px;border:0!important;background:none!important;color:#3a2e2b!important;transform:translate(-50%,-50%);transition:transform .2s,color .3s}
+.s-ctrl button:hover{background:none!important;color:var(--rc)!important;transform:translate(-50%,-50%) scale(1.18)}
+.s-ctrl button svg{width:30px;height:20px}
+.s-pol,.s-ctrl button{font:inherit}
+.s-pol .t{color:#231f20!important;font-weight:600!important;transition:color .35s}
+.s-pol.front .t{color:var(--pc)!important}
+.s-ctrl button{width:36px!important;height:36px!important;color:#231f20!important;opacity:.45;transition:opacity .25s,transform .25s,filter .25s!important}
+.s-ctrl button svg{width:22px!important;height:15px!important}
+.s-ctrl button svg path{stroke-width:1.5;transition:stroke-width .25s}
+.s-ctrl button:hover,.s-ctrl button:focus-visible{opacity:1;color:#231f20!important;transform:translate(-50%,calc(-50% - 3px))!important;filter:drop-shadow(0 4px 4px rgba(0,0,0,.22))}
+.s-ctrl button:hover svg path{stroke-width:1.1}
+.home2 .wwork{background:#fff}
+.hab{max-width:760px;margin:0 auto;padding:clamp(56px,8vw,96px) 20px;text-align:center}
+.hab h2{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(34px,4vw,48px);margin:0 0 14px}
+.hab p{margin:0 auto 18px;line-height:1.65}
+.s-hero{background:#f7f7f7!important}
+.s-ctrl button{opacity:1!important;color:#231f20!important;filter:none!important}
+.s-ctrl button svg path{stroke-width:1.5!important}
+.s-ctrl button:hover,.s-ctrl button:focus-visible{color:var(--rc)!important;transform:translate(-50%,calc(-50% - 2px))!important}
+.s-hint{position:absolute;left:0;top:0;transform:translateX(-50%);font-size:13px;color:var(--muted);letter-spacing:.02em;z-index:4;pointer-events:none;transition:opacity .6s;white-space:nowrap}
+.s-hint.gone{opacity:0}
+</style>
+</head>
+<body>
+<header class="nav"><a class="logo" href="index.html" data-t="Fiwany Wijaya">Fiwany Wijaya</a>
 <button class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.parentNode;h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))"><span></span><span></span><span></span></button>
-<nav><a href="index.html#work" data-t="Work">Work</a><a href="about.html" data-t="About">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener" data-t="Resume">Resume</a><a href="mailto:fiwanyw@gmail.com" data-t="Contact">Contact</a></nav></header><section class="whero"><svg class="hfire" viewBox="-3 -3 106 109.29" aria-hidden="true"><path d="M97.14,10.79 Q97.91,9.94 96.90,9.40 L96.68,9.28 Q95.67,8.74 94.74,9.40 L77.86,21.36 Q76.10,22.61 73.97,22.97 L73.50,23.06 Q71.37,23.42 69.76,21.98 L69.25,21.52 Q67.52,19.97 66.74,17.78 L60.99,1.72 Q60.55,0.48 59.25,0.26 L58.96,0.22 Q57.66,0.00 57.61,1.32 L57.04,15.99 Q56.94,18.68 55.50,20.96 L54.97,21.78 Q53.73,23.74 51.57,24.57 L51.08,24.75 Q48.92,25.58 46.78,24.70 L2.26,6.48 Q1.12,6.01 0.80,7.20 L0.72,7.47 Q0.40,8.66 1.47,9.28 L40.02,31.46 Q42.50,32.88 43.76,35.44 L44.05,36.01 Q45.31,38.57 44.46,41.30 L44.12,42.41 Q43.14,45.55 40.82,47.88 L2.00,86.93 Q1.36,87.57 1.80,88.36 L2.05,88.82 Q2.33,89.33 2.91,89.37 L3.03,89.37 Q3.61,89.41 4.07,89.06 L49.56,54.32 Q51.48,52.85 53.83,52.27 L54.77,52.04 Q56.70,51.56 58.47,52.46 L59.05,52.76 Q60.63,53.57 61.60,55.05 L61.82,55.38 Q62.79,56.86 63.14,58.60 L71.75,101.83 Q71.93,102.73 72.83,102.91 L73.04,102.95 Q73.94,103.13 73.92,102.21 L72.62,53.97 Q72.57,52.04 73.62,50.42 L73.88,50.02 Q74.90,48.44 76.70,47.90 L77.11,47.77 Q78.91,47.23 80.67,47.92 L96.18,53.98 Q98.00,54.69 98.83,52.92 L99.01,52.53 Q99.84,50.76 98.31,49.55 L83.96,38.15 Q82.28,36.81 81.23,34.93 L80.90,34.34 Q79.95,32.64 80.49,30.76 L80.61,30.35 Q81.15,28.47 82.46,27.02 Z"/></svg><div class="whin"><h1>Hi, I’m Fiwany!</h1>
-<div class="prow"><span>I’m a</span><span class="pwrap"><span class="prism"><span>food scientist</span><span>consumer researcher</span><span>designer</span></span></span></div><p class="wroles rmstack"><span>Food scientist</span><span>Consumer researcher</span><span>Designer</span></p>
-<p class="wtag"><span>I’ve spent years learning how products feel.</span> <span>Now I want to design them.</span> </p></div></section>
-<main>
-<section id="work" class="wwork"><h2>Recent work</h2><p class="wcat">Food Science</p><div class="srow"><div class="stw"><a class="stamp" href="refresh.html" style="--c:#273c93"><span class="ph"><img src="img/stamp-refresh.jpg" alt="re:Fresh" loading="lazy"></span>
+<nav><a href="index.html#work" data-t="Work">Work</a><a href="about.html" data-t="About">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener" data-t="Resume">Resume</a><a href="mailto:fiwanyw@gmail.com" data-t="Contact">Contact</a></nav></header>
+
+<section class="s-hero" id="hero">
+  <div class="s-over"><h1>Hi, I’m Fiwany!</h1></div>
+  <div class="s-stage" id="stage" aria-label="My projects on a lazy susan, with me in the middle">
+    <div class="s-susan" id="susan"></div><div class="s-ring" id="ring"></div>
+    <div class="s-stand" id="stand"></div><div class="s-me" id="me" aria-hidden="true"></div><span class="s-hint" id="hint">Drag to spin</span><span class="s-tag" id="tag"></span>
+  </div>
+  <div class="s-ctrl" id="ctrl"><button id="prev" aria-label="Previous project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button><button id="next" aria-label="Next project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button></div>
+</section>
+<div id="card" hidden></div>
+<main class="home2"><section id="work" class="wwork"><h2>Recent work</h2><p class="wcat">Food Science</p><div class="srow"><div class="stw"><a class="stamp" href="refresh.html" style="--c:#273c93"><span class="ph"><img src="img/stamp-refresh.jpg" alt="re:Fresh" loading="lazy"></span>
 <span class="scap">re:Fresh</span><span class="skind">Product launch</span></a></div><div class="stw"><a class="stamp" href="alt-protein.html" style="--c:#273c93"><span class="ph"><img src="img/stamp-altprotein.jpg" alt="Alternative Protein" loading="lazy"></span>
-<span class="scap">Alternative Protein&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">Food R&amp;D</span></a></div></div><p class="wcat">Consumer Research</p><div class="srow"><div class="stw"><a class="stamp" href="sensory-bot.html" style="--c:#b98400"><span class="ph"><img src="img/stamp-sensorybot.jpg" alt="Sensory Bot" loading="lazy"></span>
-<span class="scap">Sensory Bot&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">AI research tool</span></a></div><div class="stw"><a class="stamp" href="prebiotic-soda.html" style="--c:#b98400"><span class="ph"><img src="img/stamp-soda.jpg" alt="Prebiotic Soda" loading="lazy"></span>
+<span class="scap">Alternative Protein&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">Food R&amp;D</span></a></div></div><p class="wcat">Consumer Research</p><div class="srow"><div class="stw"><a class="stamp" href="sensory-bot.html" style="--c:#c27800"><span class="ph"><img src="img/stamp-sensorybot.jpg" alt="Sensory Bot" loading="lazy"></span>
+<span class="scap">Sensory Bot&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">AI research tool</span></a></div><div class="stw"><a class="stamp" href="prebiotic-soda.html" style="--c:#c27800"><span class="ph"><img src="img/stamp-soda.jpg" alt="Prebiotic Soda" loading="lazy"></span>
 <span class="scap">Prebiotic Soda&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">Product testing</span></a></div></div><p class="wcat">Design</p><div class="srow"><div class="stw"><a class="stamp" href="personal-brand.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-brand.jpg" alt="Personal Brand" loading="lazy"></span>
 <span class="scap">Personal Brand</span><span class="skind">Brand identity</span></a></div><div class="stw"><a class="stamp" href="wayfarer.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-wayfarer.jpg" alt="Wayfarer" loading="lazy"></span>
 <span class="scap">Wayfarer</span><span class="skind">Landing page UI</span></a></div><div class="stw"><a class="stamp" href="grub-ventures.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-grub.jpg" alt="Grub Ventures" loading="lazy"></span>
 <span class="scap">Grub Ventures</span><span class="skind">Brand &amp; marketing</span></a></div><div class="stw"><a class="stamp" href="current-notes.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-notes.jpg" alt="Current Notes" loading="lazy"></span>
 <span class="scap">Current Notes</span><span class="skind">Music curation</span></a></div><div class="stw"><a class="stamp" href="collecting-experiences.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-collecting.jpg" alt="Collecting Experiences" loading="lazy"></span>
-<span class="scap">Collecting Experiences</span><span class="skind">Photography &amp; collage</span></a></div></div></section></main><footer class="foot"><div class="footin"><a class="fname" href="index.html">Fiwany Wijaya</a>
-<nav><a href="index.html#work">Work</a><a href="about.html">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener">Resume</a><a href="mailto:fiwanyw@gmail.com">Contact</a><a href="https://linkedin.com/in/fiwanywijaya" target="_blank" rel="noopener">LinkedIn</a></nav></div>
-<p class="small">© 2026 Fiwany Wijaya</p></footer><script src="fire.js" defer></script><script src="lightbox.js" defer></script></body></html>
+<span class="scap">Collecting Experiences</span><span class="skind">Photography &amp; collage</span></a></div></div></section><section class="hab"><h2 class="serif">About</h2><p>I’ve spent the last six years at the intersection of food and product experience: in a sensory lab at Cornell University, in a meal kit I co-founded in Jakarta, and in three and a half years of qualitative research for global food brands.</p><a class="sqlink" href="about.html">More about me →</a></section></main>
+<footer class="foot"><div class="footin"><a class="fname" href="index.html">Fiwany Wijaya</a>
+<nav><a href="index.html#work">Work</a><a href="about.html">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener">Resume</a><a href="mailto:fiwanyw@gmail.com">Contact</a><a href="https://www.linkedin.com/in/fiwanywijaya" target="_blank" rel="noopener">LinkedIn</a></nav></div>
+<p class="small">© 2026 Fiwany Wijaya</p></footer>
+
+<script>
+(async function(){
+const [P,V]=await Promise.all([fetch('susan/projects.json').then(r=>r.json()),fetch('susan/views.json').then(r=>r.json())]);
+const ROLES={
+ 'Food Science':{key:'scientist',name:'Food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:420,
+   line:'Formally trained in food science at Cornell University, I develop products that help future-proof our health and our access to food.'},
+ 'Consumer Research':{key:'researcher',name:'Consumer researcher',col:'#c27800',seq:[0,1,2,3,3,3,3],ms:650,
+   line:'Professionally trained in sensory and qualitative research for three and a half years, shaping AI-powered research methodologies.'},
+ 'Design':{key:'designer',name:'Designer',col:'#d53626',seq:[0,0,2,1,2,3,2,0],ms:380,
+   line:'Personally dabbling in branding, UI, digital marketing, content and photography, and finding ways to bring them all together.'}};
+const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
+const LOCKSVG='<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const $=id=>document.getElementById(id), stage=$('stage'), hero=$('hero'), me=$('me'), tag=$('tag'), card=$('card');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const N=P.length, TAU=Math.PI*2, STEP=TAU/N;
+
+// character images: 4 turnaround views + the role's own animation frames
+const imgs={};
+function add(name,flip){ const im=new Image(); im.src=`susan/img/${name}.png`; im.alt=''; if(flip) im.style.transform='scaleX(-1)'; me.appendChild(im); imgs[name+(flip?'-m':'')]={im,v:V[name],flip}; }
+Object.values(ROLES).forEach(r=>{ for(let j=0;j<4;j++){ add(`${r.key}-v${j}`); add(`${r.key}-${j}`); } add(`${r.key}-v1`,1); add(`${r.key}-v2`,1); });
+let shown=null;
+function show(name){ const o=imgs[name]; if(!o) return; if(shown&&shown!==o) shown.im.classList.remove('on'); o.im.classList.add('on'); shown=o; place(o); }
+
+// polaroids
+const pols=P.map((p,i)=>{
+  const b=document.createElement('button'); b.className='s-pol'; b.setAttribute('aria-label',p.title);
+  b.innerHTML=`<span class="sh"></span><span class="f"><img src="susan/img/${p.img}" alt="" draggable="false"><span class="t">${p.title}</span></span>`;
+  b.addEventListener('click',()=>{ if(moved) return; if(front()===i) location.href=''+p.slug+'.html'; else goTo(i); });
+  stage.appendChild(b); return b; });
+
+let W,H,cx,cy,rx,ry,pw,FH,feetY,SMIN=.58;
+function layout(){
+  W=hero.clientWidth; H=hero.clientHeight; const tall=W/H<.9;
+  const side=W>=1000&&W/H>=1.2, hb=hero.getBoundingClientRect(), ovr=document.querySelector('.s-over').getBoundingClientRect();
+  const ob=side?0:ovr.bottom-hb.top, textR=side?ovr.right-hb.left+24:0;
+  const top=ob+(side?40:44), bot=side?H-28:H-22-44-10;                 // room for the role name above, the label below
+  const k=tall?{ry:.95,pw:.42,sm:.74,fh:1.12,fy:.22}:{ry:.45,pw:.255,sm:.58,fh:.78,fy:.06};
+  // extents per unit of rx: front card bottom, back card top, head top (relative to cy)
+  const up=Math.max(k.ry+k.pw*1.3*k.sm, k.fh*(tall?k.ry:1)-k.fy*k.ry), down=k.ry*1.04;
+  rx=Math.min(side?(W-textR-24-130)/2/1.18:W*(tall?.37:.34), side?460:420, (bot-top)/(up+down));
+  ry=rx*k.ry; pw=Math.min(rx*k.pw,124); SMIN=k.sm;
+  const spare=Math.max(0,(bot-top)-(up+down)*rx)/2; FH=tall?ry*k.fh:rx*k.fh; cx=side?textR+(W-textR)/2:W/2;  cy=top+up*rx+spare; feetY=cy+ry*k.fy;
+  const $s=$('susan').style, $r=$('ring').style, sw=rx*2+pw*1.25, sh=ry*2+pw*.75;
+  Object.assign($s,{left:cx-sw/2+'px',top:cy-sh/2+pw*.12+'px',width:sw+'px',height:sh+'px'});
+  Object.assign($r,{left:cx-rx*.55+'px',top:cy-ry*.55+'px',width:rx*1.1+'px',height:ry*1.1+'px'});
+  const st=$('stand').style, stw=FH*.42; Object.assign(st,{left:cx-stw/2+'px',top:feetY-stw*.14+'px',width:stw+'px',height:stw*.28+'px'});
+  pols.forEach(b=>b.style.width=pw+'px'); pols.forEach(b=>b.querySelector('.t').style.fontSize=Math.max(8,pw*.12)+'px');
+  tag.style.left=cx+'px'; tag.style.top=(side? feetY-FH-34 : ob+14+spare)+'px';
+  const P1=$('prev').style, P2=$('next').style;
+  if(side){ const ay=cy+'px', hw=sw/2+30; P1.left=cx-hw+'px'; P2.left=cx+hw+'px'; P1.top=P2.top=ay; }
+  else { const ay=H-22-22+'px'; P1.left=cx-60+'px'; P2.left=cx+60+'px'; P1.top=P2.top=ay; }
+  const hn=$('hint'); if(hn){ hn.style.left=cx+'px'; hn.style.top=Math.min(H-34, cy+ry+pw*.75+18)+'px'; }
+  if(shown) place(shown);
+}
+function place(o){
+  const v=o.v, k=FH/(v.bot-v.top), w=v.w*k, h=v.h*k, fx=o.flip?v.w-v.fx:v.fx;
+  Object.assign(o.im.style,{width:w+'px',height:h+'px',left:cx-fx*k+'px',top:feetY-v.bot*k+'px'});
+}
+
+let theta=0, vel=0, target=0, dragging=false, moved=false;
+const mod=(a,m)=>((a%m)+m)%m;
+const front=()=>mod(Math.round(-theta/STEP),N);
+function render(){
+  pols.forEach((b,i)=>{
+    const a=theta+i*STEP, d=Math.cos(a), s=SMIN+(1-SMIN)*(d+1)/2;
+    const x=cx+rx*Math.sin(a), y=cy+ry*d;
+    b.style.transform=`translate(${x-pw/2}px,${y-pw*1.3}px) scale(${s})`;
+    b.style.zIndex=d>0?200+Math.round(d*50):Math.round(60+d*50); b.classList.toggle('front',i===front());
+  });
+}
+
+// role, twirl and idle animation
+let role=null, seqI=0, seqT=0, twirl=null;
+function setRole(r,instant){
+  $('ctrl').style.setProperty('--rc',r.col); tag.style.setProperty('--rc',r.col); const H1=document.querySelector('.s-over h1'); H1.style.color=r.col;
+  const said='I’m a '+r.name.toLowerCase(); if(tag.textContent!==said){ tag.classList.add('out'); clearTimeout(tag._t); tag._t=setTimeout(()=>{ tag.textContent=said; tag.classList.remove('out'); },reduce?0:280); }
+  if(!role||instant||reduce){ role=r; seqI=0; show(`${r.key}-${r.seq[0]}`); return; }
+  if(r===role&&!twirl) return;
+  const from=twirl?twirl.to:role;
+  twirl={to:r,t:0,frames:[`${from.key}-v1`,`${from.key}-v2`,`${r.key}-v3`,`${r.key}-v2-m`,`${r.key}-v1-m`,`${r.key}-v0`]};
+}
+const cache={}; let pageFor=-1, settle=0;
+function showCard(i){ const p=P[i], r=ROLES[p.cat]; pols.forEach(b=>b.style.setProperty('--pc',r.col)); setRole(r); settle=performance.now(); }
+function fixPaths(m){
+  m.querySelectorAll('[src]').forEach(e=>{const v=e.getAttribute('src'); if(!/^(https?:|\/|data:|\.\.)/.test(v)) e.setAttribute('src',''+v);});
+  m.querySelectorAll('[srcset]').forEach(e=>e.setAttribute('srcset',e.getAttribute('srcset').split(',').map(x=>{x=x.trim(); return /^(https?:|\/|\.\.)/.test(x)?x:''+x;}).join(', ')));
+  m.querySelectorAll('[href]').forEach(e=>{const v=e.getAttribute('href'); if(!/^(https?:|\/|#|mailto:|\.\.)/.test(v)) e.setAttribute('href',''+v);});
+  m.querySelectorAll('[style*="url("]').forEach(e=>e.setAttribute('style',e.getAttribute('style').replace(/url\((['"]?)(?!https?:|\/|data:|\.\.)/g,'url($1')));
+}
+function wireNext(){ card.querySelectorAll('a.next').forEach(a=>{ a.addEventListener('click',e=>{ const slug=(a.getAttribute('href')||'').split('/').pop().replace('.html',''); const k=P.findIndex(q=>q.slug===slug); if(k<0) return; e.preventDefault(); goTo(k); hero.scrollIntoView({behavior:reduce?'auto':'smooth'}); }); }); }
+async function loadPage(i){ return;
+  if(pageFor===i) return; pageFor=i; const p=P[i];
+  if(!cache[p.slug]){
+    const t=await fetch(''+p.slug+'.html').then(r=>r.text()); const doc=new DOMParser().parseFromString(t,'text/html');
+    const box=document.createElement('div'); const hero=doc.querySelector('.phero'); if(hero) box.appendChild(hero);
+    const m=doc.querySelector('main'); box.appendChild(m);
+    const all=[...doc.querySelectorAll('script:not([src])')].map(x=>x.textContent); const sc=all.find(x=>x.includes('lockform')); const own=all.filter(x=>!x.includes('lockform'));
+    fixPaths(box);
+    cache[p.slug]={html:box.innerHTML, accent:(doc.body.getAttribute('style')||''), lock:sc||null, own}; }
+  if(pageFor!==i) return;
+  const c=cache[p.slug]; card.setAttribute('style',c.accent); card.innerHTML=c.html; wireNext();
+  c.own.forEach(t=>{ const x=document.createElement('script'); x.textContent=t; card.appendChild(x); });
+  if(c.lock){ // the locked page's own unlock script, run in place
+    new MutationObserver((ms,ob)=>{ if(!card.querySelector('main.lock')){ fixPaths(card); wireNext(); ob.disconnect(); } }).observe(card,{childList:true,subtree:true});
+    const s2=document.createElement('script'); s2.textContent=c.lock; card.appendChild(s2); }
+}
+let last=performance.now(), lastIdx=-1;
+function tick(t){
+  const dt=Math.min(50,t-last); last=t; const f=dt/16.67;
+  if(!dragging){
+    if(Math.abs(vel)>.0008){ theta+=vel*f; vel*=Math.pow(.92,f); target=Math.round(theta/STEP)*STEP; }
+    else { vel=0; theta+=(target-theta)*(reduce?1:Math.min(1,.12*f)); }
+  }
+  const idx=front(); if(idx!==lastIdx){ lastIdx=idx; showCard(idx); }
+  if(!dragging&&vel===0&&Math.abs(target-theta)<.01&&t-settle>250) loadPage(idx);
+  if(twirl){ twirl.t+=dt; const k=Math.floor(twirl.t/85);
+    if(k>=twirl.frames.length){ role=twirl.to; twirl=null; seqI=0; seqT=0; show(`${role.key}-${role.seq[0]}`); }
+    else show(twirl.frames[k]); }
+  else if(role&&!reduce){ seqT+=dt; if(seqT>role.ms){ seqT=0; seqI=(seqI+1)%role.seq.length; show(`${role.key}-${role.seq[seqI]}`); } }
+  render(); requestAnimationFrame(tick);
+}
+const step=n=>{ target=Math.round(theta/STEP)*STEP-n*STEP; vel=0; };
+function goTo(i){ let d=mod(i-front(),N); if(d>N/2) d-=N; step(d); }
+$('prev').onclick=()=>step(-1); $('next').onclick=()=>step(1);
+addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') step(-1); if(e.key==='ArrowRight') step(1); });
+let px=0,lt=0;
+const hideHint=()=>{ const h=$('hint'); if(h) h.classList.add('gone'); }; ['prev','next'].forEach(id=>$(id).addEventListener('click',hideHint));
+stage.addEventListener('pointerdown',e=>{ hideHint(); dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; });
+addEventListener('pointermove',e=>{ if(!dragging) return; const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const d=dx/(rx*1.6); theta+=d; const n=performance.now(); vel=d/Math.max(1,(n-lt)/16.67); lt=n; px=e.clientX; });
+addEventListener('pointerup',()=>{ if(!dragging) return; dragging=false; if(reduce) vel=0; target=Math.round(theta/STEP)*STEP; setTimeout(()=>moved=false,0); });
+window.__step=step; window.__goTo=goTo;
+
+addEventListener('resize',layout); layout(); render(); requestAnimationFrame(tick);
+})();
+</script>
+<script src="lightbox.js" defer></script>
+</body>
+</html>

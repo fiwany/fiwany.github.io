@@ -2,8 +2,8 @@
    Two typefaces only:
    Headings: IvyPresto Display Italic -> web stand-in Playfair Display Italic
    Everything else: Stratos SemiLight -> web stand-in Hanken Grotesk
-   Palette: red #d53626, blue #273c93, yellow #febe10, beige #fff4dc, brown #513e36 */
-:root{--bg:#fff;--ink:#231f20;--muted:#6f6763;--red:#d53626;--blue:#273c93;--yellow:#febe10;--beige:#fff4dc;--brown:#513e36;--line:#ebe5df;--max:1200px;--r:18px}
+   Palette: red #d53626, blue #273c93, yellow #f5a800, beige #fff4dc, brown #513e36 */
+:root{--bg:#fff;--ink:#231f20;--muted:#6f6763;--red:#d53626;--blue:#273c93;--yellow:#f5a800;--beige:#fff4dc;--brown:#513e36;--line:#ebe5df;--max:1200px;--r:18px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -1018,8 +1018,8 @@ body.more .outcome{border-left-color:var(--blue)}
 .icard .ring:not(.iring){border-color:var(--cc);color:var(--cc)}
 .icard:hover .ring:not(.iring){background:var(--cc)}
 /* yellow pages: yellow shapes, deep gold text */
-body.more .label,body.more .nt,body.more .ver .vh b,body.more .statn,body.more .fnote,body.more .bignum .num{color:#a87a00}
-body.more .label{color:#a87a00}
+body.more .label,body.more .nt,body.more .ver .vh b,body.more .statn,body.more .fnote,body.more .bignum .num{color:#c27800}
+body.more .label{color:#c27800}
 body.more .stepn{background:var(--yellow)}
 /* variant A: centred category grids */
 .cwork{text-align:center}
@@ -1037,12 +1037,12 @@ body.more .stepn{background:var(--yellow)}
 .ptop h1,body.more .ptop h1{color:var(--accent)}
 body.more .ptop h1{color:#c48f00}
 .nt{color:var(--accent)}
-body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt{color:#a87a00}
+body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt{color:#c27800}
 body.more .stepn{background:var(--yellow);color:var(--ink)}
 body.more .btn:hover{background:var(--yellow);color:var(--ink)}
 body.more .outcome{border-left-color:var(--yellow)}
-@media (hover:none){.grid.cgrid .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#a87a00!important}}
-@media (max-width:900px),(hover:none){.grid.cgrid .over h3,.grid.cgrid .card:hover .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#a87a00!important}.grid.cgrid .over .kind,.grid.cgrid .over .desc{color:var(--muted)!important}}
+@media (hover:none){.grid.cgrid .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#c27800!important}}
+@media (max-width:900px),(hover:none){.grid.cgrid .over h3,.grid.cgrid .card:hover .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#c27800!important}.grid.cgrid .over .kind,.grid.cgrid .over .desc{color:var(--muted)!important}}
 
 /* ================= round 10 ================= */
 .wcat,.ccat{color:var(--ink)!important}
@@ -1275,7 +1275,7 @@ main:has(.wwork)+.foot{margin-top:0;border-top:0;background:#f7f7f7}
 .tvtx p{margin-bottom:12px}.tvmap img{width:100%;display:block}
 .legend{font-size:13px;color:#666;display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center}
 .legend .d{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:-8px}
-.d.r{background:var(--red)}.d.y{background:#febe10}.d.h{background:#fff;border:2.5px solid var(--red)}
+.d.r{background:var(--red)}.d.y{background:#f5a800}.d.h{background:#fff;border:2.5px solid var(--red)}
 /* making */
 .making{display:grid;grid-template-columns:340px 1fr;gap:44px;align-items:center}
 .polaroid{background:#fff;padding:14px 14px 46px;box-shadow:0 10px 28px rgba(0,0,0,.12);transform:rotate(-3deg);position:relative}
@@ -1389,8 +1389,8 @@ input,textarea{cursor:text!important}
 main figcaption,main .vtip,main .vnote{font-size:14px!important;color:var(--muted)!important;line-height:1.5}
 main figcaption strong{color:var(--ink)!important}
 main .vh{font-size:14px!important;color:var(--ink)!important}main .vh b{font-size:14px!important;color:var(--ink)!important}
-body[style*="#febe10"] main .label,body[style*="#febe10"] main .sublab,body[style*="#febe10"] main .kind{color:#8a6400!important}
-body[style*="#febe10"] main h1,body[style*="#febe10"] main h2,body[style*="#febe10"] main h3{color:#513e36}
+body[style*="#f5a800"] main .label,body[style*="#f5a800"] main .sublab,body[style*="#f5a800"] main .kind{color:#c27800!important}
+body[style*="#f5a800"] main h1,body[style*="#f5a800"] main h2,body[style*="#f5a800"] main h3{color:#c27800}
 main p,main li{color:#231f20}
 main .vtip,main figcaption{color:var(--muted)!important}
 .pinwrap{position:relative}
@@ -1411,8 +1411,8 @@ main .wv,main .rowcap,.prt3>p,.prt3>div>p:first-child{font-size:14px!important;c
 main .wv b,main .rowcap strong,.prt3 strong,main figcaption strong{color:var(--ink)!important;font-weight:600}
 main .rowcap{margin:10px 0 28px!important}
 main .wv b{font-size:14px!important}
-body[style*="#febe10"] main .label,body[style*="#febe10"] main .sublab,body[style*="#febe10"] main .kind,body[style*="#febe10"] main .label.sub{color:#513e36!important}
-body[style*="#febe10"] main .sublab{color:var(--ink)!important}
+body[style*="#f5a800"] main .label,body[style*="#f5a800"] main .sublab,body[style*="#f5a800"] main .kind,body[style*="#f5a800"] main .label.sub{color:#c27800!important}
+body[style*="#f5a800"] main .sublab{color:var(--ink)!important}
 .phones{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
 .phonefig{width:300px;margin:0}
 .phone{background:#1d1b1a;border-radius:42px;padding:12px;box-shadow:0 24px 40px -20px rgba(0,0,0,.45)}
@@ -1433,3 +1433,6 @@ body[style*="#febe10"] main .sublab{color:var(--ink)!important}
 .pinleg li{align-items:flex-start}.pinleg .stepn,.stepn{flex:none!important;width:22px;height:22px;align-self:flex-start;aspect-ratio:1}
 
 .phero img[src$="wf-hero.jpg"]{object-position:50% 0}
+/* round 39: consumer research = marigold (#c27800 text, #f5a800 fills) */
+body.more .ptop h1,body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt,body.more .ver .vh b,body.more .fnote,body.more .bignum .num,body.more main h2,body.more main h3,body.more .kind{color:#c27800!important}
+body.more .stepn+*{color:inherit}

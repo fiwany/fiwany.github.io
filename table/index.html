@@ -63,7 +63,7 @@ const [P,M] = await Promise.all([fetch('projects.json').then(r=>r.json()), fetch
 const ROLES=[
   {key:'scientist', cat:'Food Science', col:'#273c93', name:'The food scientist', seq:[0,1,2,3,3,3,2,1,0,0], ms:420,
    line:'Formally trained in food science at Cornell University, I develop products that help future-proof our health and our access to food.'},
-  {key:'researcher', cat:'Consumer Research', col:'#febe10', name:'The consumer researcher', seq:[0,1,2,3,3,3,3], ms:650,
+  {key:'researcher', cat:'Consumer Research', col:'#f5a800', name:'The consumer researcher', seq:[0,1,2,3,3,3,3], ms:650,
    line:'Professionally trained in sensory and qualitative research for three and a half years, shaping AI-powered research methodologies.'},
   {key:'designer', cat:'Design', col:'#d53626', name:'The designer', seq:[0,0,2,1,2,3,2,0], ms:380,
    line:'Personally dabbling in branding, UI, digital marketing, content and photography, and finding ways to bring them all together.'}
@@ -224,9 +224,9 @@ addEventListener('pointerup',e=>{ if(!dragging) return; dragging=false; canvas.c
 const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
 const LOCKSVG='<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 function showCard(i){
-  const r=ROLES[i], list=P.filter(p=>p.cat===r.cat), y=r.col==='#febe10';
-  now.textContent=r.name; now.parentNode.style.setProperty('--rc',{'#273c93':'#273c93','#febe10':'#a87a00','#d53626':'#d53626'}[r.col]);
-  card.style.setProperty('--c',y?'#b98400':r.col);
+  const r=ROLES[i], list=P.filter(p=>p.cat===r.cat), y=r.col==='#f5a800';
+  now.textContent=r.name; now.parentNode.style.setProperty('--rc',{'#273c93':'#273c93','#f5a800':'#c27800','#d53626':'#d53626'}[r.col]);
+  card.style.setProperty('--c',y?'#c27800':r.col);
   card.innerHTML=`<p>${r.line}</p>
     <div class="t-proj">${list.map(p=>`<a href="../${p.slug}.html"><img src="img/${p.img}" alt=""><b>${p.title}${LOCK.includes(p.slug)?LOCKSVG:""}</b><span>${p.kind}</span></a>`).join('')}</div>`;
 }
