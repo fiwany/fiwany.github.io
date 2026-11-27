@@ -1353,16 +1353,29 @@ a,button,[role=button],.burger{cursor:url("data:image/svg+xml,%3Csvg xmlns='http
 /* round 32: photo gallery bigger on phones + zoom */
 .jgrid img{cursor:zoom-in}
 @media (max-width:600px){
- .jgrid .jrow{flex-wrap:wrap}
- .jgrid .jrow:first-child figure{flex:1 1 calc(50% - 8px)!important}
- .jgrid .jrow:first-child figure:first-child{flex-basis:100%!important}
- .jgrid .jrow:not(:first-child) figure{flex:1 1 calc(33.33% - 8px)!important}
- .jgrid .jrow:not(:first-child) figure:nth-child(n+4){flex-basis:calc(50% - 8px)!important}
- .jgrid figure img{width:100%;height:100%;object-fit:cover}
- .jgrid .jrow:first-child figure:not(:first-child) img{aspect-ratio:4/3!important}
- .jgrid .jrow:not(:first-child) figure img{aspect-ratio:9/14!important}
- .jgrid .jrow:not(:first-child) figure:nth-child(n+4) img{aspect-ratio:3/4!important}
+ .vis>.jgrid .jrow{flex-wrap:wrap}
+ .vis>.jgrid .jrow:first-child figure{flex:1 1 calc(50% - 8px)!important}
+ .vis>.jgrid .jrow:first-child figure:first-child{flex-basis:100%!important}
+ .vis>.jgrid .jrow:not(:first-child) figure{flex:1 1 calc(33.33% - 8px)!important}
+ .vis>.jgrid .jrow:not(:first-child) figure:nth-child(n+4){flex-basis:calc(50% - 8px)!important}
+ .vis>.jgrid figure img{width:100%;height:100%;object-fit:cover}
+ .vis>.jgrid .jrow:first-child figure:not(:first-child) img{aspect-ratio:4/3!important}
+ .vis>.jgrid .jrow:not(:first-child) figure img{aspect-ratio:9/14!important}
+ .vis>.jgrid .jrow:not(:first-child) figure:nth-child(n+4) img{aspect-ratio:3/4!important}
 }
 .lbx{position:fixed;inset:0;z-index:9999;background:rgba(20,18,17,.92);display:flex;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;opacity:0;transition:opacity .2s}
 .lbx.on{opacity:1}.lbx img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .lbx button{position:absolute;top:14px;right:16px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:22px;cursor:pointer}
+
+/* round 33 */
+html,body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='5' fill='%23d53626' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E") 8 8,auto!important}
+a,button,[role=button],.burger,label,summary,.jgrid img,.s-pol,#scene.point{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='14' cy='14' r='10' fill='%23d53626' fill-opacity='.85' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E") 14 14,pointer!important}
+input,textarea{cursor:text!important}
+.mbn b{display:none}.mbn{display:block}
+@media (max-width:600px){
+ .mbdir .jgrid{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+ .mbdir .jgrid .jrow{display:contents}
+ .mbdir .jgrid figure{flex:none!important;margin:0}
+ .mbdir .jgrid figure img{height:110px!important;width:auto!important;aspect-ratio:auto!important}
+}
+.outcome.refl{margin-bottom:0}.outcome.refl p:last-child{font-size:inherit!important}
