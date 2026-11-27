@@ -119,7 +119,7 @@ const [P,V]=await Promise.all([fetch('susan/projects.json').then(r=>r.json()),fe
 const ROLES={
  'Food Science':{key:'scientist',name:'Food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:420,
    line:'Formally trained in food science at Cornell University, I develop products that help future-proof our health and our access to food.'},
- 'Consumer Research':{key:'researcher',name:'Consumer researcher',col:'#c27800',seq:[0,1,2,3,3,3,3],ms:650,
+ 'Consumer Research':{key:'researcher',name:'Consumer researcher',col:'#c27800',seq:['0','0t','1','1t','2','3','3t','3','3t'],ms:620,
    line:'Professionally trained in sensory and qualitative research for three and a half years, shaping AI-powered research methodologies.'},
  'Design':{key:'designer',name:'Designer',col:'#d53626',seq:[2,2,2,3,1,3],ms:480,
    line:'Personally dabbling in branding, UI, digital marketing, content and photography, and finding ways to bring them all together.'}};
@@ -132,7 +132,7 @@ const N=P.length, TAU=Math.PI*2, STEP=TAU/N;
 // character images: 4 turnaround views + the role's own animation frames
 const imgs={};
 function add(name,flip){ const im=new Image(); im.src=`susan/img/${name}.png`; im.alt=''; if(flip) im.style.transform='scaleX(-1)'; me.appendChild(im); imgs[name+(flip?'-m':'')]={im,v:V[name],flip}; }
-Object.values(ROLES).forEach(r=>{ for(let j=0;j<4;j++){ add(`${r.key}-v${j}`); add(`${r.key}-${j}`); } add(`${r.key}-v1`,1); add(`${r.key}-v2`,1); });
+['0t','1t','3t'].forEach(t=>add('researcher-'+t)); Object.values(ROLES).forEach(r=>{ for(let j=0;j<4;j++){ add(`${r.key}-v${j}`); add(`${r.key}-${j}`); } add(`${r.key}-v1`,1); add(`${r.key}-v2`,1); });
 let shown=null;
 function show(name){ const o=imgs[name]; if(!o) return; if(shown&&shown!==o) shown.im.classList.remove('on'); o.im.classList.add('on'); shown=o; place(o); }
 
