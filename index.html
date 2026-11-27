@@ -179,7 +179,7 @@ const front=()=>mod(Math.round(-theta/STEP),N);
 function render(){
   pols.forEach((b,i)=>{
     const a=theta+i*STEP, d=Math.cos(a), s=SMIN+(1-SMIN)*(d+1)/2;
-    const x=cx+rx*Math.sin(a), y=cy+ry*d;
+    const x=cx+rx*Math.sin(a), y=cy+ry*d*(d<0?1-.24*d*d:1);
     b.style.transform=`translate(${x-pw/2}px,${y-pw*1.3}px) scale(${s})`;
     b.style.zIndex=d>0?200+Math.round(d*50):Math.round(60+d*50); b.classList.toggle('front',i===front());
   });
