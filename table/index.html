@@ -8,47 +8,19 @@
 <link rel="stylesheet" href="../styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{--t-bg:#fbf7ef;--t-ink:#231f20;--t-muted:#6b6460;--t-table:#f1e6d3;--t-table2:#e4d3b7;--t-rim:#d6c2a0}
+:root{--t-bg:#f3eee6;--t-ink:#231f20;--t-muted:#6b6460}
 body{background:var(--t-bg);overflow-x:hidden}
-.t-intro{text-align:center;padding:28px 16px 0}
-.t-intro h1{font-family:"Playfair Display",serif;font-weight:600;font-size:clamp(28px,5vw,46px);margin:8px 0 6px}
-.t-intro p{color:var(--t-muted);margin:0;font-size:15px}
-.t-stage{position:relative;width:min(1000px,100vw);height:clamp(440px,118vw,640px);margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
-.t-stage.drag{cursor:grabbing}
-.t-top{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,var(--t-table),var(--t-table2));box-shadow:0 26px 40px -18px rgba(60,40,20,.35),inset 0 -8px 0 var(--t-rim)}
-.t-ring{position:absolute;border-radius:50%;border:2px dashed rgba(120,90,50,.18)}
-.t-who{position:absolute;left:0;top:0;border:0;padding:0;background:none;cursor:pointer;transform-origin:50% 100%}
-.t-who svg{display:block;width:100%;height:100%;overflow:visible}
-.t-who .sh{fill:rgba(60,40,20,.22)}
-.t-who.dim svg{filter:saturate(.55) brightness(1.03)}
-.t-who:focus-visible{outline:2px solid var(--t-ink);outline-offset:4px;border-radius:8px}
-/* idle life on the one in focus */
-.t-who.on .fig{animation:breathe 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
-@keyframes breathe{50%{transform:scaleY(1.012) rotate(.4deg)}}
-.fx{opacity:0}.t-who.on .fx{opacity:1}
-/* researcher: writing */
-.write{stroke:#231f20;stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:160;stroke-dashoffset:160}
-.t-who.on .write{animation:write 2.6s ease-in-out infinite}
-@keyframes write{0%{stroke-dashoffset:160}45%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
-.t-who.on .hand{animation:scribble 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:80% 80%}
-/* scientist: bubbles + goggle glint */
-.bub{fill:#fff;stroke:#3a78c4;stroke-width:2.5;opacity:0}
-.t-who.on .bub{animation:rise 2.4s ease-in infinite}
-.t-who.on .bub:nth-child(2){animation-delay:.8s}.t-who.on .bub:nth-child(3){animation-delay:1.6s}
-@keyframes rise{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translate(6px,-120px) scale(1.2);opacity:0}}
-.glint{fill:#fff;opacity:0}
-.t-who.on .glint{animation:glint 3.4s ease-in-out infinite}
-@keyframes glint{0%,60%{transform:translateX(0);opacity:0}65%{opacity:.9}85%{transform:translateX(120px);opacity:0}100%{opacity:0}}
-/* designer: camera flash + doodle on tablet */
-.flash{fill:#fff7c2;stroke:#f0c330;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
-.t-who.on .flash{animation:flash 3s ease-out infinite}
-@keyframes flash{0%,70%{opacity:0;transform:scale(.3)}74%{opacity:1;transform:scale(1.15)}90%,100%{opacity:0;transform:scale(1.4)}}
-.doodle{stroke:#d53626;stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:200;stroke-dashoffset:200}
-.t-who.on .doodle{animation:write 3s ease-in-out infinite}
-.t-ctrl{display:flex;justify-content:center;gap:14px;margin:0 0 14px}
-.t-ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t-ink);background:transparent;font-size:18px;cursor:pointer;color:var(--t-ink)}
-.t-ctrl button:hover{background:var(--t-ink);color:var(--t-bg)}
-.t-card{text-align:center;padding:0 16px 64px}
+.t-hero{position:relative;height:calc(100svh - 64px);min-height:520px;overflow:hidden;background:#e9e3da}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+#scene.drag{cursor:grabbing}#scene.point{cursor:pointer}
+.t-over{position:absolute;left:0;right:0;top:0;padding:28px 24px 0;text-align:center;pointer-events:none}
+.t-over h1{font-family:"Playfair Display",serif;font-weight:600;font-size:clamp(30px,5vw,54px);margin:0 0 6px;text-shadow:0 1px 18px rgba(255,255,255,.8)}
+.t-over p{margin:0;color:var(--t-muted);font-size:15px;text-shadow:0 1px 10px rgba(255,255,255,.9)}
+.t-ctrl{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;align-items:center;gap:14px}
+.t-ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t-ink);background:rgba(255,255,255,.75);font-size:18px;cursor:pointer;color:var(--t-ink);backdrop-filter:blur(4px)}
+.t-ctrl button:hover{background:var(--t-ink);color:#fff}
+.t-ctrl .now{min-width:180px;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;background:rgba(255,255,255,.75);padding:8px 14px;border-radius:99px}
+.t-card{text-align:center;padding:56px 16px 72px}
 .t-pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:99px;color:#fff;background:var(--c)}
 .t-pill.y{color:#513e36}
 .t-card h2{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,34px);margin:12px 0 4px}
@@ -58,123 +30,202 @@ body{background:var(--t-bg);overflow-x:hidden}
 .t-proj img{width:150px;height:150px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 3px var(--c);transition:transform .25s}
 .t-proj a:hover img{transform:translateY(-4px)}
 .t-proj b{display:block;margin-top:10px;font-size:14px}.t-proj span{font-size:12px;color:var(--t-muted)}
-@media (prefers-reduced-motion:reduce){.t-who *{animation:none!important}.write,.doodle{stroke-dashoffset:0}}
+.t-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:var(--t-muted)}
 </style>
+<script type="importmap">{"imports":{"three":"./lib/three.module.min.js"}}</script>
 </head>
 <body>
 <header class="nav"><a class="logo" href="../index.html" data-t="Fiwany Wijaya">Fiwany Wijaya</a>
 <button class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.parentNode;h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))"><span></span><span></span><span></span></button>
 <nav><a href="../index.html#work" data-t="Work">Work</a><a href="../about.html" data-t="About">About</a><a href="../Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener" data-t="Resume">Resume</a><a href="mailto:fiwanyw@gmail.com" data-t="Contact">Contact</a></nav></header>
 
-<section class="t-intro">
-  <h1>Pull up a seat</h1>
-  <p>Spin the table to meet the three people I’ve been.</p>
+<section class="t-hero">
+  <canvas id="scene" aria-label="A round dinner table with a glass lazy susan. Three versions of me stand on metal plates: a food scientist, a consumer researcher and a designer."></canvas>
+  <div class="t-over"><h1>Pull up a seat</h1><p>Spin the lazy susan and pick a dish.</p></div>
+  <div class="t-ctrl"><button id="prev" aria-label="Previous role">←</button><span class="now" id="now"></span><button id="next" aria-label="Next role">→</button></div>
+  <div class="t-fallback" id="fb">This table needs WebGL to spin.</div>
 </section>
-<div class="t-stage" id="stage" aria-label="My three roles on a lazy susan">
-  <div class="t-top" id="top"></div>
-  <div class="t-ring" id="ring"></div>
-</div>
-<div class="t-ctrl"><button id="prev" aria-label="Previous role">←</button><button id="next" aria-label="Next role">→</button></div>
 <section class="t-card" id="card" aria-live="polite"></section>
 
-<script>
-(async function(){
-  const [P,M] = await Promise.all([fetch('projects.json').then(r=>r.json()), fetch('chars.json').then(r=>r.json())]);
-  // Overlay effects are drawn in the original image's pixel coordinates.
-  const ROLES=[
-    {key:'scientist', cat:'Food Science', col:'#273c93', name:'The food scientist',
-     line:'Six years in sensory labs and kitchens, turning what people taste into what gets made.',
-     fx:`<g class="fx"><g transform="translate(596 760)"><circle class="bub" r="7"/><circle class="bub" cx="-10" r="5"/><circle class="bub" cx="9" r="6"/></g>
-         <clipPath id="gl"><path d="M380 205 h160 v45 h-160z"/></clipPath><g clip-path="url(#gl)"><path class="glint" d="M372 250 l18 -48 h12 l-18 48z"/></g></g>`},
-    {key:'researcher', cat:'Consumer Research', col:'#febe10', name:'The consumer researcher',
-     line:'Three and a half years listening to people, then helping global food brands act on what they said.',
-     fx:`<g class="fx"><path class="write" d="M630 405 q10 -14 20 0 t20 0 t20 0 t18 -4"/></g>`},
-    {key:'designer', cat:'Design', col:'#d53626', name:'The designer',
-     line:'Where it all comes together: brands, products and experiences shaped around the people using them.',
-     fx:`<g class="fx"><path class="doodle" d="M492 650 c10 -30 40 -30 40 -5 c0 18 -25 20 -25 6 c0 -12 22 -12 30 8"/>
-         <path class="flash" d="M598 618 l6 -16 l6 16 l16 -6 l-10 14 l14 8 l-17 2 l3 16 l-12 -11 l-12 11 l3 -16 l-17 -2 l14 -8 l-10 -14z"/></g>`}
-  ];
-  const N=ROLES.length, STEP=360/N;
-  const $=id=>document.getElementById(id);
-  const stage=$('stage'), top=$('top'), ring=$('ring'), card=$('card');
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from './lib/RoomEnvironment.js';
 
-  const people=ROLES.map((r,i)=>{
-    const m=M[r.key], b=document.createElement('button');
-    b.className='t-who'; b.setAttribute('aria-label',r.name);
-    b.innerHTML=`<svg viewBox="${m.x} ${m.y} ${m.w} ${m.h}" preserveAspectRatio="xMidYMax meet">
-      <ellipse class="sh" cx="${m.x+m.w/2}" cy="${m.y+m.h-12}" rx="${Math.min(m.w,380)*.45}" ry="26"/>
-      <g class="fig"><image href="img/${r.key}.png" x="${m.x}" y="${m.y}" width="${m.w}" height="${m.h}"/>${r.fx}</g></svg>`;
-    b.addEventListener('click',()=>{ if(moved) return; if(nearest()===i) card.scrollIntoView({behavior:reduce?'auto':'smooth'}); else goTo(i); });
-    stage.appendChild(b); b._ar=m.w/m.h; return b;
+const [P,M] = await Promise.all([fetch('projects.json').then(r=>r.json()), fetch('chars.json').then(r=>r.json())]);
+const ROLES=[
+  {key:'scientist', cat:'Food Science', col:'#273c93', name:'The food scientist', seq:[0,1,2,3,3,3,2,1,0,0], ms:420,
+   line:'Six years in sensory labs and kitchens, turning what people taste into what gets made.'},
+  {key:'researcher', cat:'Consumer Research', col:'#febe10', name:'The consumer researcher', seq:[0,1,2,3,3,3,3], ms:650,
+   line:'Three and a half years listening to people, then helping global food brands act on what they said.'},
+  {key:'designer', cat:'Design', col:'#d53626', name:'The designer', seq:[0,0,2,1,2,3,2,0], ms:380,
+   line:'Where it all comes together: brands, products and experiences shaped around the people using them.'}
+];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas=document.getElementById('scene'), hero=canvas.parentNode, card=document.getElementById('card'), now=document.getElementById('now');
+
+let renderer;
+try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true}); }
+catch(e){ document.getElementById('fb').style.display='flex'; throw e; }
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color('#e9e3da');
+scene.fog=new THREE.Fog('#e9e3da',14,26);
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),.04).texture;
+
+const camera=new THREE.PerspectiveCamera(30,1,.1,60);
+scene.add(new THREE.HemisphereLight('#fffaf2','#b9ab98',.9));
+const sun=new THREE.DirectionalLight('#fff4e4',1.6);
+sun.position.set(-4,9,5); sun.castShadow=true; sun.shadow.mapSize.set(2048,2048);
+Object.assign(sun.shadow.camera,{left:-6,right:6,top:6,bottom:-6,near:1,far:25}); sun.shadow.bias=-.0005; sun.shadow.radius=6;
+scene.add(sun);
+
+// floor + table with tablecloth
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.MeshStandardMaterial({color:'#9a948c',roughness:.9}));
+floor.rotation.x=-Math.PI/2; floor.position.y=-2.2; floor.receiveShadow=true; scene.add(floor);
+const clothMat=new THREE.MeshStandardMaterial({color:'#f6f2ec',roughness:.95});
+const table=new THREE.Mesh(new THREE.CylinderGeometry(5,5,.1,96),clothMat); table.position.y=-.05; table.receiveShadow=true; scene.add(table);
+const skirt=new THREE.Mesh(new THREE.CylinderGeometry(5.02,5.25,2.1,96,1,true),clothMat); skirt.position.y=-1.1; scene.add(skirt);
+
+// glass lazy susan on a small bearing
+const bearing=new THREE.Mesh(new THREE.CylinderGeometry(.4,.4,.06,48),new THREE.MeshStandardMaterial({color:'#d8d8d6',metalness:.8,roughness:.3}));
+bearing.position.y=.03; scene.add(bearing);
+const susan=new THREE.Group(); susan.position.y=.08; scene.add(susan);
+const glass=new THREE.Mesh(new THREE.CylinderGeometry(2.75,2.75,.06,128),new THREE.MeshPhysicalMaterial({color:'#eaf7f3',metalness:0,roughness:.04,transmission:1,thickness:.35,ior:1.5,transparent:true,opacity:1}));
+glass.position.y=.03; glass.receiveShadow=true; susan.add(glass);
+const edge=new THREE.Mesh(new THREE.TorusGeometry(2.75,.03,12,160),new THREE.MeshPhysicalMaterial({color:'#9fd3c8',roughness:.1,transmission:.6,thickness:.2}));
+edge.rotation.x=Math.PI/2; edge.position.y=.03; susan.add(edge);
+
+// metal plate (shallow dish)
+const prof=[[0,0],[.7,0],[.78,.02],[.86,.07],[.92,.12],[.95,.13],[.96,.12]].map(([x,y])=>new THREE.Vector2(x,y));
+const plateGeo=new THREE.LatheGeometry(prof,96);
+const metal=new THREE.MeshStandardMaterial({color:'#eef0f1',metalness:.9,roughness:.38,envMapIntensity:1.4,side:THREE.DoubleSide});
+
+// soft contact shadow texture
+const sc=document.createElement('canvas'); sc.width=sc.height=128; const g=sc.getContext('2d');
+const gr=g.createRadialGradient(64,64,0,64,64,64); gr.addColorStop(0,'rgba(40,30,20,.45)'); gr.addColorStop(1,'rgba(40,30,20,0)');
+g.fillStyle=gr; g.fillRect(0,0,128,128); const blob=new THREE.CanvasTexture(sc);
+
+const loader=new THREE.TextureLoader(), maxAniso=renderer.capabilities.getMaxAnisotropy();
+const R=1.62, FIG_H=2.05, people=[];
+ROLES.forEach((r,i)=>{
+  const a=i*Math.PI*2/ROLES.length;
+  const slot=new THREE.Group(); slot.position.set(Math.sin(a)*R,0,Math.cos(a)*R); susan.add(slot);
+  const plate=new THREE.Mesh(plateGeo,metal); plate.castShadow=true; plate.receiveShadow=true; plate.position.y=.06; slot.add(plate);
+  const sh=new THREE.Mesh(new THREE.PlaneGeometry(1.3,.55),new THREE.MeshBasicMaterial({map:blob,transparent:true,depthWrite:false}));
+  sh.rotation.x=-Math.PI/2; sh.position.y=.075; slot.add(sh);
+  const m=M[r.key], w=FIG_H*m.w/m.h;
+  const tex=[...Array(m.n)].map((_,k)=>{const t=loader.load(`img/${r.key}-${k}.png`); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=maxAniso; return t;});
+  const mat=new THREE.MeshBasicMaterial({map:tex[0],alphaTest:.45,side:THREE.DoubleSide,toneMapped:false});
+  const fig=new THREE.Mesh(new THREE.PlaneGeometry(w,FIG_H),mat);
+  fig.geometry.translate(0,FIG_H/2,0); fig.position.y=.075; fig.userData.i=i; slot.add(fig);
+  people.push({r,slot,fig,tex,mat,a,step:0,t:0});
+});
+
+// place settings around the table
+const bowlGeo=new THREE.LatheGeometry([[0,0],[.16,0],[.2,.03],[.27,.13],[.29,.16],[.28,.165]].map(([x,y])=>new THREE.Vector2(x,y)),48);
+const porcelain=new THREE.MeshStandardMaterial({color:'#fbfbfa',roughness:.25});
+const rimMat=new THREE.MeshStandardMaterial({color:'#2f4f8f',roughness:.3});
+const cupMat=new THREE.MeshPhysicalMaterial({color:'#fff',roughness:.05,transmission:.95,thickness:.1,transparent:true});
+const tea=new THREE.MeshStandardMaterial({color:'#d9a441',roughness:.3,transparent:true,opacity:.85});
+const wood=new THREE.MeshStandardMaterial({color:'#2b211c',roughness:.45});
+const stickGeo=new THREE.CylinderGeometry(.011,.02,1.25,10); stickGeo.rotateX(Math.PI/2);
+function chopsticks(){ const p=new THREE.Group(); const a=new THREE.Mesh(stickGeo,wood), b=new THREE.Mesh(stickGeo,wood);
+  a.position.x=-.035; b.position.x=.035; a.castShadow=b.castShadow=true; p.add(a,b); p.userData={a,b}; return p; }
+const SEATS=8;
+for(let s=0;s<SEATS;s++){
+  const ang=s/SEATS*Math.PI*2+Math.PI/SEATS, rr=4.05, x=Math.sin(ang)*rr, z=Math.cos(ang)*rr;
+  if(z>3.2) continue; // keep the front clear for the camera
+  const set=new THREE.Group(); set.position.set(x,0,z); set.rotation.y=ang; scene.add(set);
+  const bowl=new THREE.Mesh(bowlGeo,porcelain); bowl.castShadow=true; set.add(bowl);
+  const rim=new THREE.Mesh(new THREE.TorusGeometry(.282,.008,8,48),rimMat); rim.rotation.x=Math.PI/2; rim.position.y=.163; set.add(rim);
+  const cup=new THREE.Mesh(new THREE.CylinderGeometry(.11,.09,.26,32,1,true),cupMat); cup.position.set(.5,.13,-.15); set.add(cup);
+  const liquid=new THREE.Mesh(new THREE.CylinderGeometry(.095,.088,.16,32),tea); liquid.position.set(.5,.08,-.15); set.add(liquid);
+  const cs=chopsticks(); cs.position.set(-.45,.03,-.05); cs.rotation.y=.08; set.add(cs);
+}
+
+// diners reaching in with chopsticks
+const reachers=[ {from:new THREE.Vector3(3.3,1.35,4.2)}, {from:new THREE.Vector3(-3.6,1.4,3.6)} ].map(o=>{
+  const c=chopsticks(); scene.add(c); c.position.copy(o.from); return {...o,c,t:Math.random()*4,period:7+Math.random()*3};
+});
+
+// sizing
+function resize(){
+  const w=hero.clientWidth, h=hero.clientHeight; renderer.setSize(w,h,false);
+  camera.aspect=w/h; const far=w/h<1?1.55:1; camera.fov=w/h<1?38:30;
+  camera.position.set(0,6.4*far,8.2*far); camera.lookAt(0,.75,0); camera.updateProjectionMatrix();
+}
+addEventListener('resize',resize); resize();
+
+// spinning
+let rot=0, vel=0, target=null, dragging=false, moved=false, hover=false, pausedUntil=0;
+const TAU=Math.PI*2, STEP=TAU/ROLES.length, AUTO=.16;
+const wrap=a=>((a+Math.PI)%TAU+TAU)%TAU-Math.PI;
+const frontIndex=()=>{let best=0,bd=9;people.forEach((p,i)=>{const d=Math.abs(wrap(p.a+rot));if(d<bd){bd=d;best=i;}});return best;};
+const pause=ms=>{pausedUntil=performance.now()+ms;};
+function goTo(i){ const d=wrap(-(people[i].a)-rot); target=rot+d; vel=0; pause(7000); }
+document.getElementById('next').onclick=()=>goTo((frontIndex()+1)%ROLES.length);
+document.getElementById('prev').onclick=()=>goTo((frontIndex()+ROLES.length-1)%ROLES.length);
+addEventListener('keydown',e=>{ if(e.key==='ArrowRight') document.getElementById('next').click(); if(e.key==='ArrowLeft') document.getElementById('prev').click(); });
+
+const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+function pick(e){ const b=canvas.getBoundingClientRect(); ndc.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1); ray.setFromCamera(ndc,camera);
+  const hit=ray.intersectObjects(people.map(p=>p.fig)).find(h=>{ const uv=h.uv, t=h.object.material.map.image; return !!uv; }); return hit?hit.object.userData.i:-1; }
+let px=0,lt=0;
+canvas.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') hover=true; });
+canvas.addEventListener('pointerleave',()=>{ hover=false; canvas.classList.remove('point'); });
+canvas.addEventListener('pointerdown',e=>{ dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; target=null; canvas.classList.add('drag'); });
+addEventListener('pointermove',e=>{
+  if(!dragging){ if(e.target===canvas) canvas.classList.toggle('point',pick(e)>=0); return; }
+  const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const d=dx*.006; rot+=d; const t=performance.now(); vel=d/Math.max(.001,(t-lt)/1000); lt=t; px=e.clientX; });
+addEventListener('pointerup',e=>{ if(!dragging) return; dragging=false; canvas.classList.remove('drag'); pause(5000);
+  if(!moved){ const i=pick(e); if(i>=0){ if(i===frontIndex()) card.scrollIntoView({behavior:reduce?'auto':'smooth'}); else goTo(i); } vel=0; }
+  if(reduce) vel=0; });
+
+function showCard(i){
+  const r=ROLES[i], list=P.filter(p=>p.cat===r.cat), y=r.col==='#febe10';
+  now.textContent=r.name.replace('The ','');
+  card.style.setProperty('--c',y?'#b98400':r.col);
+  card.innerHTML=`<span class="t-pill${y?' y':''}" style="--c:${r.col}">${r.cat}</span><h2>${r.name}</h2><p>${r.line}</p>
+    <div class="t-proj">${list.map(p=>`<a href="../${p.slug}.html"><img src="img/${p.img}" alt=""><b>${p.title}</b><span>${p.kind}</span></a>`).join('')}</div>`;
+}
+
+const clock=new THREE.Clock(); let lastFront=-1;
+const camDir=new THREE.Vector3();
+function frame(){
+  const dt=Math.min(clock.getDelta(),.05), T=clock.elapsedTime;
+  if(!dragging){
+    if(target!==null){ const d=target-rot; rot+=d*Math.min(1,dt*(reduce?60:4)); if(Math.abs(d)<.002){ rot=target; target=null; } }
+    else if(Math.abs(vel)>.02){ rot+=vel*dt; vel*=Math.pow(.05,dt); }
+    else if(!reduce && !hover && performance.now()>pausedUntil){ rot+=AUTO*dt; }
+  }
+  susan.rotation.y=rot;
+  const f=frontIndex();
+  if(f!==lastFront){ lastFront=f; showCard(f); people.forEach(p=>{p.step=0;p.t=0;}); }
+  // billboard each figure towards the camera, animate only the one in front
+  people.forEach((p,i)=>{
+    p.slot.getWorldPosition(camDir); const ang=Math.atan2(camera.position.x-camDir.x,camera.position.z-camDir.z);
+    p.fig.rotation.y=ang-rot;
+    const seq=p.r.seq;
+    if(i===f && !reduce){ p.t+=dt*1000; if(p.t>p.r.ms){ p.t=0; p.step=(p.step+1)%seq.length; } p.mat.map=p.tex[seq[p.step]]; }
+    else p.mat.map=p.tex[reduce?seq[seq.length-1]:0];
   });
-
-  let W,H,cx,cy,Rx,Ry,ch;
-  function layout(){
-    W=stage.clientWidth; H=stage.clientHeight;
-    cx=W/2; cy=H*.62; Rx=Math.min(W*.34,330); Ry=Rx*.34; ch=Math.min(H*.7,Rx*1.6);
-    const tw=Rx*2.5, th=Ry*2.9;
-    Object.assign(top.style,{left:cx-tw/2+'px',top:cy-th/2+'px',width:tw+'px',height:th+'px'});
-    Object.assign(ring.style,{left:cx-Rx*1.05+'px',top:cy-Ry*1.05+'px',width:Rx*2.1+'px',height:Ry*2.1+'px'});
-    people.forEach(b=>{ b.style.height=ch+'px'; b.style.width=ch*b._ar+'px'; });
-  }
-
-  let theta=0, vel=0, target=0, dragging=false, moved=false;
-  const mod=(a,m)=>((a%m)+m)%m;
-  const nearest=()=>mod(Math.round(-theta/STEP),N);
-
-  function render(){
-    const k=nearest();
-    people.forEach((b,i)=>{
-      const phi=(theta+i*STEP)*Math.PI/180, d=Math.cos(phi), s=.5+.5*(d+1)/2;
-      const w=ch*b._ar, x=cx+Rx*Math.sin(phi), y=cy+Ry*d;
-      b.style.transform=`translate(${x-w/2}px,${y-ch}px) scale(${s})`;
-      b.style.zIndex=100+Math.round(d*50);
-      b.classList.toggle('on',i===k && Math.abs(target-theta)<4);
-      b.classList.toggle('dim',i!==k);
-    });
-  }
-
-  function showCard(i){
-    const r=ROLES[i], list=P.filter(p=>p.cat===r.cat), y=r.col==='#febe10';
-    card.style.setProperty('--c',y?'#b98400':r.col);
-    card.innerHTML=`<span class="t-pill${y?' y':''}" style="--c:${r.col}">${r.cat}</span><h2>${r.name}</h2><p>${r.line}</p>
-      <div class="t-proj">${list.map(p=>`<a href="../${p.slug}.html"><img src="img/${p.img}" alt=""><b>${p.title}</b><span>${p.kind}</span></a>`).join('')}</div>`;
-  }
-
-  let last=performance.now(), lastIdx=-1;
-  function tick(t){
-    const dt=Math.min(40,t-last)/16.67; last=t;
-    if(!dragging){
-      if(Math.abs(vel)>.15){ theta+=vel*dt; vel*=Math.pow(.92,dt); target=Math.round(theta/STEP)*STEP; }
-      else { vel=0; theta+=(target-theta)*(reduce?1:Math.min(1,.1*dt)); }
-    }
-    const idx=nearest(); if(idx!==lastIdx){ lastIdx=idx; showCard(idx); }
-    render(); requestAnimationFrame(tick);
-  }
-
-  const step=n=>{ target=Math.round(theta/STEP)*STEP-n*STEP; vel=0; };
-  function goTo(i){ let d=mod(i-nearest(),N); if(d>N/2) d-=N; step(d); pause(9000); }
-  $('prev').onclick=()=>{ step(-1); pause(9000); };
-  $('next').onclick=()=>{ step(1); pause(9000); };
-  addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') $('prev').click(); if(e.key==='ArrowRight') $('next').click(); });
-
-  // Auto-turn while nobody is interacting; pauses on hover, focus, drag or tap.
-  let hover=false, pausedUntil=0;
-  const pause=ms=>{ pausedUntil=performance.now()+ms; };
-  stage.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') hover=true; });
-  stage.addEventListener('pointerleave',()=>{ hover=false; });
-  card.addEventListener('pointerenter',()=>pause(9000));
-  addEventListener('focusin',()=>pause(9000));
-  if(!reduce) setInterval(()=>{ if(!hover && !dragging && !document.hidden && performance.now()>pausedUntil) step(1); },5500);
-
-  let px=0, lt=0;
-  stage.addEventListener('pointerdown',e=>{ dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; stage.classList.add('drag'); });
-  addEventListener('pointermove',e=>{ if(!dragging) return; const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const dd=dx*.3; theta+=dd; const now=performance.now(); vel=dd/Math.max(1,(now-lt)/16.67); lt=now; px=e.clientX; });
-  addEventListener('pointerup',()=>{ if(!dragging) return; dragging=false; stage.classList.remove('drag'); if(reduce) vel=0; target=Math.round(theta/STEP)*STEP; pause(9000); setTimeout(()=>moved=false,0); });
-
-  addEventListener('resize',layout); layout(); render(); requestAnimationFrame(tick);
-})();
+  // chopsticks drift in towards the front plate, pinch, and pull back
+  const fp=new THREE.Vector3(); people[f].slot.getWorldPosition(fp); fp.y=1.15;
+  reachers.forEach(o=>{
+    if(reduce) return;
+    o.t+=dt; const ph=(o.t%o.period)/o.period; const k=ph<.35?THREE.MathUtils.smootherstep(ph,0,.35):ph<.55?1:1-THREE.MathUtils.smootherstep(ph,.55,.9);
+    const tip=fp.clone().add(new THREE.Vector3(o.from.x>0?.55:-.55,0,.25));
+    const start=o.from.clone(); o.c.position.lerpVectors(start,tip.clone().add(start.clone().sub(tip).setLength(.62)),k);
+    o.c.lookAt(tip); const pinch=ph>.35&&ph<.55?.025:.0; o.c.userData.a.position.x=-.035+pinch; o.c.userData.b.position.x=.035-pinch;
+  });
+  renderer.render(scene,camera); requestAnimationFrame(frame);
+}
+frame();
 </script>
 </body>
 </html>
