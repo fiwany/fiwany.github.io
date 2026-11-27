@@ -1438,3 +1438,6 @@ body.more .ptop h1,body.more .label,body.more .blk .label,body.more .statn,body.
 body.more .stepn+*{color:inherit}
 /* round 40: footer links behave like the header */
 .foot a:hover{font-weight:inherit!important;color:inherit}
+/* round 41 */
+.scap{font-family:inherit!important;font-style:normal!important;font-weight:700!important;font-size:22px!important;letter-spacing:-.01em}
+.stamp .ph img[src*="stamp-soda"]{filter:grayscale(1) contrast(1.7) brightness(.72)}
