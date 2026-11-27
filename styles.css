@@ -1431,3 +1431,5 @@ body[style*="#febe10"] main .sublab{color:var(--ink)!important}
 
 .phone{padding:4px;border-radius:48px}.pscreen{border-radius:44px}
 .pinleg li{align-items:flex-start}.pinleg .stepn,.stepn{flex:none!important;width:22px;height:22px;align-self:flex-start;aspect-ratio:1}
+
+.phero img[src$="wf-hero.jpg"]{object-position:50% 0}
