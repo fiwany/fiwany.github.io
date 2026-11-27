@@ -105,8 +105,11 @@ const edge=new THREE.Mesh(new THREE.TorusGeometry(2.75,.03,12,160),new THREE.Mes
 edge.rotation.x=Math.PI/2; edge.position.y=.03; susan.add(edge);
 
 // metal plate (shallow dish)
-const prof=[[.69,0],[.7,0],[.78,.02],[.86,.07],[.92,.12],[.95,.13],[.96,.12]].map(([x,y])=>new THREE.Vector2(x,y));
+const prof=[[.58,0],[.6,0],[.68,.025],[.78,.09],[.88,.16],[.95,.18],[.97,.175]].map(([x,y])=>new THREE.Vector2(x,y));
 const plateGeo=new THREE.LatheGeometry(prof,160);
+const blue0=new THREE.MeshStandardMaterial({color:'#2f4f8f',roughness:.3});
+const plateChina=new THREE.MeshStandardMaterial({color:'#fbfbf9',roughness:.32,side:THREE.DoubleSide});
+const plateWell=new THREE.MeshStandardMaterial({color:'#eeeeec',roughness:.4});
 const metal=new THREE.MeshStandardMaterial({color:'#eef0f1',metalness:.85,roughness:.42,envMapIntensity:1.4,side:THREE.DoubleSide});
 
 // soft contact shadow texture
@@ -115,11 +118,11 @@ const gr=g.createRadialGradient(64,64,0,64,64,64); gr.addColorStop(0,'rgba(40,30
 g.fillStyle=gr; g.fillRect(0,0,128,128); const blob=new THREE.CanvasTexture(sc);
 
 const loader=new THREE.TextureLoader(), maxAniso=renderer.capabilities.getMaxAnisotropy();
-const R=1.62, FIG_H=1.6, people=[];
+const R=1.62, FIG_H=1.78, people=[];
 ROLES.forEach((r,i)=>{
   const a=i*Math.PI*2/ROLES.length;
   const slot=new THREE.Group(); slot.position.set(Math.sin(a)*R,0,Math.cos(a)*R); susan.add(slot);
-  const plate=new THREE.Mesh(plateGeo,metal); plate.castShadow=true; const base=new THREE.Mesh(new THREE.CircleGeometry(.7,96).rotateX(-Math.PI/2),metal); base.position.y=.004; plate.add(base); plate.position.y=.06; slot.add(plate);
+  const plate=new THREE.Mesh(plateGeo,plateChina); plate.castShadow=true; plate.receiveShadow=true; const prim=new THREE.Mesh(new THREE.TorusGeometry(.955,.012,8,120),blue0); prim.rotation.x=Math.PI/2; prim.position.y=.18; plate.add(prim); const base=new THREE.Mesh(new THREE.CircleGeometry(.6,96).rotateX(-Math.PI/2),plateWell); base.receiveShadow=true; base.position.y=.004; plate.add(base); plate.position.y=.06; slot.add(plate);
   const sh=new THREE.Mesh(new THREE.PlaneGeometry(1.3,.55),new THREE.MeshBasicMaterial({map:blob,transparent:true,depthWrite:false}));
   sh.rotation.x=-Math.PI/2; sh.position.y=.075; slot.add(sh);
   const m=M[r.key], w=FIG_H*m.w/m.h;
@@ -142,8 +145,10 @@ function soupSpoon(){
   const base=new THREE.Mesh(new THREE.LatheGeometry([[0,0],[.05,0],[.064,.01],[.071,.024],[.07,.028]].map(([x,y])=>new THREE.Vector2(x,y)),48),china);
   base.scale.set(.78,1,1.2); g.add(base);
   const rg=new THREE.TorusGeometry(.07,.0045,6,48,Math.PI*2-1.1); rg.rotateZ(-Math.PI/2+.55); const rim=new THREE.Mesh(rg,blue); rim.rotation.x=Math.PI/2; rim.position.y=.028; rim.scale.set(.78,1.2,1); g.add(rim);
-  const arm=new THREE.Group(); arm.position.set(0,.02,-.07); arm.rotation.x=Math.PI/4; g.add(arm); // 135 degrees between base and handle
-  const handle=new THREE.Mesh(new THREE.BoxGeometry(.034,.012,.4),china); handle.position.z=-.19; arm.add(handle);
+  const neck=new THREE.Mesh(new THREE.BoxGeometry(.04,.02,.07),china); neck.position.set(0,.018,-.065); g.add(neck);
+  const arm=new THREE.Group(); arm.position.set(0,.02,-.095); arm.rotation.x=Math.PI/4; g.add(arm); // 135 degrees between base and handle
+  const handle=new THREE.Mesh(new THREE.BoxGeometry(.036,.018,.34),china); handle.position.z=-.16; arm.add(handle);
+  [-.018,.018].forEach(dx=>{ const e=new THREE.Mesh(new THREE.BoxGeometry(.004,.019,.28),blue); e.position.set(dx,0,-.19); arm.add(e); });
   
   return g;
 }
@@ -168,9 +173,9 @@ for(let s=0;s<SEATS;s++){
 function resize(){
   const w=hero.clientWidth, h=hero.clientHeight; renderer.setSize(w,h,false);
   camera.aspect=w/h; const tall=w/h<.9;
-  if(tall){ camera.fov=44; camera.position.set(0,8.6,11.4); camera.lookAt(0,2.1,.9); }
+  if(tall){ camera.fov=44; camera.position.set(0,7.5,9.85); camera.lookAt(0,2.5,.9); }
   else { camera.fov=30; camera.position.set(0,6.4,8.2); camera.lookAt(0,.92,0); }
-  frontSeats.forEach(f=>f.visible=false); people.forEach(p=>p.fig.scale.setScalar(tall?1.4:1)); camera.updateProjectionMatrix();
+  frontSeats.forEach(f=>f.visible=false); people.forEach(p=>p.fig.scale.setScalar(tall?1.45:1)); camera.updateProjectionMatrix();
   // the blurb under the table is as wide as the lazy susan looks on screen
   const a=new THREE.Vector3(-2.75,.1,0).project(camera), b=new THREE.Vector3(2.75,.1,0).project(camera);
   card.style.setProperty('--dw',Math.min(w-32,Math.abs(b.x-a.x)/2*w)+'px');
