@@ -8,34 +8,57 @@
 <link rel="stylesheet" href="../styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{--t-bg:#fbf7ef;--t-ink:#231f20;--t-muted:#6b6460;--t-table:#efe3cf;--t-table2:#e4d3b7;--t-rim:#d6c2a0}
+:root{--t-bg:#fbf7ef;--t-ink:#231f20;--t-muted:#6b6460;--t-table:#f1e6d3;--t-table2:#e4d3b7;--t-rim:#d6c2a0}
 body{background:var(--t-bg);overflow-x:hidden}
 .t-intro{text-align:center;padding:28px 16px 0}
 .t-intro h1{font-family:"Playfair Display",serif;font-weight:600;font-size:clamp(28px,5vw,46px);margin:8px 0 6px}
 .t-intro p{color:var(--t-muted);margin:0;font-size:15px}
-.t-stage{position:relative;width:min(1000px,100vw);height:clamp(420px,112vw,660px);margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.t-stage{position:relative;width:min(1000px,100vw);height:clamp(440px,118vw,640px);margin:0 auto;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
 .t-stage.drag{cursor:grabbing}
-.t-top{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,var(--t-table),var(--t-table2));box-shadow:0 26px 40px -18px rgba(60,40,20,.35),inset 0 -7px 0 var(--t-rim)}
+.t-top{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,var(--t-table),var(--t-table2));box-shadow:0 26px 40px -18px rgba(60,40,20,.35),inset 0 -8px 0 var(--t-rim)}
 .t-ring{position:absolute;border-radius:50%;border:2px dashed rgba(120,90,50,.18)}
-.t-dot{position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(120,90,50,.22)}
-.t-plate{position:absolute;left:0;top:0;border:0;padding:0;background:none;cursor:pointer;transform-origin:50% 100%}
-.t-plate .rim{position:absolute;left:0;right:0;bottom:0;height:38%;border-radius:50%;background:#fff;box-shadow:0 7px 10px -5px rgba(60,40,20,.4),inset 0 -3px 0 #ece5d9}
-.t-plate .pic{position:absolute;left:12%;right:12%;bottom:13%;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 0 0 3px #fff,0 0 0 6px var(--c),0 6px 12px rgba(60,40,20,.25);background:#fff}
-.t-plate .pic img{width:100%;height:100%;object-fit:cover;display:block}
-.t-plate:focus-visible{outline:none}.t-plate:focus-visible .pic{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--t-ink)}
-.t-me{position:absolute;pointer-events:none}
-.t-me img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;visibility:hidden}
-.t-me img.on{visibility:visible}
-.t-shadow{position:absolute;border-radius:50%;background:radial-gradient(rgba(60,40,20,.3),transparent 70%);pointer-events:none}
-.t-ctrl{display:flex;justify-content:center;gap:14px;margin:4px 0 18px}
+.t-who{position:absolute;left:0;top:0;border:0;padding:0;background:none;cursor:pointer;transform-origin:50% 100%}
+.t-who svg{display:block;width:100%;height:100%;overflow:visible}
+.t-who .sh{fill:rgba(60,40,20,.22)}
+.t-who.dim svg{filter:saturate(.55) brightness(1.03)}
+.t-who:focus-visible{outline:2px solid var(--t-ink);outline-offset:4px;border-radius:8px}
+/* idle life on the one in focus */
+.t-who.on .fig{animation:breathe 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes breathe{50%{transform:scaleY(1.012) rotate(.4deg)}}
+.fx{opacity:0}.t-who.on .fx{opacity:1}
+/* researcher: writing */
+.write{stroke:#231f20;stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:160;stroke-dashoffset:160}
+.t-who.on .write{animation:write 2.6s ease-in-out infinite}
+@keyframes write{0%{stroke-dashoffset:160}45%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+.t-who.on .hand{animation:scribble 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:80% 80%}
+/* scientist: bubbles + goggle glint */
+.bub{fill:#fff;stroke:#3a78c4;stroke-width:2.5;opacity:0}
+.t-who.on .bub{animation:rise 2.4s ease-in infinite}
+.t-who.on .bub:nth-child(2){animation-delay:.8s}.t-who.on .bub:nth-child(3){animation-delay:1.6s}
+@keyframes rise{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translate(6px,-120px) scale(1.2);opacity:0}}
+.glint{fill:#fff;opacity:0}
+.t-who.on .glint{animation:glint 3.4s ease-in-out infinite}
+@keyframes glint{0%,60%{transform:translateX(0);opacity:0}65%{opacity:.9}85%{transform:translateX(120px);opacity:0}100%{opacity:0}}
+/* designer: camera flash + doodle on tablet */
+.flash{fill:#fff7c2;stroke:#f0c330;stroke-width:3;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.t-who.on .flash{animation:flash 3s ease-out infinite}
+@keyframes flash{0%,70%{opacity:0;transform:scale(.3)}74%{opacity:1;transform:scale(1.15)}90%,100%{opacity:0;transform:scale(1.4)}}
+.doodle{stroke:#d53626;stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:200;stroke-dashoffset:200}
+.t-who.on .doodle{animation:write 3s ease-in-out infinite}
+.t-ctrl{display:flex;justify-content:center;gap:14px;margin:0 0 14px}
 .t-ctrl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--t-ink);background:transparent;font-size:18px;cursor:pointer;color:var(--t-ink)}
 .t-ctrl button:hover{background:var(--t-ink);color:var(--t-bg)}
-.t-card{text-align:center;padding:0 16px 56px;min-height:160px}
+.t-card{text-align:center;padding:0 16px 64px}
 .t-pill{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;border-radius:99px;color:#fff;background:var(--c)}
 .t-pill.y{color:#513e36}
 .t-card h2{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,34px);margin:12px 0 4px}
-.t-card p{margin:0 0 14px;color:var(--t-muted)}
-.t-card a.go{color:var(--t-ink);font-weight:600;font-size:14px;letter-spacing:.06em;text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:2px}
+.t-card>p{margin:0 auto 22px;color:var(--t-muted);max-width:520px}
+.t-proj{display:flex;flex-wrap:wrap;justify-content:center;gap:18px}
+.t-proj a{width:150px;text-decoration:none;color:var(--t-ink)}
+.t-proj img{width:150px;height:150px;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 3px var(--c);transition:transform .25s}
+.t-proj a:hover img{transform:translateY(-4px)}
+.t-proj b{display:block;margin-top:10px;font-size:14px}.t-proj span{font-size:12px;color:var(--t-muted)}
+@media (prefers-reduced-motion:reduce){.t-who *{animation:none!important}.write,.doodle{stroke-dashoffset:0}}
 </style>
 </head>
 <body>
@@ -45,126 +68,112 @@ body{background:var(--t-bg);overflow-x:hidden}
 
 <section class="t-intro">
   <h1>Pull up a seat</h1>
-  <p>Spin the table to see what I’ve been cooking up.</p>
+  <p>Spin the table to meet the three people I’ve been.</p>
 </section>
-<div class="t-stage" id="stage" aria-label="Projects on a lazy susan">
+<div class="t-stage" id="stage" aria-label="My three roles on a lazy susan">
   <div class="t-top" id="top"></div>
   <div class="t-ring" id="ring"></div>
-  <div class="t-shadow" id="shadow"></div>
-  <div class="t-me" id="me" aria-hidden="true"></div>
 </div>
-<div class="t-ctrl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button></div>
+<div class="t-ctrl"><button id="prev" aria-label="Previous role">←</button><button id="next" aria-label="Next role">→</button></div>
 <section class="t-card" id="card" aria-live="polite"></section>
 
 <script>
 (async function(){
-  const P = await fetch('projects.json').then(r=>r.json());
-  // Outfit for each category. Swap in new outfit folders as they're drawn.
-  const OUTFIT = {'Food Science':'lab','Consumer Research':'lab','Design':'lab'};
-  const VIEWS = ['front','q','side','back','side-r','q-r'];
-
+  const [P,M] = await Promise.all([fetch('projects.json').then(r=>r.json()), fetch('chars.json').then(r=>r.json())]);
+  // Overlay effects are drawn in the original image's pixel coordinates.
+  const ROLES=[
+    {key:'scientist', cat:'Food Science', col:'#273c93', name:'The food scientist',
+     line:'Six years in sensory labs and kitchens, turning what people taste into what gets made.',
+     fx:`<g class="fx"><g transform="translate(596 760)"><circle class="bub" r="7"/><circle class="bub" cx="-10" r="5"/><circle class="bub" cx="9" r="6"/></g>
+         <clipPath id="gl"><path d="M380 205 h160 v45 h-160z"/></clipPath><g clip-path="url(#gl)"><path class="glint" d="M372 250 l18 -48 h12 l-18 48z"/></g></g>`},
+    {key:'researcher', cat:'Consumer Research', col:'#febe10', name:'The consumer researcher',
+     line:'Three and a half years listening to people, then helping global food brands act on what they said.',
+     fx:`<g class="fx"><path class="write" d="M630 405 q10 -14 20 0 t20 0 t20 0 t18 -4"/></g>`},
+    {key:'designer', cat:'Design', col:'#d53626', name:'The designer',
+     line:'Where it all comes together: brands, products and experiences shaped around the people using them.',
+     fx:`<g class="fx"><path class="doodle" d="M492 650 c10 -30 40 -30 40 -5 c0 18 -25 20 -25 6 c0 -12 22 -12 30 8"/>
+         <path class="flash" d="M598 618 l6 -16 l6 16 l16 -6 l-10 14 l14 8 l-17 2 l3 16 l-12 -11 l-12 11 l3 -16 l-17 -2 l14 -8 l-10 -14z"/></g>`}
+  ];
+  const N=ROLES.length, STEP=360/N;
   const $=id=>document.getElementById(id);
-  const stage=$('stage'), me=$('me'), top=$('top'), ring=$('ring'), shadow=$('shadow'), card=$('card');
-  const N=P.length, STEP=360/N;
+  const stage=$('stage'), top=$('top'), ring=$('ring'), card=$('card');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // character frames for every outfit
-  const sprites={};
-  [...new Set(Object.values(OUTFIT))].forEach(o=>{
-    sprites[o]=VIEWS.map(v=>{const im=new Image();im.src=`img/${o}-${v}.png`;im.alt='';me.appendChild(im);return im;});
+  const people=ROLES.map((r,i)=>{
+    const m=M[r.key], b=document.createElement('button');
+    b.className='t-who'; b.setAttribute('aria-label',r.name);
+    b.innerHTML=`<svg viewBox="${m.x} ${m.y} ${m.w} ${m.h}" preserveAspectRatio="xMidYMax meet">
+      <ellipse class="sh" cx="${m.x+m.w/2}" cy="${m.y+m.h-12}" rx="${Math.min(m.w,380)*.45}" ry="26"/>
+      <g class="fig"><image href="img/${r.key}.png" x="${m.x}" y="${m.y}" width="${m.w}" height="${m.h}"/>${r.fx}</g></svg>`;
+    b.addEventListener('click',()=>{ if(moved) return; if(nearest()===i) card.scrollIntoView({behavior:reduce?'auto':'smooth'}); else goTo(i); });
+    stage.appendChild(b); b._ar=m.w/m.h; return b;
   });
-  let outfit=OUTFIT[P[0].cat], frame=0;
-  function show(o,f){ Object.values(sprites).flat().forEach(im=>im.classList.remove('on')); sprites[o][f].classList.add('on'); }
 
-  const plates=P.map((p,i)=>{
-    const b=document.createElement('button');
-    b.className='t-plate'; b.style.setProperty('--c',p.col==='#febe10'?'#febe10':p.col);
-    b.setAttribute('aria-label',p.title+', '+p.cat);
-    b.innerHTML=`<span class="rim"></span><span class="pic"><img src="img/${p.img}" alt="" draggable="false"></span>`;
-    b.addEventListener('click',()=>{ if(moved) return; if(nearestIndex()===i) location.href='../'+p.slug+'.html'; else goTo(i); });
-    stage.appendChild(b); return b;
-  });
-  const dots=[...Array(36)].map(()=>{const d=document.createElement('span');d.className='t-dot';stage.appendChild(d);return d;});
-
-  let W,H,cx,cy,Rx,Ry,ps,meH;
+  let W,H,cx,cy,Rx,Ry,ch;
   function layout(){
     W=stage.clientWidth; H=stage.clientHeight;
-    cx=W/2; cy=H*.64; Rx=Math.min(W*.39,390); Ry=Rx*.34; ps=Math.max(70,Math.min(124,W*.135));
-    meH=Math.min(H*.66,Rx*1.25);
-    const tw=Rx*2+ps*1.15, th=Ry*2+ps*.7;
+    cx=W/2; cy=H*.62; Rx=Math.min(W*.34,330); Ry=Rx*.34; ch=Math.min(H*.7,Rx*1.6);
+    const tw=Rx*2.5, th=Ry*2.9;
     Object.assign(top.style,{left:cx-tw/2+'px',top:cy-th/2+'px',width:tw+'px',height:th+'px'});
-    const sw=Rx*2, sh=Ry*2;
-    Object.assign(ring.style,{left:cx-sw/2+'px',top:cy-sh/2+'px',width:sw+'px',height:sh+'px'});
-    const mw=meH*280/600;
-    Object.assign(me.style,{left:cx-mw/2+'px',top:cy-meH+Ry*.1+'px',width:mw+'px',height:meH+'px'});
-    Object.assign(shadow.style,{left:cx-mw*.5+'px',top:cy+Ry*.1-mw*.11+'px',width:mw+'px',height:mw*.22+'px'});
-    plates.forEach(b=>{b.style.width=ps+'px';b.style.height=ps+'px';});
+    Object.assign(ring.style,{left:cx-Rx*1.05+'px',top:cy-Ry*1.05+'px',width:Rx*2.1+'px',height:Ry*2.1+'px'});
+    people.forEach(b=>{ b.style.height=ch+'px'; b.style.width=ch*b._ar+'px'; });
   }
 
   let theta=0, vel=0, target=0, dragging=false, moved=false;
   const mod=(a,m)=>((a%m)+m)%m;
-  const nearestIndex=()=>mod(Math.round(-theta/STEP),N);
+  const nearest=()=>mod(Math.round(-theta/STEP),N);
 
   function render(){
-    plates.forEach((b,i)=>{
-      const phi=(theta+i*STEP)*Math.PI/180, d=Math.cos(phi), s=.7+.3*(d+1)/2;
-      const x=cx+Rx*Math.sin(phi), y=cy+Ry*d;
-      b.style.transform=`translate(${x-ps/2}px,${y-ps*.86}px) scale(${s})`;
-      b.style.zIndex=d>-.1?200+Math.round(d*50):50+Math.round(d*40);
+    const k=nearest();
+    people.forEach((b,i)=>{
+      const phi=(theta+i*STEP)*Math.PI/180, d=Math.cos(phi), s=.5+.5*(d+1)/2;
+      const w=ch*b._ar, x=cx+Rx*Math.sin(phi), y=cy+Ry*d;
+      b.style.transform=`translate(${x-w/2}px,${y-ch}px) scale(${s})`;
+      b.style.zIndex=100+Math.round(d*50);
+      b.classList.toggle('on',i===k && Math.abs(target-theta)<4);
+      b.classList.toggle('dim',i!==k);
     });
-    dots.forEach((el,j)=>{
-      const phi=(theta+j*10)*Math.PI/180;
-      el.style.transform=`translate(${cx+Rx*.6*Math.sin(phi)}px,${cy+Ry*.6*Math.cos(phi)}px)`;
-    });
-    me.style.zIndex=150; shadow.style.zIndex=149;
-  }
-
-  // a quick twirl; the outfit changes while her back is turned
-  let twirling=null;
-  function twirl(dir,newOutfit){
-    if(reduce){ outfit=newOutfit; show(outfit,0); return; }
-    const seq=dir>0?[1,2,3,4,5,0]:[5,4,3,2,1,0]; let k=0;
-    clearInterval(twirling);
-    twirling=setInterval(()=>{ const f=seq[k++]; if(f===3) outfit=newOutfit; show(outfit,f); if(k>=seq.length) clearInterval(twirling); },65);
   }
 
   function showCard(i){
-    const p=P[i];
-    card.innerHTML=`<span class="t-pill${p.col==='#febe10'?' y':''}" style="--c:${p.col}">${p.cat}</span><h2>${p.title}</h2><p>${p.kind}</p><a class="go" href="../${p.slug}.html">Open project →</a>`;
+    const r=ROLES[i], list=P.filter(p=>p.cat===r.cat), y=r.col==='#febe10';
+    card.style.setProperty('--c',y?'#b98400':r.col);
+    card.innerHTML=`<span class="t-pill${y?' y':''}" style="--c:${r.col}">${r.cat}</span><h2>${r.name}</h2><p>${r.line}</p>
+      <div class="t-proj">${list.map(p=>`<a href="../${p.slug}.html"><img src="img/${p.img}" alt=""><b>${p.title}</b><span>${p.kind}</span></a>`).join('')}</div>`;
   }
 
-  let last=performance.now(), lastIdx=0;
+  let last=performance.now(), lastIdx=-1;
   function tick(t){
     const dt=Math.min(40,t-last)/16.67; last=t;
     if(!dragging){
-      if(Math.abs(vel)>.15){ theta+=vel*dt; vel*=Math.pow(.93,dt); target=Math.round(theta/STEP)*STEP; }
-      else { vel=0; theta+=(target-theta)*(reduce?1:Math.min(1,.12*dt)); }
+      if(Math.abs(vel)>.15){ theta+=vel*dt; vel*=Math.pow(.92,dt); target=Math.round(theta/STEP)*STEP; }
+      else { vel=0; theta+=(target-theta)*(reduce?1:Math.min(1,.1*dt)); }
     }
-    const idx=nearestIndex();
-    if(idx!==lastIdx){ const dir=mod(idx-lastIdx,N)<N/2?1:-1; lastIdx=idx; showCard(idx); twirl(dir,OUTFIT[P[idx].cat]); }
+    const idx=nearest(); if(idx!==lastIdx){ lastIdx=idx; showCard(idx); }
     render(); requestAnimationFrame(tick);
   }
 
   const step=n=>{ target=Math.round(theta/STEP)*STEP-n*STEP; vel=0; };
-  function goTo(i){ let d=mod(i-nearestIndex(),N); if(d>N/2) d-=N; step(d); }
-  $('prev').onclick=()=>{ step(-1); pause(6000); };
-  $('next').onclick=()=>{ step(1); pause(6000); };
+  function goTo(i){ let d=mod(i-nearest(),N); if(d>N/2) d-=N; step(d); pause(9000); }
+  $('prev').onclick=()=>{ step(-1); pause(9000); };
+  $('next').onclick=()=>{ step(1); pause(9000); };
   addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') $('prev').click(); if(e.key==='ArrowRight') $('next').click(); });
 
-  // Auto-turn: one plate every few seconds while nobody is interacting.
+  // Auto-turn while nobody is interacting; pauses on hover, focus, drag or tap.
   let hover=false, pausedUntil=0;
   const pause=ms=>{ pausedUntil=performance.now()+ms; };
   stage.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse') hover=true; });
   stage.addEventListener('pointerleave',()=>{ hover=false; });
-  stage.addEventListener('focusin',()=>pause(8000));
-  if(!reduce) setInterval(()=>{ if(!hover && !dragging && !document.hidden && performance.now()>pausedUntil) step(1); },3200);
+  card.addEventListener('pointerenter',()=>pause(9000));
+  addEventListener('focusin',()=>pause(9000));
+  if(!reduce) setInterval(()=>{ if(!hover && !dragging && !document.hidden && performance.now()>pausedUntil) step(1); },5500);
 
   let px=0, lt=0;
   stage.addEventListener('pointerdown',e=>{ dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; stage.classList.add('drag'); });
-  addEventListener('pointermove',e=>{ if(!dragging) return; const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const dd=dx*.28; theta+=dd; const now=performance.now(); vel=dd/Math.max(1,(now-lt)/16.67); lt=now; px=e.clientX; });
-  addEventListener('pointerup',()=>{ if(!dragging) return; dragging=false; stage.classList.remove('drag'); if(reduce) vel=0; target=Math.round(theta/STEP)*STEP; pause(6000); setTimeout(()=>moved=false,0); });
+  addEventListener('pointermove',e=>{ if(!dragging) return; const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const dd=dx*.3; theta+=dd; const now=performance.now(); vel=dd/Math.max(1,(now-lt)/16.67); lt=now; px=e.clientX; });
+  addEventListener('pointerup',()=>{ if(!dragging) return; dragging=false; stage.classList.remove('drag'); if(reduce) vel=0; target=Math.round(theta/STEP)*STEP; pause(9000); setTimeout(()=>moved=false,0); });
 
-  addEventListener('resize',layout); layout(); show(outfit,0); showCard(0); render(); requestAnimationFrame(tick);
+  addEventListener('resize',layout); layout(); render(); requestAnimationFrame(tick);
 })();
 </script>
 </body>
