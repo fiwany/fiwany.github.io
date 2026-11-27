@@ -53,11 +53,6 @@ body{background:#fff;overflow-x:hidden}
 .s-ring{border-color:rgba(255,255,255,.85)!important}
 .s-hero{isolation:isolate}header.nav{z-index:1000}
 #card[style*="#f5a800"] .label,#card[style*="#f5a800"] .kind,#card[style*="#f5a800"] .label.sub{color:#c27800!important}
-@media (min-width:1000px) and (min-aspect-ratio:6/5){
- .s-over{left:max(32px,5vw);right:auto;top:50%;transform:translateY(-60%);width:min(340px,26vw);padding:0;text-align:left}
- .s-over h1{font-size:clamp(40px,4.4vw,64px)}
- .s-over p{font-size:16px;line-height:1.55}
-}
 .s-pol .t{font-family:inherit!important;font-style:normal!important;font-weight:700}
 .s-over h1{transition:color .45s}
 .s-tag{font-size:15px!important;letter-spacing:0!important;text-transform:none!important;font-weight:700!important;transition:opacity .35s,transform .35s;opacity:1}
@@ -74,8 +69,14 @@ body{background:#fff;overflow-x:hidden}
 .s-ctrl button svg path{stroke-width:1.5;transition:stroke-width .25s}
 .s-ctrl button:hover,.s-ctrl button:focus-visible{opacity:1;color:#231f20!important;transform:translate(-50%,calc(-50% - 3px))!important;filter:drop-shadow(0 4px 4px rgba(0,0,0,.22))}
 .s-ctrl button:hover svg path{stroke-width:1.1}
+.s-pol{filter:drop-shadow(0 6px 10px rgba(0,0,0,.14))}
+.s-pol .f{background:#fff!important;padding:7% 7% 0!important;box-shadow:none!important;
+ --h:radial-gradient(circle 3.6px at 50% 0,#0000 96%,#000) 0 0/11px 100% repeat-x,radial-gradient(circle 3.6px at 50% 100%,#0000 96%,#000) 0 0/11px 100% repeat-x,radial-gradient(circle 3.6px at 0 50%,#0000 96%,#000) 0 0/100% 11px repeat-y,radial-gradient(circle 3.6px at 100% 50%,#0000 96%,#000) 0 0/100% 11px repeat-y;
+ -webkit-mask:var(--h);-webkit-mask-composite:source-in;mask:var(--h);mask-composite:intersect}
+.s-pol .sh{display:none}
 .home2 .wwork{background:#fff}
-.hab{max-width:760px;margin:0 auto;padding:clamp(56px,8vw,96px) 20px;text-align:center}
+.home2{max-width:none!important;width:100%;padding:0!important;margin:0!important}.hab{background:var(--beige);width:100%;box-sizing:border-box;padding:clamp(56px,8vw,96px) 20px;text-align:center}.hab>*{max-width:760px;margin-left:auto;margin-right:auto}
+.morelink{display:inline-block;font-style:italic;font-size:clamp(24px,2.6vw,32px);color:var(--red);text-decoration:none;transition:transform .2s}.morelink:hover{transform:translateX(4px)}
 .hab h2{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(34px,4vw,48px);margin:0 0 14px}
 .hab p{margin:0 auto 18px;line-height:1.65}
 .s-hero{background:#f7f7f7!important}
@@ -92,15 +93,15 @@ body{background:#fff;overflow-x:hidden}
 <nav><a href="index.html#work" data-t="Work">Work</a><a href="about.html" data-t="About">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener" data-t="Resume">Resume</a><a href="mailto:fiwanyw@gmail.com" data-t="Contact">Contact</a></nav></header>
 
 <section class="s-hero" id="hero">
-  <div class="s-over"><h1>Hi, I’m Fiwany!</h1></div>
+  <div class="s-over"><h1>Hi, I’m Fiwany!</h1><p>Take a spin around my table.</p></div>
   <div class="s-stage" id="stage" aria-label="My projects on a lazy susan, with me in the middle">
     <div class="s-susan" id="susan"></div><div class="s-ring" id="ring"></div>
-    <div class="s-stand" id="stand"></div><div class="s-me" id="me" aria-hidden="true"></div><span class="s-hint" id="hint">Drag to spin</span><span class="s-tag" id="tag"></span>
+    <div class="s-stand" id="stand"></div><div class="s-me" id="me" aria-hidden="true"></div><span class="s-tag" id="tag"></span>
   </div>
   <div class="s-ctrl" id="ctrl"><button id="prev" aria-label="Previous project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button><button id="next" aria-label="Next project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button></div>
 </section>
 <div id="card" hidden></div>
-<main class="home2"><section id="work" class="wwork"><h2>Recent work</h2><p class="wcat">Food Science</p><div class="srow"><div class="stw"><a class="stamp" href="refresh.html" style="--c:#273c93"><span class="ph"><img src="img/stamp-refresh.jpg" alt="re:Fresh" loading="lazy"></span>
+<main class="home2"><section id="work" class="wwork"><h2>On the menu</h2><p class="wcat">Food Science</p><div class="srow"><div class="stw"><a class="stamp" href="refresh.html" style="--c:#273c93"><span class="ph"><img src="img/stamp-refresh.jpg" alt="re:Fresh" loading="lazy"></span>
 <span class="scap">re:Fresh</span><span class="skind">Product launch</span></a></div><div class="stw"><a class="stamp" href="alt-protein.html" style="--c:#273c93"><span class="ph"><img src="img/stamp-altprotein.jpg" alt="Alternative Protein" loading="lazy"></span>
 <span class="scap">Alternative Protein&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">Food R&amp;D</span></a></div></div><p class="wcat">Consumer Research</p><div class="srow"><div class="stw"><a class="stamp" href="sensory-bot.html" style="--c:#c27800"><span class="ph"><img src="img/stamp-sensorybot.jpg" alt="Sensory Bot" loading="lazy"></span>
 <span class="scap">Sensory Bot&nbsp;<svg class="lockic" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><span class="skind">AI research tool</span></a></div><div class="stw"><a class="stamp" href="prebiotic-soda.html" style="--c:#c27800"><span class="ph"><img src="img/stamp-soda.jpg" alt="Prebiotic Soda" loading="lazy"></span>
@@ -109,10 +110,10 @@ body{background:#fff;overflow-x:hidden}
 <span class="scap">Wayfarer</span><span class="skind">Landing page UI</span></a></div><div class="stw"><a class="stamp" href="grub-ventures.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-grub.jpg" alt="Grub Ventures" loading="lazy"></span>
 <span class="scap">Grub Ventures</span><span class="skind">Brand &amp; marketing</span></a></div><div class="stw"><a class="stamp" href="current-notes.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-notes.jpg" alt="Current Notes" loading="lazy"></span>
 <span class="scap">Current Notes</span><span class="skind">Music curation</span></a></div><div class="stw"><a class="stamp" href="collecting-experiences.html" style="--c:#d53626"><span class="ph"><img src="img/stamp-collecting.jpg" alt="Collecting Experiences" loading="lazy"></span>
-<span class="scap">Collecting Experiences</span><span class="skind">Photography &amp; collage</span></a></div></div></section><section class="hab"><h2 class="serif">About</h2><p>I’ve spent the last six years at the intersection of food and product experience: in a sensory lab at Cornell University, in a meal kit I co-founded in Jakarta, and in three and a half years of qualitative research for global food brands.</p><a class="sqlink" href="about.html">More about me →</a></section></main>
+<span class="scap">Collecting Experiences</span><span class="skind">Photography &amp; collage</span></a></div></div></section><section class="hab"><h2 class="serif">About</h2><p>I’ve spent the last six years at the intersection of food and product experience: in a sensory lab at Cornell University, in a meal kit I co-founded in Jakarta, and in three and a half years of qualitative research for global food brands.</p><a class="morelink serif" href="about.html">More about me →</a></section></main>
 <footer class="foot"><div class="footin"><a class="fname" href="index.html">Fiwany Wijaya</a>
 <nav><a href="index.html#work">Work</a><a href="about.html">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener">Resume</a><a href="mailto:fiwanyw@gmail.com">Contact</a><a href="https://www.linkedin.com/in/fiwanywijaya" target="_blank" rel="noopener">LinkedIn</a></nav></div>
-<p class="small">© 2026 Fiwany Wijaya</p></footer>
+</footer>
 
 <script>
 (async function(){
@@ -147,7 +148,7 @@ const pols=P.map((p,i)=>{
 let W,H,cx,cy,rx,ry,pw,FH,feetY,SMIN=.58;
 function layout(){
   W=hero.clientWidth; H=hero.clientHeight; const tall=W/H<.9;
-  const side=W>=1000&&W/H>=1.2, hb=hero.getBoundingClientRect(), ovr=document.querySelector('.s-over').getBoundingClientRect();
+  const side=false, hb=hero.getBoundingClientRect(), ovr=document.querySelector('.s-over').getBoundingClientRect();
   const ob=side?0:ovr.bottom-hb.top, textR=side?ovr.right-hb.left+24:0;
   const top=ob+(side?40:44), bot=side?H-28:H-22-44-10;                 // room for the role name above, the label below
   const k=tall?{ry:.95,pw:.42,sm:.74,fh:1.12,fy:.22}:{ry:.45,pw:.255,sm:.58,fh:.78,fy:.06};
@@ -165,7 +166,6 @@ function layout(){
   const P1=$('prev').style, P2=$('next').style;
   if(side){ const ay=cy+'px', hw=sw/2+30; P1.left=cx-hw+'px'; P2.left=cx+hw+'px'; P1.top=P2.top=ay; }
   else { const ay=H-22-22+'px'; P1.left=cx-60+'px'; P2.left=cx+60+'px'; P1.top=P2.top=ay; }
-  const hn=$('hint'); if(hn){ hn.style.left=cx+'px'; hn.style.top=Math.min(H-34, cy+ry+pw*.75+18)+'px'; }
   if(shown) place(shown);
 }
 function place(o){
@@ -240,8 +240,7 @@ function goTo(i){ let d=mod(i-front(),N); if(d>N/2) d-=N; step(d); }
 $('prev').onclick=()=>step(-1); $('next').onclick=()=>step(1);
 addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') step(-1); if(e.key==='ArrowRight') step(1); });
 let px=0,lt=0;
-const hideHint=()=>{ const h=$('hint'); if(h) h.classList.add('gone'); }; ['prev','next'].forEach(id=>$(id).addEventListener('click',hideHint));
-stage.addEventListener('pointerdown',e=>{ hideHint(); dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; });
+stage.addEventListener('pointerdown',e=>{ dragging=true; moved=false; px=e.clientX; lt=performance.now(); vel=0; });
 addEventListener('pointermove',e=>{ if(!dragging) return; const dx=e.clientX-px; if(Math.abs(dx)>3) moved=true; const d=dx/(rx*1.6); theta+=d; const n=performance.now(); vel=d/Math.max(1,(n-lt)/16.67); lt=n; px=e.clientX; });
 addEventListener('pointerup',()=>{ if(!dragging) return; dragging=false; if(reduce) vel=0; target=Math.round(theta/STEP)*STEP; setTimeout(()=>moved=false,0); });
 window.__step=step; window.__goTo=goTo;

@@ -1436,3 +1436,5 @@ body[style*="#f5a800"] main .sublab{color:var(--ink)!important}
 /* round 39: consumer research = marigold (#c27800 text, #f5a800 fills) */
 body.more .ptop h1,body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt,body.more .ver .vh b,body.more .fnote,body.more .bignum .num,body.more main h2,body.more main h3,body.more .kind{color:#c27800!important}
 body.more .stepn+*{color:inherit}
+/* round 40: footer links behave like the header */
+.foot a:hover{font-weight:inherit!important;color:inherit}
