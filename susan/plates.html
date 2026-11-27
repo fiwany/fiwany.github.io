@@ -32,8 +32,7 @@ body{background:#fff;overflow-x:hidden}
 .s-ctrl button{width:44px;height:44px;flex:none;border-radius:50%;border:1.5px solid var(--rc);color:var(--rc);background:#fafafa;display:grid;place-items:center;padding:0;cursor:inherit;transition:all .3s}
 .s-ctrl button:hover{background:var(--rc);color:#fff}
 .s-ctrl .now{min-width:250px;text-align:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;background:#fafafa;border:1.5px solid var(--rc);color:var(--rc);padding:11px 18px;border-radius:99px;transition:all .3s}
-.s-ctrl .now{min-width:300px}.s-ctrl .now .c{font-weight:500}
-@media (max-width:520px){.s-ctrl .now{min-width:0;flex:1;max-width:250px;font-size:11.5px;padding:8px 12px;line-height:1.35}.s-ctrl .now .c{display:block;font-size:10px}}
+@media (max-width:520px){.s-ctrl .now{min-width:0;flex:1;max-width:240px;font-size:12px}}
 .s-card{text-align:center;padding:44px 16px 72px}
 .s-card>p{margin:0 auto 30px;color:var(--muted);max-width:min(560px,100%);font-size:17px;line-height:1.55}
 .s-proj{display:flex;flex-wrap:wrap;justify-content:center;gap:28px;max-width:1240px;margin:0 auto}
@@ -48,12 +47,12 @@ body{background:#fff;overflow-x:hidden}
 .s-page main.proj{margin-top:0}
 .s-lock{text-align:center;padding:64px 16px 80px}.s-lock h2{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(28px,4vw,42px);margin:0 0 8px}.s-lock p{color:var(--muted);margin:0 0 22px}
 .s-lock a{display:inline-block;padding:12px 22px;border-radius:99px;border:1.5px solid var(--ink);color:var(--ink);text-decoration:none;font-weight:600}
+.s-susan{border-radius:50%}
 .s-pol .f{background:none!important;padding:0!important;box-shadow:none!important}
-.s-pol .pl{display:block;position:relative;width:100%;aspect-ratio:1;border-radius:50%;background:#fff;box-shadow:inset 0 -3px 0 #e8e6e2,0 8px 12px -6px rgba(60,40,20,.35);}
-.s-pol .pl::before{content:"";position:absolute;inset:7% 7%;border-radius:50%;box-shadow:inset 0 0 0 1.5px #ece9e4}
+.s-pol .pl{display:block;position:relative;width:100%;aspect-ratio:1;border-radius:50%;background:#fff;box-shadow:0 0 0 1px #ece9e4,0 6px 12px -6px rgba(60,40,20,.35)}
+.s-pol .pl::before{content:"";position:absolute;inset:7%;border-radius:50%;box-shadow:inset 0 0 0 1.5px #ece9e4}
 .s-pol .pl img{position:absolute;left:13%;top:13%;width:74%;height:74%;aspect-ratio:auto;border-radius:50%;object-fit:cover}
-.s-pol .t{min-height:0!important;padding-top:.45em!important}
-.s-pol .sh{display:none}
+.s-pol .t{min-height:0!important;padding-top:.35em!important}.s-pol .sh{display:none}
 </style>
 </head>
 <body>
@@ -65,7 +64,7 @@ body{background:#fff;overflow-x:hidden}
   <div class="s-over"><h1>Take a spin</h1><p>Drag the lazy susan or use the arrows.</p></div>
   <div class="s-stage" id="stage" aria-label="My projects on a lazy susan, with me in the middle">
     <div class="s-susan" id="susan"></div><div class="s-ring" id="ring"></div>
-    <div class="s-stand" id="stand"></div><div class="s-me" id="me" aria-hidden="true"></div><span class="s-tag" id="tag" hidden></span>
+    <div class="s-stand" id="stand"></div><div class="s-me" id="me" aria-hidden="true"></div><span class="s-tag" id="tag"></span>
   </div>
   <div class="s-ctrl" id="ctrl"><button id="prev" aria-label="Previous project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button><span class="now" id="now" aria-live="polite"></span><button id="next" aria-label="Next project"><svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button></div>
 </section>
@@ -104,35 +103,29 @@ const pols=P.map((p,i)=>{
 let W,H,cx,cy,rx,ry,pw,FH,feetY,SMIN=.58;
 function layout(){
   W=hero.clientWidth; H=hero.clientHeight; const tall=W/H<.9;
-  rx=Math.min(W*(tall?.37:.34),420); ry=rx*(tall?.95:.45);
-  
-  pw=Math.min(rx*(tall?.42:.27),124); SMIN=tall?.74:.58;
-  cx=W/2; cy=Math.min(H*(tall?.6:.6), H-22-46-14-(ry+pw*1.0));
-  FH=tall?ry*1.12:Math.min(H*.34,rx*.78);
-  feetY=cy+ry*(tall?.22:.06);
-  const $s=$('susan').style, $r=$('ring').style, sw=rx*2+pw*1.35, sh=ry*2+pw*1.25;
-  Object.assign($s,{left:cx-sw/2+'px',top:cy-sh/2+'px',width:sw+'px',height:sh+'px'});
-  Object.assign($r,{left:cx-rx*.55+'px',top:cy-ry*.55+'px',width:rx*1.1+'px',height:ry*1.1+'px'});
-  const st=$('stand').style, stw=FH*.42; Object.assign(st,{left:cx-stw/2+'px',top:feetY-stw*.14+'px',width:stw+'px',height:stw*.28+'px'});
-  pols.forEach(b=>b.style.width=pw+'px'); pols.forEach(b=>b.querySelector('.t').style.fontSize=pw*.12+'px');
-  if(shown) place(shown);
+  const topY=document.querySelector('.s-over').getBoundingClientRect().bottom-hero.getBoundingClientRect().top+40, botY=H-22-46-14;
+  const Rc=Math.min(W*(tall?.47:.4),(botY-topY)/2);
+  cx=W/2; cy=topY+(botY-topY)/2; rx=ry=Rc*.72; pw=Rc*(tall?.27:.3); SMIN=1;
+  FH=Rc*(tall?.74:.86); feetY=cy+Rc*(tall?.4:.38);
+  const $s=$('susan').style, $r=$('ring').style;
+  Object.assign($s,{left:cx-Rc+'px',top:cy-Rc+'px',width:2*Rc+'px',height:2*Rc+'px'});
+  Object.assign($r,{left:cx-Rc*.5+'px',top:cy-Rc*.5+'px',width:Rc+'px',height:Rc+'px'});
+  const st=$('stand').style, stw=FH*.34; Object.assign(st,{left:cx-stw/2+'px',top:feetY-stw*.3+'px',width:stw+'px',height:stw*.5+'px'});
+  pols.forEach(b=>b.style.width=pw+'px'); pols.forEach(b=>b.querySelector('.t').style.fontSize=Math.max(9,pw*.13)+'px');
+  window.__Rc=Rc; if(shown) place(shown);
 }
 function place(o){
   const v=o.v, k=FH/(v.bot-v.top), w=v.w*k, h=v.h*k, fx=o.flip?v.w-v.fx:v.fx;
   Object.assign(o.im.style,{width:w+'px',height:h+'px',left:cx-fx*k+'px',top:feetY-v.bot*k+'px'});
-  const ob=document.querySelector('.s-over').getBoundingClientRect().bottom-hero.getBoundingClientRect().top, bt=cy-ry*.94-pw*1.3*SMIN; if(W/H<.9){ tag.style.transform='translateX(-50%)'; tag.style.left=cx+'px'; tag.style.top=(Math.min(ob+(bt-ob)/2,bt)-9)+'px'; } else { tag.style.transform='none'; tag.style.left=cx+FH*.24+'px'; tag.style.top=feetY-FH*.62+'px'; }
+  tag.style.transform='translateX(-50%)'; tag.style.left=cx+'px'; tag.style.top=cy-window.__Rc-30+'px';
 }
 
 let theta=0, vel=0, target=0, dragging=false, moved=false;
 const mod=(a,m)=>((a%m)+m)%m;
 const front=()=>mod(Math.round(-theta/STEP),N);
 function render(){
-  pols.forEach((b,i)=>{
-    const a=theta+i*STEP, d=Math.cos(a), s=SMIN+(1-SMIN)*(d+1)/2;
-    const x=cx+rx*Math.sin(a), y=cy+ry*d;
-    b.style.transformOrigin='50% 0'; b.style.transform=`translate(${x-pw/2}px,${y-pw/2*s}px) scale(${s})`;
-    b.style.zIndex=d>0?200+Math.round(d*50):Math.round(60+d*50);
-  });
+  pols.forEach((b,i)=>{ const a=theta+i*STEP; const x=cx+rx*Math.sin(a), y=cy+ry*Math.cos(a);
+    b.style.transform=`translate(${x-pw/2}px,${y-pw/2}px)`; b.style.zIndex=160; });
 }
 
 // role, twirl and idle animation
@@ -145,14 +138,14 @@ function setRole(r,instant){
   twirl={to:r,t:0,frames:[`${from.key}-v1`,`${from.key}-v2`,`${r.key}-v3`,`${r.key}-v2-m`,`${r.key}-v1-m`,`${r.key}-v0`]};
 }
 const cache={}; let pageFor=-1, settle=0;
-function showCard(i){ const p=P[i], r=ROLES[p.cat]; now.innerHTML=`<span class="c">${p.cat}:</span> ${p.title}`; setRole(r); settle=performance.now(); }
+function showCard(i){ const p=P[i], r=ROLES[p.cat]; now.textContent=p.title; setRole(r); settle=performance.now(); }
 function fixPaths(m){
   m.querySelectorAll('[src]').forEach(e=>{const v=e.getAttribute('src'); if(!/^(https?:|\/|data:|\.\.)/.test(v)) e.setAttribute('src','../'+v);});
   m.querySelectorAll('[srcset]').forEach(e=>e.setAttribute('srcset',e.getAttribute('srcset').split(',').map(x=>{x=x.trim(); return /^(https?:|\/|\.\.)/.test(x)?x:'../'+x;}).join(', ')));
   m.querySelectorAll('[href]').forEach(e=>{const v=e.getAttribute('href'); if(!/^(https?:|\/|#|mailto:|\.\.)/.test(v)) e.setAttribute('href','../'+v);});
   m.querySelectorAll('[style*="url("]').forEach(e=>e.setAttribute('style',e.getAttribute('style').replace(/url\((['"]?)(?!https?:|\/|data:|\.\.)/g,'url($1../')));
-  m.querySelectorAll('.next').forEach(e=>e.remove());
 }
+function wireNext(){ card.querySelectorAll('a.next').forEach(a=>{ a.addEventListener('click',e=>{ const slug=(a.getAttribute('href')||'').split('/').pop().replace('.html',''); const k=P.findIndex(q=>q.slug===slug); if(k<0) return; e.preventDefault(); goTo(k); hero.scrollIntoView({behavior:reduce?'auto':'smooth'}); }); }); }
 async function loadPage(i){
   if(pageFor===i) return; pageFor=i; const p=P[i];
   if(!cache[p.slug]){
@@ -163,9 +156,9 @@ async function loadPage(i){
     fixPaths(box);
     cache[p.slug]={html:box.innerHTML, accent:(doc.body.getAttribute('style')||''), lock:sc||null}; }
   if(pageFor!==i) return;
-  const c=cache[p.slug]; card.setAttribute('style',c.accent); card.innerHTML=c.html;
+  const c=cache[p.slug]; card.setAttribute('style',c.accent); card.innerHTML=c.html; wireNext();
   if(c.lock){ // the locked page's own unlock script, run in place
-    new MutationObserver((ms,ob)=>{ if(!card.querySelector('main.lock')){ fixPaths(card); ob.disconnect(); } }).observe(card,{childList:true,subtree:true});
+    new MutationObserver((ms,ob)=>{ if(!card.querySelector('main.lock')){ fixPaths(card); wireNext(); ob.disconnect(); } }).observe(card,{childList:true,subtree:true});
     const s2=document.createElement('script'); s2.textContent=c.lock; card.appendChild(s2); }
 }
 let last=performance.now(), lastIdx=-1;
