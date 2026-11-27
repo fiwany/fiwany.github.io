@@ -23,7 +23,7 @@
 .p-arrow:hover,.p-arrow:focus-visible{color:var(--rc);transform:translateY(calc(-50% - 2px))}
 .p-arrow svg{width:26px;height:18px}
 #prev{left:0}#next{right:0}
-.p-course{font-size:14px;color:var(--muted);margin:10px 0 0;letter-spacing:.02em}
+.p-course{font-size:15px;letter-spacing:.14em!important;text-transform:uppercase;font-weight:600;color:var(--rc)!important;color:var(--muted);margin:10px 0 0;letter-spacing:.02em}
 .p-course{display:flex;flex-direction:column;align-items:center;gap:8px}.dots{display:flex;gap:8px}.dots i{width:7px;height:7px;border-radius:50%;background:#cfcac4;transition:background .3s}.dots i.on{background:var(--rc)}
 .p-dish .pk{color:var(--muted)!important;font-weight:400!important;font-size:16px!important;letter-spacing:0!important;text-transform:none!important;margin-right:-6px}
 .p-me img{transition:left .25s}
@@ -47,7 +47,7 @@
     <button class="p-arrow" id="prev" aria-label="Previous course"><svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button>
     <button class="p-arrow" id="next" aria-label="Next course"><svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button>
   </div>
-  <p class="p-course"><span>Today’s specials</span><span class="dots" id="dots"></span></p>
+  <p class="p-course" id="course"></p>
   <p class="p-dish" id="dish"></p>
 </section>
 
@@ -67,7 +67,7 @@ const imgs={};
 function add(n,flip){ const im=new Image(); im.src=`susan/img/${n}.png`; im.alt=''; if(flip) im.style.transform='scaleX(-1)'; me.appendChild(im); imgs[n+(flip?'-m':'')]={im,v:V[n],flip}; }
 ROLES.forEach(r=>{ for(let j=0;j<4;j++){ add(`${r.key}-v${j}`); add(`${r.key}-${j}`); } add(`${r.key}-v1`,1); add(`${r.key}-v2`,1); });
 let shown=null, FH, cx, feetY;
-function layout(){ const W=stage.clientWidth, H=stage.clientHeight; cx=W/2; feetY=H*.86; FH=Math.min(H*.8, W*.9); if(shown) place(shown); }
+function layout(){ const W=stage.clientWidth, H=stage.clientHeight, sr=stage.getBoundingClientRect(), pr=document.querySelector('.p-plate').getBoundingClientRect(); cx=W/2; feetY=pr.top-sr.top+pr.height*.62; FH=Math.min(feetY*.92, W*.9); if(shown) place(shown); }
 function place(o){ const v=o.v, k=FH/(v.bot-v.top), fx=o.flip?v.w-v.fx:v.fx;
   Object.assign(o.im.style,{width:v.w*k+'px',height:v.h*k+'px',left:cx-v.w*k/2+'px',top:feetY-v.bot*k+'px'}); stage.style.setProperty('--ay',(feetY-FH/2)+'px'); }
 function show(n){ const o=imgs[n]; if(!o) return; if(shown&&shown!==o) shown.im.classList.remove('on'); o.im.classList.add('on'); shown=o; place(o); }
@@ -76,7 +76,7 @@ function setRole(i){
   idx=(i+ROLES.length)%ROLES.length; const r=ROLES[idx];
   hero.style.setProperty('--rc',r.col); $('hi').style.color=r.col;
   const say=$('say'), txt='I’m a '+r.name; say.classList.add('out'); clearTimeout(say._t); say._t=setTimeout(()=>{ say.textContent=txt; say.classList.remove('out'); },reduce||!role?0:280);
-  $('dots').innerHTML=ROLES.map((_,k)=>`<i class="${k===idx?'on':''}"></i>`).join('');
+  $('course').textContent=['Appetizer','Entrée','Dessert'][idx];
   $('dish').innerHTML='<span class="pk">Pick one:</span>'+P.filter(p=>p.cat===r.cat).map(p=>`<a href="${p.slug}.html">${p.title}${LOCK.includes(p.slug)?LOCKSVG:''}</a>`).join('');
   if(!role||reduce){ role=r; seqI=0; show(`${r.key}-${r.seq[0]}`); return; }
   const from=twirl?twirl.to:role;
@@ -91,7 +91,7 @@ function tick(t){ const dt=Math.min(50,t-last); last=t;
     if(k>=twirl.frames.length){ role=twirl.to; twirl=null; seqI=0; seqT=0; show(`${role.key}-${role.seq[0]}`); } else show(twirl.frames[k]); }
   else if(role&&!reduce){ seqT+=dt; if(seqT>role.ms){ seqT=0; seqI=(seqI+1)%role.seq.length; show(`${role.key}-${role.seq[seqI]}`); } }
   requestAnimationFrame(tick); }
-addEventListener('resize',layout); layout(); setRole(0); requestAnimationFrame(tick);
+new ResizeObserver(()=>layout()).observe(stage); addEventListener('load',layout); layout(); window.__feet=()=>feetY+stage.getBoundingClientRect().top; setRole(0); requestAnimationFrame(tick);
 })();
 </script>
 </body>
