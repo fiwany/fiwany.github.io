@@ -1404,3 +1404,18 @@ main .vtip,main figcaption{color:var(--muted)!important}
 .pinsec .ver ul.pinleg{margin-top:6px}
 .vtip{margin:10px 0 0}
 .pinsec.pinning .vtip{display:none}
+/* round 36: one labelling system
+   section label = caps & colour; sub-heads = sentence case; captions below images, 14px grey, version in bold ink */
+main .sublab,main .label.sub{font-size:16px!important;letter-spacing:0!important;text-transform:none!important;font-weight:600!important;color:var(--ink)!important}
+main .wv,main .rowcap,.prt3>p,.prt3>div>p:first-child{font-size:14px!important;color:var(--muted)!important;line-height:1.5;margin:10px 0 0!important;font-weight:400}
+main .wv b,main .rowcap strong,.prt3 strong,main figcaption strong{color:var(--ink)!important;font-weight:600}
+main .rowcap{margin:10px 0 28px!important}
+main .wv b{font-size:14px!important}
+body[style*="#febe10"] main .label,body[style*="#febe10"] main .sublab,body[style*="#febe10"] main .kind,body[style*="#febe10"] main .label.sub{color:#513e36!important}
+body[style*="#febe10"] main .sublab{color:var(--ink)!important}
+.phones{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
+.phonefig{width:300px;margin:0}
+.phone{background:#1d1b1a;border-radius:42px;padding:12px;box-shadow:0 24px 40px -20px rgba(0,0,0,.45)}
+.pscreen{height:560px;overflow-y:auto;border-radius:31px;background:#fff;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.pscreen img{width:100%;display:block}
+.phonefig figcaption{margin-top:14px}
