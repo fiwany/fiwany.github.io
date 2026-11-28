@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fiwany Wijaya</title>
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.p-hero{position:relative;min-height:calc(100svh - 68px);background:#f7f7f7;display:flex;flex-direction:column;align-items:center;padding:28px 16px 32px;box-sizing:border-box;overflow:hidden}
+.p-hero h1{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1.05;margin:0;transition:color .45s;text-align:center}
+.p-say{font-size:18px;font-weight:700;margin:18px 0 0;min-height:1.5em;transition:opacity .3s,transform .3s;color:var(--rc)}
+.p-say.out{opacity:0;transform:translateY(6px)}
+.p-stage{position:relative;width:min(560px,92vw);flex:1;min-height:360px;max-height:560px;display:flex;align-items:flex-end;justify-content:center}
+.p-plate{transition:box-shadow .45s;position:absolute;left:50%;bottom:6%;width:78%;aspect-ratio:2.6/1;transform:translateX(-50%);border-radius:50%;
+ background:radial-gradient(ellipse 58% 52% at 50% 50%,#f1f1ef 0 60%,#fff 61% 100%);
+ box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px var(--rc,#2f4f8f),0 22px 30px -18px rgba(0,0,0,.35),0 4px 0 #e6e4e0}
+.p-plate::after{content:"";position:absolute;inset:16%;border-radius:50%;box-shadow:inset 0 3px 8px rgba(0,0,0,.08)}
+.p-me{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none}
+.p-me img.on{pointer-events:auto;cursor:pointer}.p-me:focus-visible{outline:none}.p-me:focus-visible img.on{filter:drop-shadow(0 0 0 2px var(--rc))}
+@keyframes mflash{0%,100%{box-shadow:0 10px 24px -16px rgba(60,40,20,.25)}30%{box-shadow:0 0 0 3px var(--c),0 14px 28px -14px rgba(60,40,20,.35)}}.mcard.flash{animation:mflash 1.6s ease 2}
+.p-me img{position:absolute;display:none;max-width:none}.p-me img.on{display:block}
+.p-arrow{position:absolute;top:var(--ay,58%);transform:translateY(-50%);width:44px;height:44px;border:0;background:none;padding:0;color:#231f20;display:grid;place-items:center;transition:transform .2s,color .3s}
+.p-arrow:hover,.p-arrow:focus-visible{color:var(--rc);transform:translateY(calc(-50% - 2px))}
+.p-arrow svg{width:26px;height:18px}
+#prev{left:0}#next{right:0}
+.p-course{font-size:15px;letter-spacing:.14em!important;text-transform:uppercase;font-weight:600;color:#231f20!important;margin:10px 0 0;letter-spacing:.02em}
+.p-course{display:flex;flex-direction:column;align-items:center;gap:8px}.dots{display:flex;gap:8px}.dots i{width:7px;height:7px;border-radius:50%;background:#cfcac4;transition:background .3s}.dots i.on{background:var(--rc)}
+.p-dish .pk{color:var(--muted)!important;font-weight:400!important;font-size:16px!important;letter-spacing:0!important;text-transform:none!important;margin-right:-6px}
+.p-me img{transition:left .25s}
+.p-dish{margin:18px 0 0;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;font-size:16px}
+.p-dish a{color:var(--rc);text-decoration:none;font-weight:600}.p-dish a:hover{text-decoration:underline}
+.p-dish .lk{width:.7em;height:.7em;margin-left:.3em}
+@media (prefers-reduced-motion:reduce){.p-say{transition:none}}
+.p-dish{row-gap:12px!important;column-gap:18px!important;align-items:baseline;line-height:1.3}.p-dish>*{line-height:1.3!important;margin:0!important}
+.p-hint{margin:22px 0 0;font-style:italic;font-size:16px;color:var(--muted);text-align:center;max-width:34ch}
+@media (max-width:700px){.p-hero{padding:18px 16px 20px}.p-stage{min-height:290px}.p-say{margin-top:10px}.p-dish{margin-top:12px}.p-hint{font-size:15px;margin-top:14px}}
+.home2 .wwork{background:#fff}
+.home2{max-width:none!important;width:100%;padding:0!important;margin:0!important}.hab{background:var(--beige);width:100%;box-sizing:border-box;padding:clamp(56px,8vw,96px) 20px;text-align:center}.hab>*{max-width:760px;margin-left:auto;margin-right:auto}
+.morelink{display:inline-block;font-style:italic;font-size:clamp(24px,2.6vw,32px);color:var(--red);text-decoration:none;transition:transform .2s}.morelink:hover{transform:translateX(4px)}
+.hab h2{text-align:center!important;margin-left:auto!important;margin-right:auto!important;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(34px,4vw,48px);margin:0 0 14px}
+.hab p{margin:0 auto 18px;line-height:1.65}
+.menu2{padding:clamp(64px,8vw,104px) 20px;text-align:center;background:#fff}
+.menu2 h2{font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:clamp(36px,4.4vw,56px);margin:0 0 40px}
+.mcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;max-width:1200px;margin:0 auto;align-items:start}
+.mcard{background:#fffdf8;border:1px solid #e8e1d4;outline:1px solid #e8e1d4;outline-offset:-9px;padding:34px 30px 28px;text-align:left;box-shadow:0 10px 24px -16px rgba(60,40,20,.25)}
+.mc{margin:0;text-align:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.mcard h3{margin:4px 0 18px;text-align:center;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-weight:400;font-size:30px;color:var(--c);padding-bottom:16px;border-bottom:1px solid #e8e1d4}
+.mcard ul{list-style:none;margin:0;padding:0}
+.mcard li a{display:flex;align-items:center;gap:14px;padding:12px 0;text-decoration:none;color:var(--ink)}
+.mcard li+li a{border-top:1px dashed #e8e1d4}
+.mcard img{width:58px;height:58px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 3px #fff,0 0 0 4px #e8e1d4;transition:transform .25s}
+.mi{display:flex;flex-direction:column;min-width:0}
+.mi b{font-weight:600;font-size:17px;line-height:1.25}.mi i{font-style:normal;font-size:13px;color:var(--muted);letter-spacing:.02em}
+.mi .lk{width:.65em;height:.65em;margin-left:.35em;vertical-align:.02em;color:var(--muted)}
+.dl{flex:1}
+.go{color:var(--c);opacity:0;transform:translateX(-4px);transition:opacity .2s,transform .2s}
+.mcard li a:hover b{color:var(--c)}.mcard li a:hover .go{opacity:1;transform:none}.mcard li a:hover img{transform:scale(1.06)}
+@media (max-width:900px){.mcards{grid-template-columns:1fr;max-width:520px}}
+
+.p-hero{min-height:auto!important;padding-bottom:20px!important}
+.p-hero h1{color:#231f20!important;font-size:clamp(38px,4.4vw,56px)}
+.p-pos{font-size:clamp(18px,2vw,22px);line-height:1.4;text-align:center;margin:14px 0 0;max-width:34ch}
+.p-proof{font-size:14px;color:var(--muted);text-align:center;margin:10px 0 0}
+.p-say{font-size:15px;margin-top:18px;letter-spacing:.02em}
+.p-stage{min-height:300px!important;max-height:360px!important;height:360px}
+.p-me{transition:opacity .22s}.p-me.fade{opacity:0}
+.p-course{font-size:13px}
+.p-hint{font-style:normal;font-size:14px}
+@media (max-width:700px){.p-stage{height:270px;min-height:250px!important}.p-pos{font-size:17px}.p-proof{font-size:12.5px;max-width:30ch}}
+</style>
+</head>
+<body>
+<header class="nav"><a class="logo" href="index.html" data-t="Fiwany Wijaya">Fiwany Wijaya</a>
+<button class="burger" aria-label="Menu" aria-expanded="false" onclick="var h=this.parentNode;h.classList.toggle('open');this.setAttribute('aria-expanded',h.classList.contains('open'))"><span></span><span></span><span></span></button>
+<nav><a href="index.html#work" data-t="Work">Work</a><a href="about.html" data-t="About">About</a><a href="Fiwany_Wijaya_Resume.pdf" target="_blank" rel="noopener" data-t="Resume">Resume</a><a href="about.html" data-t="Contact">Contact</a></nav></header>
+
+<section class="p-hero" id="hero">
+  <h1 id="hi">Fiwany Wijaya</h1>
+  <p class="p-pos">I help people understand how products feel.<br>Now I’m learning to design them.</p>
+  <p class="p-proof">Cornell Food Science · 3.5 years in consumer research at MMR · Sensory Bot</p>
+  <p class="p-say" id="say" aria-live="polite"></p>
+  <div class="p-stage" id="stage">
+    <div class="p-plate"></div>
+    <div class="p-me" id="me" aria-hidden="true"></div>
+    <button class="p-arrow" id="prev" aria-label="Previous course"><svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H1M6 1 1 6l5 5"/></svg></button>
+    <button class="p-arrow" id="next" aria-label="Next course"><svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h16M12 1l5 5-5 5"/></svg></button>
+  </div>
+  <p class="p-course" id="course"></p>
+  <p class="p-dish" id="dish"></p>
+  <p class="p-hint">Use the arrows to see my other roles, or tap me to jump to the projects.</p>
+</section>
+<main class="home2"><section id="work" class="menu2"><h2 class="serif">On the menu</h2><div class="mcards"><article class="mcard" data-cat="Food Science" style="--c:#273c93"><p class="mc">Appetizer</p><h3>Food Science</h3><ul><li><a href="refresh.html"><img src="susan/img/p-refresh.jpg" alt="" loading="lazy"><span class="mi"><b>re:Fresh</b><i>Product launch</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li><li><a href="alt-protein.html"><img src="susan/img/p-altprotein.jpg" alt="" loading="lazy"><span class="mi"><b>Alternative Protein<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></b><i>Food R&amp;D</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li></ul></article><article class="mcard" data-cat="Consumer Research" style="--c:#f5a800"><p class="mc">Entrée</p><h3>Consumer Research</h3><ul><li><a href="sensory-bot.html"><img src="susan/img/p-sensorybot.jpg" alt="" loading="lazy"><span class="mi"><b>Sensory Bot<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></b><i>AI research tool</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li><li><a href="prebiotic-soda.html"><img src="susan/img/p-soda.jpg" alt="" loading="lazy"><span class="mi"><b>Prebiotic Soda<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg></b><i>Product testing</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li></ul></article><article class="mcard" data-cat="Design" style="--c:#d53626"><p class="mc">Dessert</p><h3>Design</h3><ul><li><a href="personal-brand.html"><img src="susan/img/p-brand.jpg" alt="" loading="lazy"><span class="mi"><b>Personal Brand</b><i>Brand identity</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li><li><a href="wayfarer.html"><img src="susan/img/p-wayfarer.jpg" alt="" loading="lazy"><span class="mi"><b>Wayfarer</b><i>Landing page UI</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li><li><a href="grub-ventures.html"><img src="susan/img/p-grub.jpg" alt="" loading="lazy"><span class="mi"><b>Grub Ventures</b><i>Brand &amp; marketing</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li><li><a href="current-notes.html"><img src="susan/img/p-notes.jpg" alt="" loading="lazy"><span class="mi"><b>Current Notes</b><i>Music curation</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li><li><a href="collecting-experiences.html"><img src="susan/img/p-collecting.jpg" alt="" loading="lazy"><span class="mi"><b>Collecting Experiences</b><i>Photography &amp; collage</i></span><span class="dl" aria-hidden="true"></span><span class="go" aria-hidden="true">→</span></a></li></ul></article></div></section><section class="hab"><p>I’ve spent the last six years at the intersection of food and product experience, learning how products feel. Now I want to design them.</p><a class="morelink serif" href="about.html">More about me →</a></section></main>
+<footer class="foot"><div class="footin"><a class="fname" href="index.html">Fiwany Wijaya</a><a class="fmail" href="mailto:fiwanyw@gmail.com">fiwanyw@gmail.com</a></div>
+</footer>
+<script>
+(async function(){
+const [P,V]=await Promise.all([fetch('susan/projects.json').then(r=>r.json()),fetch('susan/views.json').then(r=>r.json())]);
+const ROLES=[
+ {cat:'Food Science',key:'scientist',name:'food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:700},
+ {cat:'Consumer Research',key:'researcher',name:'consumer researcher',col:'#f5a800',seq:[0,1,2,3,3,3,3],ms:1000},
+ {cat:'Design',key:'designer',name:'designer',col:'#d53626',seq:[2,2,2,3,1,3],ms:800}];
+const COURSE=['First course','Second course','Third course'];
+const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
+const LOCKSVG='<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const $=id=>document.getElementById(id), me=$('me'), stage=$('stage'), hero=$('hero');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const imgs={};
+function add(n,flip){ const im=new Image(); im.src=`susan/img/${n}.png`; im.alt=''; if(flip) im.style.transform='scaleX(-1)'; me.appendChild(im); imgs[n+(flip?'-m':'')]={im,v:V[n],flip}; }
+ROLES.forEach(r=>{ for(let j=0;j<4;j++){ add(`${r.key}-v${j}`); add(`${r.key}-${j}`); } add(`${r.key}-v1`,1); add(`${r.key}-v2`,1); });
+let shown=null, FH, cx, feetY;
+function layout(){ const W=stage.clientWidth, H=stage.clientHeight, sr=stage.getBoundingClientRect(), pr=document.querySelector('.p-plate').getBoundingClientRect(); cx=W/2; feetY=pr.top-sr.top+pr.height*.62; FH=Math.min(feetY*.92, W*.9); if(shown) place(shown); }
+function place(o){ const v=o.v, k=FH/(v.bot-v.top), fx=o.flip?v.w-v.fx:v.fx;
+  Object.assign(o.im.style,{width:v.w*k+'px',height:v.h*k+'px',left:cx-v.w*k/2+'px',top:feetY-v.bot*k+'px'}); stage.style.setProperty('--ay',(feetY-FH/2)+'px'); }
+function show(n){ const o=imgs[n]; if(!o) return; if(shown&&shown!==o) shown.im.classList.remove('on'); o.im.classList.add('on'); shown=o; place(o); }
+let idx=0, role=null, seqI=0, seqT=0, twirl=null;
+function setRole(i){
+  idx=(i+ROLES.length)%ROLES.length; const r=ROLES[idx];
+  hero.style.setProperty('--rc',r.col); $('hi').style.color=r.col;
+  const say=$('say'), txt='I’m a '+r.name; say.classList.add('out'); clearTimeout(say._t); say._t=setTimeout(()=>{ say.textContent=txt; say.classList.remove('out'); },reduce||!role?0:280);
+  $('course').textContent=r.cat;
+  $('dish').innerHTML='<span class="pk">Pick one:</span>'+P.filter(p=>p.cat===r.cat).map(p=>`<a href="${p.slug}.html">${p.title}${LOCK.includes(p.slug)?LOCKSVG:''}</a>`).join('');
+  if(!role||reduce){ role=r; seqI=0; show(`${r.key}-${r.seq[0]}`); return; }
+  me.classList.add('fade'); clearTimeout(me._f); me._f=setTimeout(()=>{ role=r; seqI=0; seqT=0; show(`${r.key}-${r.seq[0]}`); me.classList.remove('fade'); },220); return;
+  const from=twirl?twirl.to:role;
+  twirl={to:r,t:0,frames:[`${from.key}-v1`,`${from.key}-v2`,`${r.key}-v3`,`${r.key}-v2-m`,`${r.key}-v1-m`,`${r.key}-v0`]};
+}
+$('prev').onclick=()=>setRole(idx-1); $('next').onclick=()=>setRole(idx+1);
+addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') setRole(idx-1); if(e.key==='ArrowRight') setRole(idx+1); });
+let sx=null; stage.addEventListener('pointerdown',e=>sx=e.clientX); addEventListener('pointerup',e=>{ if(sx!==null&&Math.abs(e.clientX-sx)>40) setRole(idx+(e.clientX<sx?1:-1)); sx=null; });
+function openRole(){ const c=document.querySelector(`.mcard[data-cat="${ROLES[idx].cat}"]`); if(!c) return;
+  c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'}); c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); }
+me.addEventListener('click',e=>{ if(sx===null||true) openRole(); });
+me.setAttribute('role','button'); me.setAttribute('tabindex','0'); me.removeAttribute('aria-hidden'); me.setAttribute('aria-label','See these projects');
+me.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openRole(); } });
+let last=performance.now();
+function tick(t){ const dt=Math.min(50,t-last); last=t;
+  if(twirl){ twirl.t+=dt; const k=Math.floor(twirl.t/85);
+    if(k>=twirl.frames.length){ role=twirl.to; twirl=null; seqI=0; seqT=0; show(`${role.key}-${role.seq[0]}`); } else show(twirl.frames[k]); }
+  else if(role&&!reduce){ seqT+=dt; if(seqT>role.ms){ seqT=0; seqI=(seqI+1)%role.seq.length; show(`${role.key}-${role.seq[seqI]}`); } }
+  requestAnimationFrame(tick); }
+new ResizeObserver(()=>layout()).observe(stage); addEventListener('load',layout); layout(); window.__feet=()=>feetY+stage.getBoundingClientRect().top; setRole(0); requestAnimationFrame(tick);
+})();
+</script>
+<script src="fire.js" defer></script><script src="lightbox.js" defer></script>
+</body>
+</html>
