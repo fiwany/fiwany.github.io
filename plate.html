@@ -36,6 +36,13 @@
 .p-dish{row-gap:12px!important;column-gap:18px!important;align-items:baseline;line-height:1.3}.p-dish>*{line-height:1.3!important;margin:0!important}
 .p-hint{margin:22px 0 0;font-style:italic;font-size:16px;color:var(--muted);text-align:center;max-width:34ch}
 @media (max-width:700px){.p-hero{padding:18px 16px 20px}.p-stage{min-height:290px}.p-say{margin-top:10px}.p-dish{margin-top:12px}.p-hint{font-size:15px;margin-top:14px}}
+.p-me{transition:opacity .22s}.p-me.fade{opacity:0}
+.p-hint{font-style:normal!important;font-size:14px!important}
+.p-pos{font-size:17px;line-height:1.45;text-align:center;margin:22px 0 0;max-width:36ch;color:var(--ink)}
+.p-pos+.p-hint{margin-top:10px!important}
+.p-dish .pl{display:contents}
+@media (max-width:700px){.p-dish{flex-direction:column;align-items:center;row-gap:6px!important}.p-dish .pk{margin:0!important}
+ .p-dish .pl{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;font-size:15px}.p-pos{font-size:15.5px;margin-top:16px}}
 </style>
 </head>
 <body>
@@ -54,16 +61,17 @@
   </div>
   <p class="p-course" id="course"></p>
   <p class="p-dish" id="dish"></p>
-  <p class="p-hint">Still hungry? Spin the plate for the next course, or tap me to see what’s cooking.</p>
+  <p class="p-pos">I help people understand how products feel. Now I’m learning to design them.</p>
+  <p class="p-hint">Use the arrows to see my other roles, or tap me to jump to the projects.</p>
 </section>
 
 <script>
 (async function(){
 const [P,V]=await Promise.all([fetch('susan/projects.json').then(r=>r.json()),fetch('susan/views.json').then(r=>r.json())]);
 const ROLES=[
- {cat:'Food Science',key:'scientist',name:'food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:420},
- {cat:'Consumer Research',key:'researcher',name:'consumer researcher',col:'#f5a800',seq:[0,1,2,3,3,3,3],ms:700},
- {cat:'Design',key:'designer',name:'designer',col:'#d53626',seq:[2,2,2,3,1,3],ms:480}];
+ {cat:'Food Science',key:'scientist',name:'food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:700},
+ {cat:'Consumer Research',key:'researcher',name:'consumer researcher',col:'#f5a800',seq:[0,1,2,3,3,3,3],ms:1000},
+ {cat:'Design',key:'designer',name:'designer',col:'#d53626',seq:[2,2,2,3,1,3],ms:800}];
 const COURSE=['First course','Second course','Third course'];
 const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
 const LOCKSVG='<svg class="lk" viewBox="0 0 24 24" aria-label="Password protected" role="img"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
@@ -83,8 +91,9 @@ function setRole(i){
   hero.style.setProperty('--rc',r.col); $('hi').style.color=r.col;
   const say=$('say'), txt='I’m a '+r.name; say.classList.add('out'); clearTimeout(say._t); say._t=setTimeout(()=>{ say.textContent=txt; say.classList.remove('out'); },reduce||!role?0:280);
   $('course').textContent=['Appetizer','Entrée','Dessert'][idx];
-  $('dish').innerHTML='<span class="pk">Pick one:</span>'+P.filter(p=>p.cat===r.cat).map(p=>`<a href="${p.slug}.html">${p.title}${LOCK.includes(p.slug)?LOCKSVG:''}</a>`).join('');
+  $('dish').innerHTML='<span class="pk">Pick one:</span><span class="pl">'+P.filter(p=>p.cat===r.cat).map(p=>`<a href="${p.slug}.html">${p.title}${LOCK.includes(p.slug)?LOCKSVG:''}</a>`).join('')+'</span>';
   if(!role||reduce){ role=r; seqI=0; show(`${r.key}-${r.seq[0]}`); return; }
+  me.classList.add('fade'); clearTimeout(me._f); me._f=setTimeout(()=>{ role=r; seqI=0; seqT=0; show(`${r.key}-${r.seq[0]}`); me.classList.remove('fade'); },220); return;
   const from=twirl?twirl.to:role;
   twirl={to:r,t:0,frames:[`${from.key}-v1`,`${from.key}-v2`,`${r.key}-v3`,`${r.key}-v2-m`,`${r.key}-v1-m`,`${r.key}-v0`]};
 }
