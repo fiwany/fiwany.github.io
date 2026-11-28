@@ -1530,3 +1530,53 @@ body.more .partn{color:#f5a800!important}
 .pnav .next:not(.prev){text-align:right;align-items:flex-end}
 .pnav .nt{font-size:clamp(24px,3.6vw,48px)}
 @media (max-width:700px){.pnav{gap:14px}.pnav .next{padding:32px 0 12px}.pnav .nt{font-size:20px;line-height:1.2}.pnav .label{font-size:11px}}
+/* round 48: shelf-life chart v2 */
+.row figure.fitc.nobg img{background:none;padding:0;object-fit:cover}
+.shelf2{background:#f6f5f2;border-radius:var(--r);padding:24px 28px 18px;margin-top:28px}
+.s2row{display:grid;grid-template-columns:270px 1fr 300px;gap:28px;align-items:center;padding:12px 0}
+.s2row p{margin:0}
+.s2name{font-weight:600;font-size:16px;display:flex;align-items:center;gap:8px;line-height:1.3}
+.s2mk{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:12px;font-weight:700;color:#fff}
+.s2mk.ok{background:#3f6b2e}.s2mk.no{background:#c9c3bb}
+.s2note{font-size:15px;color:var(--ink);line-height:1.35}
+.s2noteh{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.s2track,.s2axis,.s2foot{position:relative}
+.s2track{height:54px}
+.s2track::after,.s2axis::after,.s2foot::before{content:"";position:absolute;left:50%;border-left:2px dashed #231f20;opacity:.7;transform:translateX(-1px)}
+.s2track::after{top:-12px;bottom:-12px}
+.s2axis{height:22px}.s2axis::after{top:22px;bottom:-12px}
+.s2axis span{position:absolute;top:0;font-size:13px;font-weight:600;color:var(--muted);transform:translateX(-50%);white-space:nowrap}
+.s2axis span:first-child{transform:none}.s2axis span:last-child{transform:translateX(-100%)}
+.s2axisrow{padding-bottom:0}
+.s2bar{position:absolute;top:24px;height:10px;border-radius:5px;transform-origin:left;transform:scaleX(0);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.s2bar+.s2bar{transition-delay:.6s}
+.shelf2.in .s2bar{transform:scaleX(1)}
+.s2bar.end::after{content:"";position:absolute;right:-7px;top:-4px;width:18px;height:18px;border-radius:50%;background:inherit}
+.s2dash{position:absolute;top:28px;border-top:2px dashed #c9c4bc}
+.s2tag{position:absolute;top:2px;font-size:12.5px;font-weight:600;white-space:nowrap;transform:translateX(5px)}
+.s2tag[style*="left:0"]{transform:none}
+.s2tag.right{transform:translateX(-100%)}
+.s2tag.low{top:39px}.s2tag.mid{transform:translateX(-50%)}
+.s2footrow{padding-top:0}
+.s2foot{text-align:center;padding-top:16px}
+.s2foot::before{top:-12px;height:16px}
+.s2foot span{display:inline-block;position:relative;left:calc(50% - 50%);font-size:14px;font-weight:600}
+@media (max-width:700px){
+ .shelf2{padding:16px 16px 12px}
+ .s2row{grid-template-columns:1fr;gap:2px;padding:9px 0}
+ .s2row>p:empty,.s2noteh{display:none}
+ .s2axisrow{padding:0}
+ .s2axis::after{display:none}
+ .s2track{height:52px}
+ .s2track::after{top:-2px;bottom:-2px}
+ .s2name{font-size:15px}
+ .s2note{font-size:14px;color:var(--muted)}
+ .s2tag{font-size:11.5px}
+ .s2foot{padding-top:12px}.s2foot::before{top:-4px;height:12px}
+ .s2foot span{font-size:13px}
+}
+.s2tag.mid{transform:translateX(-30%)}
+.s2foot span{white-space:nowrap}
+@media (max-width:700px){.s2name{font-size:14px}.s2note{font-size:13.5px}.s2row{padding:7px 0}.s2track{height:50px}}
+.s2row{grid-template-columns:320px 1fr 270px}
+@media (max-width:700px){.s2row{grid-template-columns:1fr}.shelf2{padding:14px 12px 10px}.s2name{font-size:13.5px;white-space:nowrap}}
