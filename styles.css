@@ -1522,3 +1522,11 @@ body.more .partn{color:#f5a800!important}
 }
 .flegend span span::before{display:none!important}
 .fit>div{min-width:0}
+/* round 47: prev/next project, snapshot back to original */
+.snap:not(.snapm){display:block!important}
+@media (max-width:700px){.snapwrap{margin:0;border-radius:12px;padding:14px 10px 12px}}
+.pnav{display:grid;grid-template-columns:1fr 1fr;gap:24px;border-top:1px solid var(--line);margin-top:24px}
+.pnav .next{border-top:0;padding:48px 0 16px}
+.pnav .next:not(.prev){text-align:right;align-items:flex-end}
+.pnav .nt{font-size:clamp(24px,3.6vw,48px)}
+@media (max-width:700px){.pnav{gap:14px}.pnav .next{padding:32px 0 12px}.pnav .nt{font-size:20px;line-height:1.2}.pnav .label{font-size:11px}}

@@ -25,7 +25,7 @@ function step(){ if(hov&&!onPin){ sc.scrollTop+=0.7; } raf=requestAnimationFrame
 sc.addEventListener('mouseenter',function(){hov=true; if(!raf) raf=requestAnimationFrame(step);});
 sc.addEventListener('mouseleave',function(){hov=false; cancelAnimationFrame(raf); raf=0; sc.scrollTo({top:0,behavior:'smooth'});});
 sc.querySelectorAll('.pin').forEach(function(p){p.addEventListener('mouseenter',function(){onPin=true});p.addEventListener('mouseleave',function(){onPin=false});});
-});})();</script></div></section><section class="blk"><div class="col"><div class="outcome refl"><p class="label">Reflection</p><p>Simple is often better: clear usability is what makes users want to come&nbsp;back.</p></div></div></section><a class="next col" href="grub-ventures.html"><span class="label">Next project</span><span class="serif nt">Grub Ventures →</span></a></main><script>
+});})();</script></div></section><section class="blk"><div class="col"><div class="outcome refl"><p class="label">Reflection</p><p>Simple is often better: clear usability is what makes users want to come&nbsp;back.</p></div></div></section><nav class="pnav col" aria-label="More projects"><a class="next prev" href="personal-brand.html"><span class="label">Previous project</span><span class="serif nt">← Personal Brand</span></a><a class="next" href="grub-ventures.html"><span class="label">Next project</span><span class="serif nt">Grub Ventures →</span></a></nav></main><script>
 window.fwInit=function(){
  // grow-in animation for charts
  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.3});
