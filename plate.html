@@ -18,6 +18,8 @@
  box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 5px var(--rc,#2f4f8f),0 22px 30px -18px rgba(0,0,0,.35),0 4px 0 #e6e4e0}
 .p-plate::after{content:"";position:absolute;inset:16%;border-radius:50%;box-shadow:inset 0 3px 8px rgba(0,0,0,.08)}
 .p-me{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none}
+.p-me img.on{pointer-events:auto;cursor:pointer}.p-me:focus-visible{outline:none}.p-me:focus-visible img.on{filter:drop-shadow(0 0 0 2px var(--rc))}
+@keyframes mflash{0%,100%{box-shadow:0 10px 24px -16px rgba(60,40,20,.25)}30%{box-shadow:0 0 0 3px var(--c),0 14px 28px -14px rgba(60,40,20,.35)}}.mcard.flash{animation:mflash 1.6s ease 2}
 .p-me img{position:absolute;display:none;max-width:none}.p-me img.on{display:block}
 .p-arrow{position:absolute;top:var(--ay,58%);transform:translateY(-50%);width:44px;height:44px;border:0;background:none;padding:0;color:#231f20;display:grid;place-items:center;transition:transform .2s,color .3s}
 .p-arrow:hover,.p-arrow:focus-visible{color:var(--rc);transform:translateY(calc(-50% - 2px))}
@@ -86,6 +88,11 @@ function setRole(i){
 $('prev').onclick=()=>setRole(idx-1); $('next').onclick=()=>setRole(idx+1);
 addEventListener('keydown',e=>{ if(e.key==='ArrowLeft') setRole(idx-1); if(e.key==='ArrowRight') setRole(idx+1); });
 let sx=null; stage.addEventListener('pointerdown',e=>sx=e.clientX); addEventListener('pointerup',e=>{ if(sx!==null&&Math.abs(e.clientX-sx)>40) setRole(idx+(e.clientX<sx?1:-1)); sx=null; });
+function openRole(){ const c=document.querySelector(`.mcard[data-cat="${ROLES[idx].cat}"]`); if(!c) return;
+  c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'}); c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); }
+me.addEventListener('click',e=>{ if(sx===null||true) openRole(); });
+me.setAttribute('role','button'); me.setAttribute('tabindex','0'); me.removeAttribute('aria-hidden'); me.setAttribute('aria-label','See these projects');
+me.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openRole(); } });
 let last=performance.now();
 function tick(t){ const dt=Math.min(50,t-last); last=t;
   if(twirl){ twirl.t+=dt; const k=Math.floor(twirl.t/85);
