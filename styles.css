@@ -1580,3 +1580,17 @@ body.more .partn{color:#f5a800!important}
 @media (max-width:700px){.s2name{font-size:14px}.s2note{font-size:13.5px}.s2row{padding:7px 0}.s2track{height:50px}}
 .s2row{grid-template-columns:320px 1fr 270px}
 @media (max-width:700px){.s2row{grid-template-columns:1fr}.shelf2{padding:14px 12px 10px}.s2name{font-size:13.5px;white-space:nowrap}}
+/* round 49: shelf chart spacing + continuous Day 7 line on phones */
+.shelf2{position:relative}
+.s2d7{display:none}
+@media (max-width:700px){
+ .s2row:not(.s2axisrow):not(.s2footrow){padding:16px 0 18px;border-top:1px solid #e6e2dc}
+ .s2axisrow+.s2row{border-top:0}
+ .s2note{margin-top:6px!important}
+ .s2track::after,.s2foot::before{display:none}
+ .s2d7{display:block;position:absolute;left:calc(12px + (100% - 24px)/2);top:38px;bottom:40px;border-left:2px dashed #231f20;opacity:.7;transform:translateX(-1px);z-index:0}
+ .s2row>*{position:relative;z-index:1}
+ .s2name span,.s2note span{background:#f6f5f2;padding:0 3px;margin:0 -3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+ .s2footrow{border-top:0}
+ .s2foot span{background:#f6f5f2;padding:0 4px}
+}
