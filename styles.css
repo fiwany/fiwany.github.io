@@ -1456,10 +1456,6 @@ body.more .stepn+*{color:inherit}
  .v3col .pc3{display:block}.pcin{width:100%;height:auto}
  .mleg{display:flex;gap:8px;align-items:flex-start;margin:8px 0 6px!important;font-size:14px!important;color:var(--ink)!important}
  .prt3 .pinleg,.prt3 .vtip{display:none!important}
- .mbfin .jgrid{display:block!important;columns:2;column-gap:8px}
- .mbfin .jrow{display:contents!important}
- .mbfin figure{break-inside:avoid;margin:0 0 8px!important;width:auto!important;flex:none!important}
- .mbfin img{width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important}
 }
 .qrow blockquote{background:#efe8fa;border-radius:14px;padding:22px 24px;font-style:italic;font-size:21px;line-height:1.35}
 /* round 43: wheel swatches sit above their version label */
@@ -1467,3 +1463,12 @@ body.more .stepn+*{color:inherit}
 .wheels>div>.bases{order:2;margin-top:6px}
 .wheels>div>.wv{order:3;margin-top:12px!important}
 @media (max-width:900px){.wheels{row-gap:64px!important}}
+
+/* round 44: final moodboard matches the initial ones on phones; keywords in bold body text */
+@media (max-width:600px){
+ .mbfin .jgrid{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+ .mbfin .jgrid .jrow{display:contents}
+ .mbfin .jgrid figure{flex:none!important;margin:0}
+ .mbfin .jgrid figure img{height:110px!important;width:auto!important;aspect-ratio:auto!important}
+}
+.kw h4{font-family:inherit!important;font-style:normal!important;font-weight:700!important;font-size:clamp(20px,2vw,24px)!important;line-height:1.3!important}
