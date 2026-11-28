@@ -1462,3 +1462,8 @@ body.more .stepn+*{color:inherit}
  .mbfin img{width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important}
 }
 .qrow blockquote{background:#efe8fa;border-radius:14px;padding:22px 24px;font-style:italic;font-size:21px;line-height:1.35}
+/* round 43: wheel swatches sit above their version label */
+.wheels>div{display:flex;flex-direction:column;align-items:center}
+.wheels>div>.bases{order:2;margin-top:6px}
+.wheels>div>.wv{order:3;margin-top:12px!important}
+@media (max-width:900px){.wheels{row-gap:64px!important}}
