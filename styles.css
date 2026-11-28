@@ -1018,8 +1018,8 @@ body.more .outcome{border-left-color:var(--blue)}
 .icard .ring:not(.iring){border-color:var(--cc);color:var(--cc)}
 .icard:hover .ring:not(.iring){background:var(--cc)}
 /* yellow pages: yellow shapes, deep gold text */
-body.more .label,body.more .nt,body.more .ver .vh b,body.more .statn,body.more .fnote,body.more .bignum .num{color:#c27800}
-body.more .label{color:#c27800}
+body.more .label,body.more .nt,body.more .ver .vh b,body.more .statn,body.more .fnote,body.more .bignum .num{color:#f5a800}
+body.more .label{color:#f5a800}
 body.more .stepn{background:var(--yellow)}
 /* variant A: centred category grids */
 .cwork{text-align:center}
@@ -1037,12 +1037,12 @@ body.more .stepn{background:var(--yellow)}
 .ptop h1,body.more .ptop h1{color:var(--accent)}
 body.more .ptop h1{color:#c48f00}
 .nt{color:var(--accent)}
-body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt{color:#c27800}
+body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt{color:#f5a800}
 body.more .stepn{background:var(--yellow);color:var(--ink)}
 body.more .btn:hover{background:var(--yellow);color:var(--ink)}
 body.more .outcome{border-left-color:var(--yellow)}
-@media (hover:none){.grid.cgrid .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#c27800!important}}
-@media (max-width:900px),(hover:none){.grid.cgrid .over h3,.grid.cgrid .card:hover .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#c27800!important}.grid.cgrid .over .kind,.grid.cgrid .over .desc{color:var(--muted)!important}}
+@media (hover:none){.grid.cgrid .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#f5a800!important}}
+@media (max-width:900px),(hover:none){.grid.cgrid .over h3,.grid.cgrid .card:hover .over h3{color:var(--accent)!important}.grid.cgrid.cat-yellow .over h3{color:#f5a800!important}.grid.cgrid .over .kind,.grid.cgrid .over .desc{color:var(--muted)!important}}
 
 /* ================= round 10 ================= */
 .wcat,.ccat{color:var(--ink)!important}
@@ -1389,8 +1389,8 @@ input,textarea{cursor:text!important}
 main figcaption,main .vtip,main .vnote{font-size:14px!important;color:var(--muted)!important;line-height:1.5}
 main figcaption strong{color:var(--ink)!important}
 main .vh{font-size:14px!important;color:var(--ink)!important}main .vh b{font-size:14px!important;color:var(--ink)!important}
-body[style*="#f5a800"] main .label,body[style*="#f5a800"] main .sublab,body[style*="#f5a800"] main .kind{color:#c27800!important}
-body[style*="#f5a800"] main h1,body[style*="#f5a800"] main h2,body[style*="#f5a800"] main h3{color:#c27800}
+body[style*="#f5a800"] main .label,body[style*="#f5a800"] main .sublab,body[style*="#f5a800"] main .kind{color:#f5a800!important}
+body[style*="#f5a800"] main h1,body[style*="#f5a800"] main h2,body[style*="#f5a800"] main h3{color:#f5a800}
 main p,main li{color:#231f20}
 main .vtip,main figcaption{color:var(--muted)!important}
 .pinwrap{position:relative}
@@ -1411,7 +1411,7 @@ main .wv,main .rowcap,.prt3>p,.prt3>div>p:first-child{font-size:14px!important;c
 main .wv b,main .rowcap strong,.prt3 strong,main figcaption strong{color:var(--ink)!important;font-weight:600}
 main .rowcap{margin:10px 0 28px!important}
 main .wv b{font-size:14px!important}
-body[style*="#f5a800"] main .label,body[style*="#f5a800"] main .sublab,body[style*="#f5a800"] main .kind,body[style*="#f5a800"] main .label.sub{color:#c27800!important}
+body[style*="#f5a800"] main .label,body[style*="#f5a800"] main .sublab,body[style*="#f5a800"] main .kind,body[style*="#f5a800"] main .label.sub{color:#f5a800!important}
 body[style*="#f5a800"] main .sublab{color:var(--ink)!important}
 .phones{display:flex;justify-content:center;gap:56px;flex-wrap:wrap}
 .phonefig{width:300px;margin:0}
@@ -1433,8 +1433,8 @@ body[style*="#f5a800"] main .sublab{color:var(--ink)!important}
 .pinleg li{align-items:flex-start}.pinleg .stepn,.stepn{flex:none!important;width:22px;height:22px;align-self:flex-start;aspect-ratio:1}
 
 .phero img[src$="wf-hero.jpg"]{object-position:50% 0}
-/* round 39: consumer research = marigold (#c27800 text, #f5a800 fills) */
-body.more .ptop h1,body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt,body.more .ver .vh b,body.more .fnote,body.more .bignum .num,body.more main h2,body.more main h3,body.more .kind{color:#c27800!important}
+/* round 39: consumer research = marigold (#f5a800 text, #f5a800 fills) */
+body.more .ptop h1,body.more .label,body.more .blk .label,body.more .statn,body.more .nt,body.more .next .nt,body.more .ver .vh b,body.more .fnote,body.more .bignum .num,body.more main h2,body.more main h3,body.more .kind{color:#f5a800!important}
 body.more .stepn+*{color:inherit}
 /* round 40: footer links behave like the header */
 .foot a:hover{font-weight:inherit!important;color:inherit}
@@ -1475,7 +1475,7 @@ body.more .stepn+*{color:inherit}
 /* round 45 */
 .foot .footin{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .foot .fmail{color:var(--muted);text-decoration:none;font-size:15px}.foot .fmail:hover{color:var(--ink)}
-body.more .partn{color:#c27800!important}
+body.more .partn{color:#f5a800!important}
 .exn{margin:44px 0 10px!important;font-size:13px!important;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink)!important}
 .probs>.exn:first-child{margin-top:8px!important}
 .toolwrap[data-hl] .xl th{opacity:.3;transition:opacity .2s}
@@ -1494,3 +1494,31 @@ body.more .partn{color:#c27800!important}
  .slrow{padding:16px 0!important}
  .slfoot .sldays{height:auto;text-align:center}.d7lab{position:static!important;transform:none!important;display:block}
 }
+/* round 46: snapshot mobile, fit cards, map height, reflection bar */
+.snapm{display:none}
+.ntog button.on{background:#4a3a9a}
+.fnav{display:none}
+.outcome.refl:has(.btitle){border-left:0;padding-left:0}
+@media (max-width:700px){
+ .snapwrap{margin:0 -16px;border-radius:0;padding:14px 4px 12px}
+ .snap:not(.snapm){display:none}.snapm{display:block}
+ .snapm .st{font-size:24px}.snapm .sph{font-size:22px}.snapm .pt{font-size:17px}.snapm .px{font-size:16px}.snapm .al{font-size:16px}
+ .ntog{justify-content:center;padding:10px 0 4px}
+ .fit{padding:20px 16px}
+ .fit .fhead{display:none}
+ .frows{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:0;scrollbar-width:none;border-radius:10px}
+ .frows::-webkit-scrollbar{display:none}
+ .frows .frow{flex:0 0 100%;box-sizing:border-box;scroll-snap-align:start;margin:0;min-height:150px;padding:20px;align-content:start;gap:10px;border-radius:10px}
+ .frows .frow strong{font-size:19px}
+ .fnav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:12px;font-size:14px;color:var(--muted)}
+ .fnav button{width:44px;height:36px;border:0;background:none;color:var(--ink);display:grid;place-items:center;padding:0}
+ .fnav button:disabled{opacity:.25}
+ .fnav svg{width:24px;height:16px}
+ .flegend{flex-wrap:nowrap;gap:12px;font-size:12.5px;justify-content:center;white-space:nowrap}
+ .flegend span::before{width:11px;height:11px;margin-right:4px}
+ .flegend span span::before{display:none}
+ .mapwrap{padding:14px}
+ .mapwrap .lmap{min-height:0!important;flex:none}
+}
+.flegend span span::before{display:none!important}
+.fit>div{min-width:0}

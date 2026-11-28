@@ -33,11 +33,18 @@ window.fwInit=function(){
  // snapshot: highlight a sample size
  document.querySelectorAll(".snapwrap").forEach(w=>{
    w.querySelectorAll(".ntog button").forEach(b=>{
-     const on=()=>{w.dataset.hl=b.dataset.n}, off=()=>{delete w.dataset.hl};
-     b.addEventListener("mouseenter",on);b.addEventListener("focus",on);b.addEventListener("mouseleave",off);b.addEventListener("blur",off);
-     b.addEventListener("click",()=>{w.dataset.hl===b.dataset.n?off():on()});
+     const hov=matchMedia("(hover:hover)").matches, set=()=>{const n=w._pin||w._hov;n?w.dataset.hl=n:delete w.dataset.hl;w.querySelectorAll(".ntog button").forEach(x=>x.classList.toggle("on",x.dataset.n===w._pin))};
+     if(hov){b.addEventListener("mouseenter",()=>{w._hov=b.dataset.n;set()});b.addEventListener("mouseleave",()=>{w._hov=null;set()});}
+     b.addEventListener("click",()=>{w._pin=w._pin===b.dataset.n?null:b.dataset.n;set()});
    });
  });
+ // qual-fit cards: arrows + counter (phone)
+ document.querySelectorAll(".fit").forEach(f=>{const r=f.querySelector(".frows"),c=f.querySelector(".fcount");if(!r||!c)return;const n=r.children.length;
+   const cur=()=>Math.round(r.scrollLeft/r.clientWidth);
+   const upd=()=>{const k=cur();c.textContent=(k+1)+" / "+n;f.querySelector(".fprev").disabled=k<=0;f.querySelector(".fnext").disabled=k>=n-1};
+   f.querySelector(".fprev").onclick=()=>r.scrollTo({left:(cur()-1)*r.clientWidth,behavior:"smooth"});
+   f.querySelector(".fnext").onclick=()=>r.scrollTo({left:(cur()+1)*r.clientWidth,behavior:"smooth"});
+   r.addEventListener("scroll",()=>requestAnimationFrame(upd),{passive:true});upd();});
  // linkage map: drag nodes, edges follow
  document.querySelectorAll("svg.lmap").forEach(svg=>{
    const pos={};

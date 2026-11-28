@@ -34,6 +34,8 @@
 .p-dish .lk{width:.7em;height:.7em;margin-left:.3em}
 @media (prefers-reduced-motion:reduce){.p-say{transition:none}}
 .p-dish{row-gap:12px!important;column-gap:18px!important;align-items:baseline;line-height:1.3}.p-dish>*{line-height:1.3!important;margin:0!important}
+.p-hint{margin:22px 0 0;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:17px;color:var(--muted);text-align:center;max-width:34ch}
+@media (max-width:700px){.p-hero{padding:18px 16px 20px}.p-stage{min-height:290px}.p-say{margin-top:10px}.p-dish{margin-top:12px}.p-hint{font-size:15px;margin-top:14px}}
 </style>
 </head>
 <body>
@@ -52,6 +54,7 @@
   </div>
   <p class="p-course" id="course"></p>
   <p class="p-dish" id="dish"></p>
+  <p class="p-hint">Still hungry? Spin the plate for the next course, or tap me to see what’s cooking.</p>
 </section>
 
 <script>
@@ -59,7 +62,7 @@
 const [P,V]=await Promise.all([fetch('susan/projects.json').then(r=>r.json()),fetch('susan/views.json').then(r=>r.json())]);
 const ROLES=[
  {cat:'Food Science',key:'scientist',name:'food scientist',col:'#273c93',seq:[0,1,2,3,3,3,2,1,0,0],ms:420},
- {cat:'Consumer Research',key:'researcher',name:'consumer researcher',col:'#c27800',seq:[0,1,2,3,3,3,3],ms:700},
+ {cat:'Consumer Research',key:'researcher',name:'consumer researcher',col:'#f5a800',seq:[0,1,2,3,3,3,3],ms:700},
  {cat:'Design',key:'designer',name:'designer',col:'#d53626',seq:[2,2,2,3,1,3],ms:480}];
 const COURSE=['First course','Second course','Third course'];
 const LOCK=['sensory-bot','prebiotic-soda','alt-protein'];
