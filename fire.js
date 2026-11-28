@@ -6,3 +6,6 @@ f.style.opacity=1-k;f.style.transform=rm?'rotate(26deg)':'rotate(26deg) scale('+
 (function(){var n=document.querySelector('.nav');if(!n||!document.querySelector('.whero'))return;
 function u(){n.classList.toggle('attop',scrollY<10);}u();addEventListener('scroll',u,{passive:true});})();
 
+
+/* editor tool: tapping a step highlights it and brings its columns into view */
+document.addEventListener('click',function(e){var st=e.target.closest&&e.target.closest('.toolwrap .tstep');if(!st)return;var w=st.closest('.toolwrap');w.dataset.hl=st.dataset.r;var th=w.querySelector('.xl th.'+st.dataset.r),sc=w.querySelector('.sheetscroll');if(th&&sc)sc.scrollTo({left:Math.max(0,th.offsetLeft-8),behavior:'smooth'});});
